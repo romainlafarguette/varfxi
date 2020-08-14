@@ -1,0 +1,17 @@
+# Git ignore, rlafarguette@imf.org
+
+# Ignore some folders
+__pycache__/
+.ipynb_checkpoints/
+
+# Ignore some extensions
+*.aux
+*.log
+*.pdf
+
+# Ignore some files
+
+
+
+
+
