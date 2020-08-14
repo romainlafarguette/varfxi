@@ -1,0 +1,1331 @@
+date,amount,direction,type,Sell amount
+2008-10-09,0,sell USD,min price,
+2008-10-10,400,sell USD,min price,400.0
+2008-10-13,0,sell USD,min price,
+2008-10-14,0,sell USD,min price,
+2008-10-15,400,sell USD,min price,400.0
+2008-10-16,400,sell USD,min price,400.0
+2008-10-17,0,sell USD,min price,
+2008-10-20,0,sell USD,min price,
+2008-10-21,400,sell USD,min price,400.0
+2008-10-22,400,sell USD,min price,400.0
+2008-10-23,96,sell USD,min price,96.0
+2008-10-24,0,sell USD,min price,
+2008-10-27,0,sell USD,min price,
+2008-10-28,0,sell USD,min price,
+2008-10-29,0,sell USD,min price,
+2008-10-30,0,sell USD,min price,
+2008-10-31,0,sell USD,min price,
+2008-11-03,0,sell USD,min price,
+2008-11-04,0,sell USD,min price,
+2008-11-05,0,sell USD,min price,
+2008-11-06,400,sell USD,min price,400.0
+2008-11-07,0,sell USD,min price,
+2008-11-10,0,sell USD,min price,
+2008-11-11,85,sell USD,min price,85.0
+2008-11-12,0,sell USD,min price,
+2008-11-13,0,sell USD,min price,
+2008-11-14,0,sell USD,min price,
+2008-11-18,0,sell USD,min price,
+2008-11-19,0,sell USD,min price,
+2008-11-20,400,sell USD,min price,400.0
+2008-11-21,400,sell USD,min price,400.0
+2008-11-24,0,sell USD,min price,
+2008-11-25,0,sell USD,min price,
+2008-11-26,0,sell USD,min price,
+2008-11-27,0,sell USD,min price,
+2008-11-28,0,sell USD,min price,
+2008-12-01,400,sell USD,min price,400.0
+2008-12-02,0,sell USD,min price,
+2008-12-03,0,sell USD,min price,
+2008-12-04,0,sell USD,min price,
+2008-12-05,0,sell USD,min price,
+2008-12-08,0,sell USD,min price,
+2008-12-09,0,sell USD,min price,
+2008-12-10,0,sell USD,min price,
+2008-12-11,0,sell USD,min price,
+2008-12-15,351,sell USD,min price,351.0
+2008-12-16,0,sell USD,min price,
+2008-12-17,0,sell USD,min price,
+2008-12-18,0,sell USD,min price,
+2008-12-19,0,sell USD,min price,
+2008-12-22,0,sell USD,min price,
+2008-12-23,0,sell USD,min price,
+2008-12-24,0,sell USD,min price,
+2008-12-26,0,sell USD,min price,
+2008-12-29,46,sell USD,min price,46.0
+2008-12-30,0,sell USD,min price,
+2008-12-31,0,sell USD,min price,
+2009-01-02,0,sell USD,min price,
+2009-01-05,0,sell USD,min price,
+2009-01-06,0,sell USD,min price,
+2009-01-07,0,sell USD,min price,
+2009-01-08,266,sell USD,min price,266.0
+2009-01-09,0,sell USD,min price,
+2009-01-12,0,sell USD,min price,
+2009-01-13,0,sell USD,min price,
+2009-01-14,400,sell USD,min price,400.0
+2009-01-15,0,sell USD,min price,
+2009-01-16,0,sell USD,min price,
+2009-01-19,0,sell USD,min price,
+2009-01-20,0,sell USD,min price,
+2009-01-21,0,sell USD,min price,
+2009-01-22,0,sell USD,min price,
+2009-01-23,0,sell USD,min price,
+2009-01-26,0,sell USD,min price,
+2009-01-27,322,sell USD,min price,322.0
+2009-01-28,0,sell USD,min price,
+2009-01-29,0,sell USD,min price,
+2009-01-30,0,sell USD,min price,
+2009-02-03,400,sell USD,min price,400.0
+2009-02-04,0,sell USD,min price,
+2009-02-05,0,sell USD,min price,
+2009-02-06,0,sell USD,min price,
+2009-02-09,0,sell USD,min price,
+2009-02-10,292,sell USD,min price,292.0
+2009-02-11,0,sell USD,min price,
+2009-02-12,0,sell USD,min price,
+2009-02-13,0,sell USD,min price,
+2009-02-16,0,sell USD,min price,
+2009-02-17,0,sell USD,min price,
+2009-02-18,0,sell USD,min price,
+2009-02-19,0,sell USD,min price,
+2009-02-20,400,sell USD,min price,400.0
+2009-02-23,0,sell USD,min price,
+2009-02-24,0,sell USD,min price,
+2009-02-25,0,sell USD,min price,
+2009-02-26,0,sell USD,min price,
+2009-02-27,0,sell USD,min price,
+2009-03-02,400,sell USD,min price,400.0
+2009-03-03,0,sell USD,min price,
+2009-03-04,0,sell USD,min price,
+2009-03-05,0,sell USD,min price,
+2009-03-06,0,sell USD,min price,
+2009-03-09,100,sell USD,no min price,100.0
+2009-03-09,0,sell USD,min price,
+2009-03-10,0,sell USD,min price,
+2009-03-10,100,sell USD,no min price,100.0
+2009-03-11,0,sell USD,min price,
+2009-03-11,100,sell USD,no min price,100.0
+2009-03-12,0,sell USD,min price,
+2009-03-12,100,sell USD,no min price,100.0
+2009-03-13,0,sell USD,min price,
+2009-03-13,100,sell USD,no min price,100.0
+2009-03-17,0,sell USD,min price,
+2009-03-17,100,sell USD,no min price,100.0
+2009-03-18,0,sell USD,min price,
+2009-03-18,100,sell USD,no min price,100.0
+2009-03-19,0,sell USD,min price,
+2009-03-19,100,sell USD,no min price,100.0
+2009-03-20,0,sell USD,min price,
+2009-03-20,100,sell USD,no min price,100.0
+2009-03-23,100,sell USD,no min price,100.0
+2009-03-23,0,sell USD,min price,
+2009-03-24,0,sell USD,min price,
+2009-03-24,100,sell USD,no min price,100.0
+2009-03-25,80,sell USD,no min price,80.0
+2009-03-25,0,sell USD,min price,
+2009-03-26,0,sell USD,min price,
+2009-03-26,100,sell USD,no min price,100.0
+2009-03-27,100,sell USD,no min price,100.0
+2009-03-27,0,sell USD,min price,
+2009-03-30,100,sell USD,no min price,100.0
+2009-03-30,0,sell USD,min price,
+2009-03-31,100,sell USD,no min price,100.0
+2009-03-31,0,sell USD,min price,
+2009-04-01,92,sell USD,no min price,92.0
+2009-04-01,0,sell USD,min price,
+2009-04-02,0,sell USD,min price,
+2009-04-02,100,sell USD,no min price,100.0
+2009-04-03,74,sell USD,no min price,74.0
+2009-04-03,0,sell USD,min price,
+2009-04-06,100,sell USD,no min price,100.0
+2009-04-06,0,sell USD,min price,
+2009-04-07,0,sell USD,min price,
+2009-04-07,100,sell USD,no min price,100.0
+2009-04-08,0,sell USD,min price,
+2009-04-08,100,sell USD,no min price,100.0
+2009-04-13,0,sell USD,min price,
+2009-04-13,100,sell USD,no min price,100.0
+2009-04-14,0,sell USD,min price,
+2009-04-14,100,sell USD,no min price,100.0
+2009-04-15,100,sell USD,no min price,100.0
+2009-04-15,0,sell USD,min price,
+2009-04-16,100,sell USD,no min price,100.0
+2009-04-16,0,sell USD,min price,
+2009-04-17,100,sell USD,no min price,100.0
+2009-04-17,0,sell USD,min price,
+2009-04-20,100,sell USD,no min price,100.0
+2009-04-20,0,sell USD,min price,
+2009-04-21,0,sell USD,min price,
+2009-04-21,100,sell USD,no min price,100.0
+2009-04-22,100,sell USD,no min price,100.0
+2009-04-22,0,sell USD,min price,
+2009-04-23,0,sell USD,min price,
+2009-04-23,100,sell USD,no min price,100.0
+2009-04-24,0,sell USD,min price,
+2009-04-24,100,sell USD,no min price,100.0
+2009-04-27,300,sell USD,min price,300.0
+2009-04-27,100,sell USD,no min price,100.0
+2009-04-28,100,sell USD,no min price,100.0
+2009-04-28,0,sell USD,min price,
+2009-04-29,0,sell USD,min price,
+2009-04-29,100,sell USD,no min price,100.0
+2009-04-30,100,sell USD,no min price,100.0
+2009-04-30,0,sell USD,min price,
+2009-05-04,0,sell USD,min price,
+2009-05-04,100,sell USD,no min price,100.0
+2009-05-05,100,sell USD,no min price,100.0
+2009-05-05,0,sell USD,min price,
+2009-05-06,100,sell USD,no min price,100.0
+2009-05-06,0,sell USD,min price,
+2009-05-07,100,sell USD,no min price,100.0
+2009-05-07,0,sell USD,min price,
+2009-05-08,100,sell USD,no min price,100.0
+2009-05-08,0,sell USD,min price,
+2009-05-11,0,sell USD,min price,
+2009-05-11,100,sell USD,no min price,100.0
+2009-05-12,100,sell USD,no min price,100.0
+2009-05-12,0,sell USD,min price,
+2009-05-13,0,sell USD,min price,
+2009-05-13,100,sell USD,no min price,100.0
+2009-05-14,0,sell USD,min price,
+2009-05-14,100,sell USD,no min price,100.0
+2009-05-15,0,sell USD,min price,
+2009-05-15,100,sell USD,no min price,100.0
+2009-05-18,100,sell USD,no min price,100.0
+2009-05-18,0,sell USD,min price,
+2009-05-19,100,sell USD,no min price,100.0
+2009-05-19,0,sell USD,min price,
+2009-05-20,0,sell USD,min price,
+2009-05-20,100,sell USD,no min price,100.0
+2009-05-21,120,sell USD,min price,120.0
+2009-05-21,100,sell USD,no min price,100.0
+2009-05-22,0,sell USD,min price,
+2009-05-22,100,sell USD,no min price,100.0
+2009-05-25,0,sell USD,min price,
+2009-05-25,100,sell USD,no min price,100.0
+2009-05-26,0,sell USD,min price,
+2009-05-26,100,sell USD,no min price,100.0
+2009-05-27,0,sell USD,min price,
+2009-05-27,100,sell USD,no min price,100.0
+2009-05-28,0,sell USD,min price,
+2009-05-28,100,sell USD,no min price,100.0
+2009-05-29,0,sell USD,min price,
+2009-05-29,100,sell USD,no min price,100.0
+2009-06-01,100,sell USD,no min price,100.0
+2009-06-01,0,sell USD,min price,
+2009-06-02,0,sell USD,min price,
+2009-06-02,100,sell USD,no min price,100.0
+2009-06-03,0,sell USD,min price,
+2009-06-03,100,sell USD,no min price,100.0
+2009-06-04,0,sell USD,min price,
+2009-06-04,100,sell USD,no min price,100.0
+2009-06-05,0,sell USD,min price,
+2009-06-05,100,sell USD,no min price,100.0
+2009-06-08,0,sell USD,min price,
+2009-06-08,100,sell USD,no min price,100.0
+2009-06-09,0,sell USD,min price,
+2009-06-09,50,sell USD,no min price,50.0
+2009-06-10,50,sell USD,no min price,50.0
+2009-06-10,0,sell USD,min price,
+2009-06-11,50,sell USD,no min price,50.0
+2009-06-11,0,sell USD,min price,
+2009-06-12,0,sell USD,min price,
+2009-06-12,50,sell USD,no min price,50.0
+2009-06-15,0,sell USD,min price,
+2009-06-15,50,sell USD,no min price,50.0
+2009-06-16,0,sell USD,min price,
+2009-06-16,50,sell USD,no min price,50.0
+2009-06-17,50,sell USD,no min price,50.0
+2009-06-17,0,sell USD,min price,
+2009-06-18,50,sell USD,no min price,50.0
+2009-06-18,0,sell USD,min price,
+2009-06-19,0,sell USD,min price,
+2009-06-19,50,sell USD,no min price,50.0
+2009-06-22,0,sell USD,min price,
+2009-06-22,50,sell USD,no min price,50.0
+2009-06-23,50,sell USD,no min price,50.0
+2009-06-23,0,sell USD,min price,
+2009-06-24,50,sell USD,no min price,50.0
+2009-06-24,0,sell USD,min price,
+2009-06-25,50,sell USD,no min price,50.0
+2009-06-25,0,sell USD,min price,
+2009-06-26,50,sell USD,no min price,50.0
+2009-06-26,0,sell USD,min price,
+2009-06-29,50,sell USD,no min price,50.0
+2009-06-29,0,sell USD,min price,
+2009-06-30,50,sell USD,no min price,50.0
+2009-06-30,0,sell USD,min price,
+2009-07-01,50,sell USD,no min price,50.0
+2009-07-01,0,sell USD,min price,
+2009-07-02,50,sell USD,no min price,50.0
+2009-07-02,0,sell USD,min price,
+2009-07-03,0,sell USD,min price,
+2009-07-03,50,sell USD,no min price,50.0
+2009-07-06,0,sell USD,min price,
+2009-07-06,50,sell USD,no min price,50.0
+2009-07-07,0,sell USD,min price,
+2009-07-07,50,sell USD,no min price,50.0
+2009-07-08,50,sell USD,no min price,50.0
+2009-07-08,250,sell USD,min price,250.0
+2009-07-09,0,sell USD,min price,
+2009-07-09,50,sell USD,no min price,50.0
+2009-07-10,0,sell USD,min price,
+2009-07-10,50,sell USD,no min price,50.0
+2009-07-13,50,sell USD,no min price,50.0
+2009-07-13,0,sell USD,min price,
+2009-07-14,0,sell USD,min price,
+2009-07-14,50,sell USD,no min price,50.0
+2009-07-15,0,sell USD,min price,
+2009-07-15,50,sell USD,no min price,50.0
+2009-07-16,50,sell USD,no min price,50.0
+2009-07-16,0,sell USD,min price,
+2009-07-17,0,sell USD,min price,
+2009-07-17,50,sell USD,no min price,50.0
+2009-07-20,0,sell USD,min price,
+2009-07-20,50,sell USD,no min price,50.0
+2009-07-21,0,sell USD,min price,
+2009-07-21,50,sell USD,no min price,50.0
+2009-07-22,50,sell USD,no min price,50.0
+2009-07-22,0,sell USD,min price,
+2009-07-23,50,sell USD,no min price,50.0
+2009-07-23,0,sell USD,min price,
+2009-07-24,50,sell USD,no min price,50.0
+2009-07-24,0,sell USD,min price,
+2009-07-27,50,sell USD,no min price,50.0
+2009-07-27,0,sell USD,min price,
+2009-07-28,50,sell USD,no min price,50.0
+2009-07-28,0,sell USD,min price,
+2009-07-29,0,sell USD,min price,
+2009-07-29,50,sell USD,no min price,50.0
+2009-07-30,50,sell USD,no min price,50.0
+2009-07-30,0,sell USD,min price,
+2009-07-31,0,sell USD,min price,
+2009-07-31,50,sell USD,no min price,50.0
+2009-08-03,50,sell USD,no min price,50.0
+2009-08-03,0,sell USD,min price,
+2009-08-04,0,sell USD,min price,
+2009-08-04,50,sell USD,no min price,50.0
+2009-08-05,0,sell USD,min price,
+2009-08-05,50,sell USD,no min price,50.0
+2009-08-06,0,sell USD,min price,
+2009-08-06,50,sell USD,no min price,50.0
+2009-08-07,0,sell USD,min price,
+2009-08-07,50,sell USD,no min price,50.0
+2009-08-10,0,sell USD,min price,
+2009-08-10,50,sell USD,no min price,50.0
+2009-08-11,0,sell USD,min price,
+2009-08-11,50,sell USD,no min price,50.0
+2009-08-12,0,sell USD,min price,
+2009-08-12,50,sell USD,no min price,50.0
+2009-08-13,0,sell USD,min price,
+2009-08-13,50,sell USD,no min price,50.0
+2009-08-14,0,sell USD,min price,
+2009-08-14,50,sell USD,no min price,50.0
+2009-08-17,0,sell USD,min price,
+2009-08-17,50,sell USD,no min price,50.0
+2009-08-18,0,sell USD,min price,
+2009-08-18,50,sell USD,no min price,50.0
+2009-08-19,0,sell USD,min price,
+2009-08-19,50,sell USD,no min price,50.0
+2009-08-20,0,sell USD,min price,
+2009-08-20,50,sell USD,no min price,50.0
+2009-08-21,0,sell USD,min price,
+2009-08-21,50,sell USD,no min price,50.0
+2009-08-24,0,sell USD,min price,
+2009-08-24,50,sell USD,no min price,50.0
+2009-08-25,50,sell USD,no min price,50.0
+2009-08-25,0,sell USD,min price,
+2009-08-26,50,sell USD,no min price,50.0
+2009-08-26,250,sell USD,min price,250.0
+2009-08-27,50,sell USD,no min price,50.0
+2009-08-27,0,sell USD,min price,
+2009-08-28,50,sell USD,no min price,50.0
+2009-08-28,0,sell USD,min price,
+2009-08-31,50,sell USD,no min price,50.0
+2009-08-31,0,sell USD,min price,
+2009-09-01,250,sell USD,min price,250.0
+2009-09-01,50,sell USD,no min price,50.0
+2009-09-02,50,sell USD,no min price,50.0
+2009-09-02,0,sell USD,min price,
+2009-09-03,50,sell USD,no min price,50.0
+2009-09-03,0,sell USD,min price,
+2009-09-04,50,sell USD,no min price,50.0
+2009-09-04,0,sell USD,min price,
+2009-09-07,50,sell USD,no min price,50.0
+2009-09-07,0,sell USD,min price,
+2009-09-08,50,sell USD,no min price,50.0
+2009-09-08,0,sell USD,min price,
+2009-09-09,0,sell USD,min price,
+2009-09-09,50,sell USD,no min price,50.0
+2009-09-10,0,sell USD,min price,
+2009-09-10,50,sell USD,no min price,50.0
+2009-09-11,0,sell USD,min price,
+2009-09-11,50,sell USD,no min price,50.0
+2009-09-14,50,sell USD,no min price,50.0
+2009-09-14,0,sell USD,min price,
+2009-09-15,50,sell USD,no min price,50.0
+2009-09-15,0,sell USD,min price,
+2009-09-17,0,sell USD,min price,
+2009-09-17,50,sell USD,no min price,50.0
+2009-09-18,50,sell USD,no min price,50.0
+2009-09-18,0,sell USD,min price,
+2009-09-21,50,sell USD,no min price,50.0
+2009-09-21,0,sell USD,min price,
+2009-09-22,0,sell USD,min price,
+2009-09-22,50,sell USD,no min price,50.0
+2009-09-23,50,sell USD,no min price,50.0
+2009-09-23,0,sell USD,min price,
+2009-09-24,0,sell USD,min price,
+2009-09-24,50,sell USD,no min price,50.0
+2009-09-25,50,sell USD,no min price,50.0
+2009-09-25,0,sell USD,min price,
+2009-09-28,0,sell USD,min price,
+2009-09-28,50,sell USD,no min price,50.0
+2009-09-29,0,sell USD,min price,
+2009-09-29,50,sell USD,no min price,50.0
+2009-09-30,50,sell USD,no min price,50.0
+2009-09-30,0,sell USD,min price,
+2009-10-01,0,sell USD,min price,
+2009-10-02,0,sell USD,min price,
+2009-10-05,0,sell USD,min price,
+2009-10-06,0,sell USD,min price,
+2009-10-07,0,sell USD,min price,
+2009-10-08,0,sell USD,min price,
+2009-10-09,0,sell USD,min price,
+2009-10-12,0,sell USD,min price,
+2009-10-13,0,sell USD,min price,
+2009-10-14,0,sell USD,min price,
+2009-10-15,0,sell USD,min price,
+2009-10-16,0,sell USD,min price,
+2009-10-19,0,sell USD,min price,
+2009-10-20,0,sell USD,min price,
+2009-10-21,0,sell USD,min price,
+2009-10-22,0,sell USD,min price,
+2009-10-23,0,sell USD,min price,
+2009-10-26,250,sell USD,min price,250.0
+2009-10-27,0,sell USD,min price,
+2009-10-28,0,sell USD,min price,
+2009-10-29,0,sell USD,min price,
+2009-10-30,0,sell USD,min price,
+2009-11-03,0,sell USD,min price,
+2009-11-04,0,sell USD,min price,
+2009-11-05,0,sell USD,min price,
+2009-11-06,0,sell USD,min price,
+2009-11-09,0,sell USD,min price,
+2009-11-10,0,sell USD,min price,
+2009-11-11,0,sell USD,min price,
+2009-11-12,0,sell USD,min price,
+2009-11-13,0,sell USD,min price,
+2009-11-17,0,sell USD,min price,
+2009-11-18,0,sell USD,min price,
+2009-11-19,0,sell USD,min price,
+2009-11-20,0,sell USD,min price,
+2009-11-23,0,sell USD,min price,
+2009-11-24,0,sell USD,min price,
+2009-11-25,0,sell USD,min price,
+2009-11-26,0,sell USD,min price,
+2009-11-27,0,sell USD,min price,
+2009-11-30,0,sell USD,min price,
+2009-12-01,0,sell USD,min price,
+2009-12-02,0,sell USD,min price,
+2009-12-03,0,sell USD,min price,
+2009-12-04,0,sell USD,min price,
+2009-12-07,0,sell USD,min price,
+2009-12-08,11,sell USD,min price,11.0
+2009-12-09,0,sell USD,min price,
+2009-12-10,0,sell USD,min price,
+2009-12-11,0,sell USD,min price,
+2009-12-14,0,sell USD,min price,
+2009-12-15,0,sell USD,min price,
+2009-12-16,0,sell USD,min price,
+2009-12-17,250,sell USD,min price,250.0
+2009-12-18,0,sell USD,min price,
+2009-12-21,0,sell USD,min price,
+2009-12-22,0,sell USD,min price,
+2009-12-23,0,sell USD,min price,
+2009-12-24,0,sell USD,min price,
+2009-12-28,0,sell USD,min price,
+2009-12-29,0,sell USD,min price,
+2009-12-30,0,sell USD,min price,
+2009-12-31,0,sell USD,min price,
+2010-01-04,0,sell USD,min price,
+2010-01-05,0,sell USD,min price,
+2010-01-06,0,sell USD,min price,
+2010-01-07,0,sell USD,min price,
+2010-01-08,0,sell USD,min price,
+2010-01-11,0,sell USD,min price,
+2010-01-12,0,sell USD,min price,
+2010-01-13,0,sell USD,min price,
+2010-01-14,0,sell USD,min price,
+2010-01-15,0,sell USD,min price,
+2010-01-18,0,sell USD,min price,
+2010-01-19,0,sell USD,min price,
+2010-01-20,0,sell USD,min price,
+2010-01-21,0,sell USD,min price,
+2010-01-22,0,sell USD,min price,
+2010-01-25,0,sell USD,min price,
+2010-01-26,0,sell USD,min price,
+2010-01-27,0,sell USD,min price,
+2010-01-28,0,sell USD,min price,
+2010-01-29,0,sell USD,min price,
+2010-02-02,0,sell USD,min price,
+2010-02-03,0,sell USD,min price,
+2010-02-04,0,sell USD,min price,
+2010-02-05,0,sell USD,min price,
+2010-02-08,0,sell USD,min price,
+2010-02-09,0,sell USD,min price,
+2010-02-10,0,sell USD,min price,
+2010-02-11,0,sell USD,min price,
+2010-02-12,0,sell USD,min price,
+2010-02-15,0,sell USD,min price,
+2010-02-16,0,sell USD,min price,
+2010-02-17,0,sell USD,min price,
+2010-02-18,0,sell USD,min price,
+2010-02-19,0,sell USD,min price,
+2010-02-22,0,sell USD,min price,
+2010-02-23,0,sell USD,min price,
+2010-02-24,0,sell USD,min price,
+2010-02-25,0,sell USD,min price,
+2010-02-26,0,sell USD,min price,
+2010-03-01,0,sell USD,min price,
+2010-03-02,0,sell USD,min price,
+2010-03-03,0,sell USD,min price,
+2010-03-04,0,sell USD,min price,
+2010-03-05,0,sell USD,min price,
+2010-03-08,0,sell USD,min price,
+2010-03-09,0,sell USD,min price,
+2010-03-10,0,sell USD,min price,
+2010-03-11,0,sell USD,min price,
+2010-03-12,0,sell USD,min price,
+2010-03-16,0,sell USD,min price,
+2010-03-17,0,sell USD,min price,
+2010-03-18,0,sell USD,min price,
+2010-03-19,0,sell USD,min price,
+2010-03-22,0,sell USD,min price,
+2010-03-23,0,sell USD,min price,
+2010-03-24,0,sell USD,min price,
+2010-03-25,0,sell USD,min price,
+2010-03-26,0,sell USD,min price,
+2010-03-29,0,sell USD,min price,
+2010-03-30,0,sell USD,min price,
+2010-03-31,0,sell USD,min price,
+2010-04-05,0,sell USD,min price,
+2010-04-06,0,sell USD,min price,
+2010-04-07,0,sell USD,min price,
+2010-04-08,0,sell USD,min price,
+2010-04-09,0,sell USD,min price,
+2011-11-30,0,sell USD,min price,
+2011-12-01,0,sell USD,min price,
+2011-12-02,0,sell USD,min price,
+2011-12-05,0,sell USD,min price,
+2011-12-06,0,sell USD,min price,
+2011-12-07,0,sell USD,min price,
+2011-12-08,0,sell USD,min price,
+2011-12-09,0,sell USD,min price,
+2011-12-13,0,sell USD,min price,
+2011-12-14,0,sell USD,min price,
+2011-12-15,0,sell USD,min price,
+2011-12-16,0,sell USD,min price,
+2011-12-19,0,sell USD,min price,
+2011-12-20,0,sell USD,min price,
+2011-12-21,0,sell USD,min price,
+2011-12-22,0,sell USD,min price,
+2011-12-23,0,sell USD,min price,
+2011-12-26,0,sell USD,min price,
+2011-12-27,0,sell USD,min price,
+2011-12-28,0,sell USD,min price,
+2011-12-29,0,sell USD,min price,
+2011-12-30,0,sell USD,min price,
+2012-01-02,0,sell USD,min price,
+2012-01-03,0,sell USD,min price,
+2012-01-04,0,sell USD,min price,
+2012-01-05,0,sell USD,min price,
+2012-01-06,0,sell USD,min price,
+2012-01-09,0,sell USD,min price,
+2012-01-10,0,sell USD,min price,
+2012-01-11,0,sell USD,min price,
+2012-01-12,0,sell USD,min price,
+2012-01-13,0,sell USD,min price,
+2012-01-16,0,sell USD,min price,
+2012-01-17,0,sell USD,min price,
+2012-01-18,0,sell USD,min price,
+2012-01-19,0,sell USD,min price,
+2012-01-20,0,sell USD,min price,
+2012-01-23,0,sell USD,min price,
+2012-01-24,0,sell USD,min price,
+2012-01-25,0,sell USD,min price,
+2012-01-26,0,sell USD,min price,
+2012-01-27,0,sell USD,min price,
+2012-01-30,0,sell USD,min price,
+2012-01-31,0,sell USD,min price,
+2012-02-01,0,sell USD,min price,
+2012-02-02,0,sell USD,min price,
+2012-02-03,0,sell USD,min price,
+2012-02-07,0,sell USD,min price,
+2012-02-08,0,sell USD,min price,
+2012-02-09,0,sell USD,min price,
+2012-02-10,0,sell USD,min price,
+2012-02-13,0,sell USD,min price,
+2012-02-14,0,sell USD,min price,
+2012-02-15,0,sell USD,min price,
+2012-02-16,0,sell USD,min price,
+2012-02-17,0,sell USD,min price,
+2012-02-20,0,sell USD,min price,
+2012-02-21,0,sell USD,min price,
+2012-02-22,0,sell USD,min price,
+2012-02-23,0,sell USD,min price,
+2012-02-24,0,sell USD,min price,
+2012-02-27,0,sell USD,min price,
+2012-02-28,0,sell USD,min price,
+2012-02-29,0,sell USD,min price,
+2012-03-01,0,sell USD,min price,
+2012-03-02,0,sell USD,min price,
+2012-03-05,0,sell USD,min price,
+2012-03-06,0,sell USD,min price,
+2012-03-07,0,sell USD,min price,
+2012-03-08,0,sell USD,min price,
+2012-03-09,0,sell USD,min price,
+2012-03-12,0,sell USD,min price,
+2012-03-13,0,sell USD,min price,
+2012-03-14,0,sell USD,min price,
+2012-03-15,0,sell USD,min price,
+2012-03-16,0,sell USD,min price,
+2012-03-20,0,sell USD,min price,
+2012-03-21,0,sell USD,min price,
+2012-03-22,0,sell USD,min price,
+2012-03-23,0,sell USD,min price,
+2012-03-26,0,sell USD,min price,
+2012-03-27,0,sell USD,min price,
+2012-03-28,0,sell USD,min price,
+2012-03-29,0,sell USD,min price,
+2012-03-30,0,sell USD,min price,
+2012-04-02,0,sell USD,min price,
+2012-04-03,0,sell USD,min price,
+2012-04-04,0,sell USD,min price,
+2012-04-09,0,sell USD,min price,
+2012-04-10,0,sell USD,min price,
+2012-04-11,0,sell USD,min price,
+2012-04-12,0,sell USD,min price,
+2012-04-13,0,sell USD,min price,
+2012-04-16,0,sell USD,min price,
+2012-04-17,0,sell USD,min price,
+2012-04-18,0,sell USD,min price,
+2012-04-19,0,sell USD,min price,
+2012-04-20,0,sell USD,min price,
+2012-04-23,0,sell USD,min price,
+2012-04-24,0,sell USD,min price,
+2012-04-25,0,sell USD,min price,
+2012-04-26,0,sell USD,min price,
+2012-04-27,0,sell USD,min price,
+2012-04-30,0,sell USD,min price,
+2012-05-02,0,sell USD,min price,
+2012-05-03,0,sell USD,min price,
+2012-05-04,0,sell USD,min price,
+2012-05-07,0,sell USD,min price,
+2012-05-08,0,sell USD,min price,
+2012-05-09,0,sell USD,min price,
+2012-05-10,0,sell USD,min price,
+2012-05-11,0,sell USD,min price,
+2012-05-14,0,sell USD,min price,
+2012-05-15,0,sell USD,min price,
+2012-05-16,0,sell USD,min price,
+2012-05-17,0,sell USD,min price,
+2012-05-18,0,sell USD,min price,
+2012-05-21,0,sell USD,min price,
+2012-05-22,0,sell USD,min price,
+2012-05-23,258,sell USD,min price,258.0
+2012-05-24,0,sell USD,min price,
+2012-05-25,0,sell USD,min price,
+2012-05-28,0,sell USD,min price,
+2012-05-29,0,sell USD,min price,
+2012-05-30,0,sell USD,min price,
+2012-05-31,107,sell USD,min price,107.0
+2012-06-01,0,sell USD,min price,
+2012-06-04,0,sell USD,min price,
+2012-06-05,0,sell USD,min price,
+2012-06-06,0,sell USD,min price,
+2012-06-07,0,sell USD,min price,
+2012-06-08,0,sell USD,min price,
+2012-06-11,0,sell USD,min price,
+2012-06-12,0,sell USD,min price,
+2012-06-13,0,sell USD,min price,
+2012-06-14,0,sell USD,min price,
+2012-06-15,0,sell USD,min price,
+2012-06-18,0,sell USD,min price,
+2012-06-19,0,sell USD,min price,
+2012-06-20,0,sell USD,min price,
+2012-06-21,0,sell USD,min price,
+2012-06-22,0,sell USD,min price,
+2012-06-25,0,sell USD,min price,
+2012-06-26,0,sell USD,min price,
+2012-06-27,0,sell USD,min price,
+2012-06-28,0,sell USD,min price,
+2012-06-29,0,sell USD,min price,
+2012-07-02,0,sell USD,min price,
+2012-07-03,0,sell USD,min price,
+2012-07-04,0,sell USD,min price,
+2012-07-05,0,sell USD,min price,
+2012-07-06,0,sell USD,min price,
+2012-07-09,0,sell USD,min price,
+2012-07-10,0,sell USD,min price,
+2012-07-11,0,sell USD,min price,
+2012-07-12,0,sell USD,min price,
+2012-07-13,0,sell USD,min price,
+2012-07-16,0,sell USD,min price,
+2012-07-17,0,sell USD,min price,
+2012-07-18,0,sell USD,min price,
+2012-07-19,0,sell USD,min price,
+2012-07-20,0,sell USD,min price,
+2012-07-23,281,sell USD,min price,281.0
+2012-07-24,0,sell USD,min price,
+2012-07-25,0,sell USD,min price,
+2012-07-26,0,sell USD,min price,
+2012-07-27,0,sell USD,min price,
+2012-07-30,0,sell USD,min price,
+2012-07-31,0,sell USD,min price,
+2012-08-01,0,sell USD,min price,
+2012-08-02,0,sell USD,min price,
+2012-08-03,0,sell USD,min price,
+2012-08-06,0,sell USD,min price,
+2012-08-07,0,sell USD,min price,
+2012-08-08,0,sell USD,min price,
+2012-08-09,0,sell USD,min price,
+2012-08-10,0,sell USD,min price,
+2012-08-13,0,sell USD,min price,
+2012-08-14,0,sell USD,min price,
+2012-08-15,0,sell USD,min price,
+2012-08-16,0,sell USD,min price,
+2012-08-17,0,sell USD,min price,
+2012-08-20,0,sell USD,min price,
+2012-08-21,0,sell USD,min price,
+2012-08-22,0,sell USD,min price,
+2012-08-23,0,sell USD,min price,
+2012-08-24,0,sell USD,min price,
+2012-08-27,0,sell USD,min price,
+2012-08-28,0,sell USD,min price,
+2012-08-29,0,sell USD,min price,
+2012-08-30,0,sell USD,min price,
+2012-08-31,0,sell USD,min price,
+2012-09-03,0,sell USD,min price,
+2012-09-04,0,sell USD,min price,
+2012-09-05,0,sell USD,min price,
+2012-09-06,0,sell USD,min price,
+2012-09-07,0,sell USD,min price,
+2012-09-10,0,sell USD,min price,
+2012-09-11,0,sell USD,min price,
+2012-09-12,0,sell USD,min price,
+2012-09-13,0,sell USD,min price,
+2012-09-14,0,sell USD,min price,
+2012-09-17,0,sell USD,min price,
+2012-09-18,0,sell USD,min price,
+2012-09-19,0,sell USD,min price,
+2012-09-20,0,sell USD,min price,
+2012-09-21,0,sell USD,min price,
+2012-09-24,0,sell USD,min price,
+2012-09-25,0,sell USD,min price,
+2012-09-26,0,sell USD,min price,
+2012-09-27,0,sell USD,min price,
+2012-09-28,0,sell USD,min price,
+2012-10-01,0,sell USD,min price,
+2012-10-02,0,sell USD,min price,
+2012-10-03,0,sell USD,min price,
+2012-10-04,0,sell USD,min price,
+2012-10-05,0,sell USD,min price,
+2012-10-08,0,sell USD,min price,
+2012-10-09,0,sell USD,min price,
+2012-10-10,0,sell USD,min price,
+2012-10-11,0,sell USD,min price,
+2012-10-12,0,sell USD,min price,
+2012-10-15,0,sell USD,min price,
+2012-10-16,0,sell USD,min price,
+2012-10-17,0,sell USD,min price,
+2012-10-18,0,sell USD,min price,
+2012-10-19,0,sell USD,min price,
+2012-10-22,0,sell USD,min price,
+2012-10-23,0,sell USD,min price,
+2012-10-24,0,sell USD,min price,
+2012-10-25,0,sell USD,min price,
+2012-10-26,0,sell USD,min price,
+2012-10-29,0,sell USD,min price,
+2012-10-30,0,sell USD,min price,
+2012-10-31,0,sell USD,min price,
+2012-11-01,0,sell USD,min price,
+2012-11-05,0,sell USD,min price,
+2012-11-06,0,sell USD,min price,
+2012-11-07,0,sell USD,min price,
+2012-11-08,0,sell USD,min price,
+2012-11-09,0,sell USD,min price,
+2012-11-12,0,sell USD,min price,
+2012-11-13,0,sell USD,min price,
+2012-11-14,0,sell USD,min price,
+2012-11-15,0,sell USD,min price,
+2012-11-16,0,sell USD,min price,
+2012-11-20,0,sell USD,min price,
+2012-11-21,0,sell USD,min price,
+2012-11-22,0,sell USD,min price,
+2012-11-23,0,sell USD,min price,
+2012-11-26,0,sell USD,min price,
+2012-11-27,0,sell USD,min price,
+2012-11-28,0,sell USD,min price,
+2012-11-29,0,sell USD,min price,
+2012-11-30,0,sell USD,min price,
+2012-12-03,0,sell USD,min price,
+2012-12-04,0,sell USD,min price,
+2012-12-05,0,sell USD,min price,
+2012-12-06,0,sell USD,min price,
+2012-12-07,0,sell USD,min price,
+2012-12-10,0,sell USD,min price,
+2012-12-11,0,sell USD,min price,
+2012-12-13,0,sell USD,min price,
+2012-12-14,0,sell USD,min price,
+2012-12-17,0,sell USD,min price,
+2012-12-18,0,sell USD,min price,
+2012-12-19,0,sell USD,min price,
+2012-12-20,0,sell USD,min price,
+2012-12-21,0,sell USD,min price,
+2012-12-24,0,sell USD,min price,
+2012-12-26,0,sell USD,min price,
+2012-12-27,0,sell USD,min price,
+2012-12-28,0,sell USD,min price,
+2012-12-31,0,sell USD,min price,
+2013-01-02,0,sell USD,min price,
+2013-01-03,0,sell USD,min price,
+2013-01-04,0,sell USD,min price,
+2013-01-07,0,sell USD,min price,
+2013-01-08,0,sell USD,min price,
+2013-01-09,0,sell USD,min price,
+2013-01-10,0,sell USD,min price,
+2013-01-11,0,sell USD,min price,
+2013-01-14,0,sell USD,min price,
+2013-01-15,0,sell USD,min price,
+2013-01-16,0,sell USD,min price,
+2013-01-17,0,sell USD,min price,
+2013-01-18,0,sell USD,min price,
+2013-01-21,0,sell USD,min price,
+2013-01-22,0,sell USD,min price,
+2013-01-23,0,sell USD,min price,
+2013-01-24,0,sell USD,min price,
+2013-01-25,0,sell USD,min price,
+2013-01-28,0,sell USD,min price,
+2013-01-29,0,sell USD,min price,
+2013-01-30,0,sell USD,min price,
+2013-01-31,0,sell USD,min price,
+2013-02-01,0,sell USD,min price,
+2013-02-05,0,sell USD,min price,
+2013-02-06,0,sell USD,min price,
+2013-02-07,0,sell USD,min price,
+2013-02-08,0,sell USD,min price,
+2013-02-11,0,sell USD,min price,
+2013-02-12,0,sell USD,min price,
+2013-02-13,0,sell USD,min price,
+2013-02-14,0,sell USD,min price,
+2013-02-15,0,sell USD,min price,
+2013-02-18,0,sell USD,min price,
+2013-02-19,0,sell USD,min price,
+2013-02-20,0,sell USD,min price,
+2013-02-21,0,sell USD,min price,
+2013-02-22,0,sell USD,min price,
+2013-02-25,0,sell USD,min price,
+2013-02-26,0,sell USD,min price,
+2013-02-27,0,sell USD,min price,
+2013-02-28,0,sell USD,min price,
+2013-03-01,0,sell USD,min price,
+2013-03-04,0,sell USD,min price,
+2013-03-05,0,sell USD,min price,
+2013-03-06,0,sell USD,min price,
+2013-03-07,0,sell USD,min price,
+2013-03-08,0,sell USD,min price,
+2013-03-11,0,sell USD,min price,
+2013-03-12,0,sell USD,min price,
+2013-03-13,0,sell USD,min price,
+2013-03-14,0,sell USD,min price,
+2013-03-15,0,sell USD,min price,
+2013-03-19,0,sell USD,min price,
+2013-03-20,0,sell USD,min price,
+2013-03-21,0,sell USD,min price,
+2013-03-22,0,sell USD,min price,
+2013-03-25,0,sell USD,min price,
+2013-03-26,0,sell USD,min price,
+2013-03-27,0,sell USD,min price,
+2013-04-01,0,sell USD,min price,
+2013-04-02,0,sell USD,min price,
+2013-04-03,0,sell USD,min price,
+2013-04-04,0,sell USD,min price,
+2013-04-05,0,sell USD,min price,
+2013-04-08,0,sell USD,min price,
+2014-12-09,0,sell USD,min price,
+2014-12-10,0,sell USD,min price,
+2014-12-11,200,sell USD,min price,200.0
+2014-12-15,0,sell USD,min price,
+2014-12-16,0,sell USD,min price,
+2014-12-17,0,sell USD,min price,
+2014-12-18,0,sell USD,min price,
+2014-12-19,0,sell USD,min price,
+2014-12-22,0,sell USD,min price,
+2014-12-23,0,sell USD,min price,
+2014-12-24,0,sell USD,min price,
+2014-12-26,0,sell USD,min price,
+2014-12-29,0,sell USD,min price,
+2014-12-30,0,sell USD,min price,
+2014-12-31,0,sell USD,min price,
+2015-01-02,0,sell USD,min price,
+2015-01-05,0,sell USD,min price,
+2015-01-06,0,sell USD,min price,
+2015-01-07,0,sell USD,min price,
+2015-01-08,0,sell USD,min price,
+2015-01-09,0,sell USD,min price,
+2015-01-12,0,sell USD,min price,
+2015-01-13,0,sell USD,min price,
+2015-01-14,0,sell USD,min price,
+2015-01-15,0,sell USD,min price,
+2015-01-16,0,sell USD,min price,
+2015-01-19,0,sell USD,min price,
+2015-01-20,0,sell USD,min price,
+2015-01-21,0,sell USD,min price,
+2015-01-22,0,sell USD,min price,
+2015-01-23,0,sell USD,min price,
+2015-01-26,0,sell USD,min price,
+2015-01-27,0,sell USD,min price,
+2015-01-28,0,sell USD,min price,
+2015-01-29,0,sell USD,min price,
+2015-01-30,0,sell USD,min price,
+2015-02-03,0,sell USD,min price,
+2015-02-04,0,sell USD,min price,
+2015-02-05,0,sell USD,min price,
+2015-02-06,0,sell USD,min price,
+2015-02-09,0,sell USD,min price,
+2015-02-10,0,sell USD,min price,
+2015-02-11,0,sell USD,min price,
+2015-02-12,0,sell USD,min price,
+2015-02-13,0,sell USD,min price,
+2015-02-16,0,sell USD,min price,
+2015-02-17,0,sell USD,min price,
+2015-02-18,0,sell USD,min price,
+2015-02-19,0,sell USD,min price,
+2015-02-20,0,sell USD,min price,
+2015-02-23,0,sell USD,min price,
+2015-02-24,0,sell USD,min price,
+2015-02-25,0,sell USD,min price,
+2015-02-26,0,sell USD,min price,
+2015-02-27,0,sell USD,min price,
+2015-03-02,0,sell USD,min price,
+2015-03-03,0,sell USD,min price,
+2015-03-04,0,sell USD,min price,
+2015-03-05,0,sell USD,min price,
+2015-03-06,200,sell USD,min price,200.0
+2015-03-09,0,sell USD,min price,
+2015-03-10,0,sell USD,min price,
+2015-03-11,52,sell USD,no min price,52.0
+2015-03-11,0,sell USD,min price,
+2015-03-12,0,sell USD,min price,
+2015-03-12,52,sell USD,no min price,52.0
+2015-03-13,0,sell USD,min price,
+2015-03-13,52,sell USD,no min price,52.0
+2015-03-17,52,sell USD,no min price,52.0
+2015-03-17,0,sell USD,min price,
+2015-03-18,0,sell USD,min price,
+2015-03-18,52,sell USD,no min price,52.0
+2015-03-19,0,sell USD,min price,
+2015-03-19,52,sell USD,no min price,52.0
+2015-03-20,0,sell USD,min price,
+2015-03-20,52,sell USD,no min price,52.0
+2015-03-23,52,sell USD,no min price,52.0
+2015-03-23,0,sell USD,min price,
+2015-03-24,0,sell USD,min price,
+2015-03-24,52,sell USD,no min price,52.0
+2015-03-25,0,sell USD,min price,
+2015-03-25,52,sell USD,no min price,52.0
+2015-03-26,0,sell USD,min price,
+2015-03-26,52,sell USD,no min price,52.0
+2015-03-27,52,sell USD,no min price,52.0
+2015-03-27,0,sell USD,min price,
+2015-03-30,52,sell USD,no min price,52.0
+2015-03-30,0,sell USD,min price,
+2015-03-31,52,sell USD,no min price,52.0
+2015-03-31,0,sell USD,min price,
+2015-04-01,0,sell USD,min price,
+2015-04-01,52,sell USD,no min price,52.0
+2015-04-06,52,sell USD,no min price,52.0
+2015-04-06,0,sell USD,min price,
+2015-04-07,52,sell USD,no min price,52.0
+2015-04-07,0,sell USD,min price,
+2015-04-08,52,sell USD,no min price,52.0
+2015-04-08,0,sell USD,min price,
+2015-04-09,0,sell USD,min price,
+2015-04-09,52,sell USD,no min price,52.0
+2015-04-10,52,sell USD,no min price,52.0
+2015-04-10,0,sell USD,min price,
+2015-04-13,0,sell USD,min price,
+2015-04-13,52,sell USD,no min price,52.0
+2015-04-14,0,sell USD,min price,
+2015-04-14,52,sell USD,no min price,52.0
+2015-04-15,0,sell USD,min price,
+2015-04-15,52,sell USD,no min price,52.0
+2015-04-16,52,sell USD,no min price,52.0
+2015-04-16,0,sell USD,min price,
+2015-04-17,52,sell USD,no min price,52.0
+2015-04-17,0,sell USD,min price,
+2015-04-20,0,sell USD,min price,
+2015-04-20,52,sell USD,no min price,52.0
+2015-04-21,0,sell USD,min price,
+2015-04-21,52,sell USD,no min price,52.0
+2015-04-22,0,sell USD,min price,
+2015-04-22,52,sell USD,no min price,52.0
+2015-04-23,0,sell USD,min price,
+2015-04-23,52,sell USD,no min price,52.0
+2015-04-24,0,sell USD,min price,
+2015-04-24,52,sell USD,no min price,52.0
+2015-04-27,52,sell USD,no min price,52.0
+2015-04-27,0,sell USD,min price,
+2015-04-28,52,sell USD,no min price,52.0
+2015-04-28,0,sell USD,min price,
+2015-04-29,0,sell USD,min price,
+2015-04-29,52,sell USD,no min price,52.0
+2015-04-30,52,sell USD,no min price,52.0
+2015-04-30,0,sell USD,min price,
+2015-05-04,52,sell USD,no min price,52.0
+2015-05-04,0,sell USD,min price,
+2015-05-05,52,sell USD,no min price,52.0
+2015-05-05,0,sell USD,min price,
+2015-05-06,52,sell USD,no min price,52.0
+2015-05-06,0,sell USD,min price,
+2015-05-07,52,sell USD,no min price,52.0
+2015-05-07,0,sell USD,min price,
+2015-05-08,52,sell USD,no min price,52.0
+2015-05-08,0,sell USD,min price,
+2015-05-11,0,sell USD,min price,
+2015-05-11,52,sell USD,no min price,52.0
+2015-05-12,52,sell USD,no min price,52.0
+2015-05-12,0,sell USD,min price,
+2015-05-13,52,sell USD,no min price,52.0
+2015-05-13,0,sell USD,min price,
+2015-05-14,52,sell USD,no min price,52.0
+2015-05-14,0,sell USD,min price,
+2015-05-15,52,sell USD,no min price,52.0
+2015-05-15,0,sell USD,min price,
+2015-05-18,52,sell USD,no min price,52.0
+2015-05-18,0,sell USD,min price,
+2015-05-19,0,sell USD,min price,
+2015-05-19,52,sell USD,no min price,52.0
+2015-05-20,0,sell USD,min price,
+2015-05-20,52,sell USD,no min price,52.0
+2015-05-21,0,sell USD,min price,
+2015-05-21,52,sell USD,no min price,52.0
+2015-05-22,0,sell USD,min price,
+2015-05-22,52,sell USD,no min price,52.0
+2015-05-25,0,sell USD,min price,
+2015-05-25,30,sell USD,no min price,30.0
+2015-05-26,0,sell USD,min price,
+2015-05-26,74,sell USD,no min price,74.0
+2015-05-27,52,sell USD,no min price,52.0
+2015-05-27,0,sell USD,min price,
+2015-05-28,0,sell USD,min price,
+2015-05-28,52,sell USD,no min price,52.0
+2015-05-29,0,sell USD,min price,
+2015-05-29,52,sell USD,no min price,52.0
+2015-06-01,0,sell USD,min price,
+2015-06-01,52,sell USD,no min price,52.0
+2015-06-02,52,sell USD,no min price,52.0
+2015-06-02,0,sell USD,min price,
+2015-06-03,0,sell USD,min price,
+2015-06-03,52,sell USD,no min price,52.0
+2015-06-04,52,sell USD,no min price,52.0
+2015-06-04,0,sell USD,min price,
+2015-06-05,52,sell USD,no min price,52.0
+2015-06-05,0,sell USD,min price,
+2015-06-08,52,sell USD,no min price,52.0
+2015-06-08,0,sell USD,min price,
+2015-06-09,0,sell USD,min price,
+2015-06-09,52,sell USD,no min price,52.0
+2015-06-10,52,sell USD,no min price,52.0
+2015-06-10,0,sell USD,min price,
+2015-06-11,52,sell USD,no min price,52.0
+2015-06-11,0,sell USD,min price,
+2015-06-12,52,sell USD,no min price,52.0
+2015-06-12,0,sell USD,min price,
+2015-06-15,0,sell USD,min price,
+2015-06-15,52,sell USD,no min price,52.0
+2015-06-16,52,sell USD,no min price,52.0
+2015-06-16,0,sell USD,min price,
+2015-06-17,52,sell USD,no min price,52.0
+2015-06-17,0,sell USD,min price,
+2015-06-18,52,sell USD,no min price,52.0
+2015-06-18,0,sell USD,min price,
+2015-06-19,52,sell USD,no min price,52.0
+2015-06-19,0,sell USD,min price,
+2015-06-22,52,sell USD,no min price,52.0
+2015-06-22,0,sell USD,min price,
+2015-06-23,52,sell USD,no min price,52.0
+2015-06-23,0,sell USD,min price,
+2015-06-24,52,sell USD,no min price,52.0
+2015-06-24,0,sell USD,min price,
+2015-06-25,0,sell USD,min price,
+2015-06-25,52,sell USD,no min price,52.0
+2015-06-26,52,sell USD,no min price,52.0
+2015-06-26,0,sell USD,min price,
+2015-06-29,52,sell USD,no min price,52.0
+2015-06-29,0,sell USD,min price,
+2015-06-30,52,sell USD,no min price,52.0
+2015-06-30,0,sell USD,min price,
+2015-07-01,0,sell USD,min price,
+2015-07-01,52,sell USD,no min price,52.0
+2015-07-02,52,sell USD,no min price,52.0
+2015-07-02,0,sell USD,min price,
+2015-07-03,52,sell USD,no min price,52.0
+2015-07-03,0,sell USD,min price,
+2015-07-06,0,sell USD,min price,
+2015-07-06,52,sell USD,no min price,52.0
+2015-07-07,52,sell USD,no min price,52.0
+2015-07-07,0,sell USD,min price,
+2015-07-08,0,sell USD,min price,
+2015-07-08,52,sell USD,no min price,52.0
+2015-07-09,0,sell USD,min price,
+2015-07-09,52,sell USD,no min price,52.0
+2015-07-10,0,sell USD,min price,
+2015-07-10,52,sell USD,no min price,52.0
+2015-07-13,0,sell USD,min price,
+2015-07-13,52,sell USD,no min price,52.0
+2015-07-14,52,sell USD,no min price,52.0
+2015-07-14,0,sell USD,min price,
+2015-07-15,0,sell USD,min price,
+2015-07-15,52,sell USD,no min price,52.0
+2015-07-16,0,sell USD,min price,
+2015-07-16,52,sell USD,no min price,52.0
+2015-07-17,0,sell USD,min price,
+2015-07-17,52,sell USD,no min price,52.0
+2015-07-20,0,sell USD,min price,
+2015-07-20,52,sell USD,no min price,52.0
+2015-07-21,0,sell USD,min price,
+2015-07-21,52,sell USD,no min price,52.0
+2015-07-22,52,sell USD,no min price,52.0
+2015-07-22,0,sell USD,min price,
+2015-07-23,0,sell USD,min price,
+2015-07-23,52,sell USD,no min price,52.0
+2015-07-24,52,sell USD,no min price,52.0
+2015-07-24,0,sell USD,min price,
+2015-07-27,52,sell USD,no min price,52.0
+2015-07-27,0,sell USD,min price,
+2015-07-28,0,sell USD,min price,
+2015-07-28,52,sell USD,no min price,52.0
+2015-07-29,0,sell USD,min price,
+2015-07-29,52,sell USD,no min price,52.0
+2015-07-30,52,sell USD,no min price,52.0
+2015-07-30,200,sell USD,min price,200.0
+2015-07-31,200,sell USD,no min price,200.0
+2015-07-31,0,sell USD,min price,
+2015-08-03,0,sell USD,min price,
+2015-08-03,200,sell USD,no min price,200.0
+2015-08-04,0,sell USD,min price,
+2015-08-04,200,sell USD,no min price,200.0
+2015-08-05,200,sell USD,min price,200.0
+2015-08-05,200,sell USD,no min price,200.0
+2015-08-06,0,sell USD,min price,
+2015-08-06,200,sell USD,no min price,200.0
+2015-08-07,0,sell USD,min price,
+2015-08-07,200,sell USD,no min price,200.0
+2015-08-10,0,sell USD,min price,
+2015-08-10,200,sell USD,no min price,200.0
+2015-08-11,173,sell USD,min price,173.0
+2015-08-11,200,sell USD,no min price,200.0
+2015-08-12,0,sell USD,min price,
+2015-08-12,200,sell USD,no min price,200.0
+2015-08-13,0,sell USD,min price,
+2015-08-13,200,sell USD,no min price,200.0
+2015-08-14,0,sell USD,min price,
+2015-08-14,200,sell USD,no min price,200.0
+2015-08-17,200,sell USD,no min price,200.0
+2015-08-17,0,sell USD,min price,
+2015-08-18,0,sell USD,min price,
+2015-08-18,200,sell USD,no min price,200.0
+2015-08-19,200,sell USD,no min price,200.0
+2015-08-19,33,sell USD,min price,33.0
+2015-08-20,0,sell USD,min price,
+2015-08-20,200,sell USD,no min price,200.0
+2015-08-21,200,sell USD,min price,200.0
+2015-08-21,200,sell USD,no min price,200.0
+2015-08-24,200,sell USD,min price,200.0
+2015-08-24,200,sell USD,no min price,200.0
+2015-08-25,0,sell USD,min price,
+2015-08-25,200,sell USD,no min price,200.0
+2015-08-26,103,sell USD,min price,103.0
+2015-08-26,200,sell USD,no min price,200.0
+2015-08-27,0,sell USD,min price,
+2015-08-27,141,sell USD,no min price,141.0
+2015-08-28,259,sell USD,no min price,259.0
+2015-08-28,0,sell USD,min price,
+2015-08-31,200,sell USD,no min price,200.0
+2015-08-31,0,sell USD,min price,
+2015-09-01,200,sell USD,no min price,200.0
+2015-09-01,200,sell USD,min price,200.0
+2015-09-02,200,sell USD,no min price,200.0
+2015-09-02,0,sell USD,min price,
+2015-09-03,0,sell USD,min price,
+2015-09-03,200,sell USD,no min price,200.0
+2015-09-04,200,sell USD,no min price,200.0
+2015-09-04,0,sell USD,min price,
+2015-09-07,200,sell USD,no min price,200.0
+2015-09-07,0,sell USD,min price,
+2015-09-08,0,sell USD,min price,
+2015-09-08,200,sell USD,no min price,200.0
+2015-09-09,200,sell USD,no min price,200.0
+2015-09-09,0,sell USD,min price,
+2015-09-10,0,sell USD,min price,
+2015-09-10,200,sell USD,no min price,200.0
+2015-09-11,200,sell USD,no min price,200.0
+2015-09-11,0,sell USD,min price,
+2015-09-14,0,sell USD,min price,
+2015-09-14,200,sell USD,no min price,200.0
+2015-09-15,200,sell USD,no min price,200.0
+2015-09-15,0,sell USD,min price,
+2015-09-17,200,sell USD,no min price,200.0
+2015-09-17,0,sell USD,min price,
+2015-09-18,200,sell USD,no min price,200.0
+2015-09-18,0,sell USD,min price,
+2015-09-21,200,sell USD,no min price,200.0
+2015-09-21,200,sell USD,min price,200.0
+2015-09-22,200,sell USD,min price,200.0
+2015-09-22,200,sell USD,no min price,200.0
+2015-09-23,200,sell USD,no min price,200.0
+2015-09-23,200,sell USD,min price,200.0
+2015-09-24,200,sell USD,no min price,200.0
+2015-09-24,0,sell USD,min price,
+2015-09-25,200,sell USD,no min price,200.0
+2015-09-25,0,sell USD,min price,
+2015-09-28,200,sell USD,no min price,200.0
+2015-09-28,0,sell USD,min price,
+2015-09-29,200,sell USD,no min price,200.0
+2015-09-29,0,sell USD,min price,
+2015-09-30,200,sell USD,no min price,200.0
+2015-09-30,0,sell USD,min price,
+2015-10-01,200,sell USD,no min price,200.0
+2015-10-01,0,sell USD,min price,
+2015-10-02,200,sell USD,no min price,200.0
+2015-10-02,0,sell USD,min price,
+2015-10-05,200,sell USD,no min price,200.0
+2015-10-05,0,sell USD,min price,
+2015-10-06,200,sell USD,no min price,200.0
+2015-10-06,0,sell USD,min price,
+2015-10-07,0,sell USD,min price,
+2015-10-07,170,sell USD,no min price,170.0
+2015-10-08,0,sell USD,min price,
+2015-10-08,230,sell USD,no min price,230.0
+2015-10-09,0,sell USD,min price,
+2015-10-09,200,sell USD,no min price,200.0
+2015-10-12,0,sell USD,min price,
+2015-10-12,200,sell USD,no min price,200.0
+2015-10-13,200,sell USD,min price,200.0
+2015-10-13,200,sell USD,no min price,200.0
+2015-10-14,0,sell USD,min price,
+2015-10-14,200,sell USD,no min price,200.0
+2015-10-15,0,sell USD,min price,
+2015-10-15,200,sell USD,no min price,200.0
+2015-10-16,0,sell USD,min price,
+2015-10-16,200,sell USD,no min price,200.0
+2015-10-19,200,sell USD,no min price,200.0
+2015-10-19,0,sell USD,min price,
+2015-10-20,200,sell USD,no min price,200.0
+2015-10-20,0,sell USD,min price,
+2015-10-21,0,sell USD,min price,
+2015-10-21,200,sell USD,no min price,200.0
+2015-10-22,200,sell USD,no min price,200.0
+2015-10-22,0,sell USD,min price,
+2015-10-23,0,sell USD,min price,
+2015-10-23,200,sell USD,no min price,200.0
+2015-10-26,0,sell USD,min price,
+2015-10-26,200,sell USD,no min price,200.0
+2015-10-27,200,sell USD,no min price,200.0
+2015-10-27,0,sell USD,min price,
+2015-10-28,200,sell USD,no min price,200.0
+2015-10-28,0,sell USD,min price,
+2015-10-29,200,sell USD,min price,200.0
+2015-10-29,200,sell USD,no min price,200.0
+2015-10-30,0,sell USD,min price,
+2015-10-30,200,sell USD,no min price,200.0
+2015-11-03,200,sell USD,no min price,200.0
+2015-11-03,0,sell USD,min price,
+2015-11-04,200,sell USD,no min price,200.0
+2015-11-04,0,sell USD,min price,
+2015-11-05,200,sell USD,no min price,200.0
+2015-11-05,0,sell USD,min price,
+2015-11-06,200,sell USD,min price,200.0
+2015-11-06,200,sell USD,no min price,200.0
+2015-11-09,0,sell USD,min price,
+2015-11-09,200,sell USD,no min price,200.0
+2015-11-10,200,sell USD,no min price,200.0
+2015-11-10,0,sell USD,min price,
+2015-11-11,200,sell USD,no min price,200.0
+2015-11-11,0,sell USD,min price,
+2015-11-12,200,sell USD,no min price,200.0
+2015-11-12,0,sell USD,min price,
+2015-11-13,0,sell USD,min price,
+2015-11-13,200,sell USD,no min price,200.0
+2015-11-17,200,sell USD,no min price,200.0
+2015-11-17,0,sell USD,min price,
+2015-11-18,200,sell USD,no min price,200.0
+2015-11-18,0,sell USD,min price,
+2015-11-19,0,sell USD,min price,
+2015-11-19,200,sell USD,no min price,200.0
+2015-11-20,200,sell USD,no min price,200.0
+2015-11-20,0,sell USD,min price,
+2015-11-23,0,sell USD,min price,
+2015-11-24,0,sell USD,min price,
+2015-11-25,0,sell USD,min price,
+2015-11-26,0,sell USD,min price,
+2015-11-27,0,sell USD,min price,
+2015-11-30,0,sell USD,min price,
+2015-12-01,0,sell USD,min price,
+2015-12-02,0,sell USD,min price,
+2015-12-03,0,sell USD,min price,
+2015-12-04,0,sell USD,min price,
+2015-12-07,200,sell USD,min price,200.0
+2015-12-08,0,sell USD,min price,
+2015-12-09,0,sell USD,min price,
+2015-12-10,200,sell USD,min price,200.0
+2015-12-11,200,sell USD,min price,200.0
+2015-12-14,0,sell USD,min price,
+2015-12-15,0,sell USD,min price,
+2015-12-16,0,sell USD,min price,
+2015-12-17,0,sell USD,min price,
+2015-12-18,0,sell USD,min price,
+2015-12-21,110,sell USD,min price,110.0
+2015-12-22,0,sell USD,min price,
+2015-12-23,0,sell USD,min price,
+2015-12-24,0,sell USD,min price,
+2015-12-28,0,sell USD,min price,
+2015-12-29,0,sell USD,min price,
+2015-12-30,6,sell USD,min price,6.0
+2015-12-31,0,sell USD,min price,
+2016-01-04,0,sell USD,min price,
+2016-01-05,0,sell USD,min price,
+2016-01-06,200,sell USD,min price,200.0
+2016-01-07,200,sell USD,min price,200.0
+2016-01-08,200,sell USD,min price,200.0
+2016-01-11,0,sell USD,min price,
+2016-01-12,0,sell USD,min price,
+2016-01-13,0,sell USD,min price,
+2016-01-14,0,sell USD,min price,
+2016-01-15,200,sell USD,min price,200.0
+2016-01-18,0,sell USD,min price,
+2016-01-19,0,sell USD,min price,
+2016-01-20,200,sell USD,min price,200.0
+2016-01-21,0,sell USD,min price,
+2016-01-22,0,sell USD,min price,
+2016-01-25,200,sell USD,min price,200.0
+2016-01-26,0,sell USD,min price,
+2016-01-27,0,sell USD,min price,
+2016-01-28,0,sell USD,min price,
+2016-01-29,0,sell USD,min price,
+2016-02-02,200,sell USD,min price,200.0
+2016-02-03,0,sell USD,min price,
+2016-02-04,0,sell USD,min price,
+2016-02-05,200,sell USD,min price,200.0
+2016-02-08,200,sell USD,min price,200.0
+2016-02-09,0,sell USD,min price,
+2016-02-10,0,sell USD,min price,
+2016-02-11,200,sell USD,min price,200.0
+2016-02-12,0,sell USD,min price,
+2016-02-15,0,sell USD,min price,
+2016-02-16,0,sell USD,min price,
+2016-02-17,0,sell USD,min price,
