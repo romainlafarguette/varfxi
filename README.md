@@ -17,8 +17,7 @@ The folder is organized as follows:
 - data/ contains public data files, with FX rate and FX interventions from Banco Mexico website
 - img/ contains some images to illustrate the Jupyter Notebook
 
-**Reuse of this  tool and  IMF data  does not  imply any  endorsement of  the
-research  and/or product.  Any research  presented should  not be  reported as
+**Reuse of this  tool and  IMF data  does not  imply any  endorsement of  the research  and/or product.  Any research  presented should  not be  reported as
 representing  the   views  of  the   IMF,  its  Executive  Board,   or  member
 governments.**
 
