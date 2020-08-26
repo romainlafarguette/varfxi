@@ -1,7 +1,9 @@
 VaR-Rule for FX Interventions
 ================================
 
-This Python notebook replicates the tables and the charts of the IMF WP on
+Link to the Python notebook: https://github.com/romainlafarguette/VaR-FX-Interventions/blob/master/VaR-FX%20Interventions.ipynb
+
+The Python notebook replicates the tables and the charts of the IMF WP on
 "Foreign Exchange Interventions Rules for Central Banks: A Risk-Based Framework"
 
 The paper uses  a Python package  that I have  written, DistGARCH, also  available in
