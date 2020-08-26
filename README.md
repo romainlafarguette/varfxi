@@ -2,9 +2,9 @@ VaR-Rule for FX Interventions
 ================================
 
 This Python notebook replicates the tables and the charts of the IMF WP on
-VaR-Rule for Foreign Exchange Interventions.
+"Foreign Exchange Interventions Rules for Central Banks: A Risk-Based Framework"
 
-It uses  a Python package  that I have  written, DistGARCH, also  available in
+The paper uses  a Python package  that I have  written, DistGARCH, also  available in
 this  Github folder,  with  the public  FX intervention  data  from the  Banco
 Mexico. DistGARCH is based on the ARCH package of Kevin Sheppard.
 
