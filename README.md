@@ -9,7 +9,7 @@ this  Github folder,  with  the public  FX intervention  data  from the  Banco
 Mexico. DistGARCH is based on the ARCH package of Kevin Sheppard.
 
 You can use the code for non-commercial applications, providing that you cite the IMF Working Paper
-Lafarguette, R. and Veyrune, R. (2020) VaR-Rule for FX Interventions, IMF Working Paper no 20XX
+Lafarguette, R. and Veyrune, R. (2020) "Foreign Exchange Interventions Rules for Central Banks: A Risk-Based Framework", IMF Working Paper
 
 The folder is organized as follows:
 - VaR-FX Interventions.ipynb replicates the results of the paper
