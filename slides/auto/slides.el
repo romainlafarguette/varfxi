@@ -5,7 +5,7 @@
                      '(("babel" "english") ("inputenc" "utf8") ("fontenc" "T1") ("caption" "font=scriptsize" "labelfont=scriptsize" "labelfont={color=imfblue}")))
    (TeX-run-style-hooks
     "latex2e"
-    "../output/regressions_table"
+    "../output/regressions_table_short"
     "beamer"
     "beamer10"
     "babel"
