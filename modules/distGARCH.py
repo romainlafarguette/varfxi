@@ -4,7 +4,7 @@ Distributional GARCH package
 Wrapper around the excellent ARCH package by K.Sheppard 
 https://arch.readthedocs.io/
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-09-12 22:31:15 Romain"
+Time-stamp: "2020-09-12 22:44:40 Romain"
 """
 
 ###############################################################################
@@ -40,8 +40,6 @@ import seaborn as sns                                   # Graphical package
 # Local modules
 import joyplot2; importlib.reload(joyplot2)
 from joyplot2 import joyplot2
-
-sns.set(style='white', font_scale=2, palette='deep', font='Arial')
 
 ###############################################################################
 #%% Ancillary functions
@@ -207,8 +205,7 @@ class DistGARCH(object):
                          title_density = 'Historical distribution of returns',
                          y_label_returns = 'pips',
                          y_label_level = 'FX rate',
-                         xticks_freq=None, 
-                         font_scale=2):
+                         xticks_freq=None):
         """ 
         Descriptive plot: returns and level, with distribution
 
@@ -222,11 +219,6 @@ class DistGARCH(object):
             data = self.df.loc[start_date:, :].copy()
         else:
             data = self.df.copy()
-
-            
-        # Fix the style    
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
             
         # Prepare the plots
         if self.level:
@@ -497,7 +489,6 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
                          start_date=None, 
                          title='In sample conditional volatility',
                          ylabel='Conditional volatility',
-                         font_scale=2,
                          xticks_freq=None):
         
         """ 
@@ -516,11 +507,7 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
 
         if start_date:
             cv = cv.loc[start_date:].copy()
-                
-        # Prepare the plot and fix the style
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
-        
+                        
         fig, ax1 = plt.subplots(1,1)
 
         ax1.plot(cv.index, cv, lw=3)
@@ -546,8 +533,7 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
                         title='Shocks & conditional volatility',
                         subtitle='With polynomial fit & intervention thresholds',
                         x_range=None, 
-                        range_share=0.05, 
-                        font_scale=2):
+                        range_share=0.05):
 
         """ 
         Scatter Plot of Conditional Volatility & Innovations 
@@ -591,11 +577,7 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
             
         y_fit = np.polyval(params, x_support)
            
-        #### Plots
-        # Prepare the plot and fix the style
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
-        
+        #### Plots        
         # Prepare the plot
         fig, ax = plt.subplots(1,1)
 
@@ -888,17 +870,13 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
                                title_vol='Out-of-sample conditional volatility', 
                                ylabel_mean='',
                                ylabel_vol='',
-                               font_scale=2,
                                xticks_freq=None, 
                                hspace=0.3):
         """ 
         Plot the conditional mean and volatility over forecasted periods
         """
 
-        # Prepare the plot and fix the parameters        
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
-        
+        # Prepare the plot and fix the parameters                
         fig, (ax1, ax2) = plt.subplots(2, 1)
 
         # Conditional mean
@@ -931,8 +909,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
     # Conditional Quantiles
     def plot_out_condquant(self, quantile=0.05,
                            ylabel='',
-                           title='Out-of-sample conditional VaR at 5%',
-                           font_scale=2):
+                           title='Out-of-sample conditional VaR at 5%'):
         """ 
         Plot the conditional value at risk (quantile) over forecasted periods
 
@@ -940,10 +917,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
             Tuple to limit the plots
 
         """
-        # Prepare the plot and fix the style
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
-        
+        # Prepare the plot        
         fig = plt.figure()        
         self.dfor[f'cond_quant_{quantile:g}'].plot(lw=3, legend=None)
         plt.xlabel('')
@@ -957,8 +931,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
                     label_drop=3,
                     colormap=cm.autumn_r,
                     xlabel='',
-                    xlimits_t=None,
-                    font_scale=2):
+                    xlimits_t=None):
         """ 
         Plot a forecasted joyplot (multiple densities plotted over time) 
 
@@ -1012,10 +985,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
             dall = dall.loc[dall['value'] <= xlimits_t[1], :].copy()
 
 
-        # Prepare the plot and fix the style
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
-
+        # Prepare the plot
         fig, axes = joyplot2(dall, by="fdate", column="value",
                              range_style='own',
                              labels=labels_l, figsize=(12,10),
@@ -1032,7 +1002,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
     def plot_pdf_rule(self, fdate=None, q_low=0.05, q_high=0.95,
                       title=None, 
                       xlabel='bps', ylabel='density',
-                      sample_lim=0.1, font_scale=2, ax=None):
+                      sample_lim=0.1, ax=None):
         """ 
         Summary chart of FX intervention rule
 
@@ -1080,10 +1050,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
         y_mode = rv.pdf(x_mode)
 
         
-        # Prepare the plot and fix the style
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
-        
+        # Prepare the plot        
         fig, ax = plt.subplots(1,1)
         ax.plot(support, pdf, lw=3)
 
@@ -1146,7 +1113,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
                             swap_color=None, 
                             y1_label='',
                             y2_label='',
-                            font_scale=2, size=100):
+                            size=100):
         
         """ 
         Plot the VaR Exceedance 
@@ -1168,10 +1135,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
         # Subselect the frame and plot it
         dvs = dv.loc[self.start_date:, :].copy()
 
-        # Prepare the plot and fix the style
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
-
+        # Prepare the plot
         if self.level:
             fig, (ax1, ax2) = plt.subplots(2,1)
         else:
@@ -1220,7 +1184,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
                               swap_color=None, 
                               y1_label='',
                               y2_label='',
-                              font_scale=2, size=100, hspace=0.3):
+                              size=100, hspace=0.3):
         
         """ 
         Plot the Fixed Thresholds Exceedance 
@@ -1236,11 +1200,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
         # Subselect the frame and plot it
         dvs = dv.loc[self.start_date:, :].copy()
 
-        # Prepare the plot and fix the style
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
-
-
+        # Prepare the plot
         fig, (ax1, ax2) = plt.subplots(2,1)
 
         x = np.arange(len(dvs.index))
@@ -1289,7 +1249,6 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
                              thresholds_t=None, 
                              swap_color=None,
                              size=100, 
-                             font_scale=2,
                              xticks_freq=None):
 
         """ 
@@ -1336,10 +1295,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
             da = dclose.loc[dclose['FXI']=='Above', :].copy()
             db = dclose.loc[dclose['FXI']=='Below', :].copy()
             
-        # Prepare the plot and fix the style
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
-
+        # Prepare the plot
         fig, ax = plt.subplots()
         ax.plot(dclose.index, dclose['Quantile'], lw=3)
 
@@ -1396,8 +1352,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
                  xlabel='Quantiles',
                  ylabel='Cumulative probability',
                  title=('Out-of-sample conditional density:'
-                        ' Probability Integral Transform (PIT) test'),
-                 font_scale=2):
+                        ' Probability Integral Transform (PIT) test')):
         
         # Data work (note that the pit are computed by default)
         support = np.arange(0,1, 0.01)
@@ -1417,10 +1372,6 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
         ci_l = [x-1.34*len(pits)**(-0.5) for x in support]
 
         #new_title = (f'{title} \n Kolmogorov-Smirnov Test of Uniformity')
-
-        # Fix the style
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
         
         # Prepare the plots
         fig, ax = plt.subplots(1)
@@ -1444,7 +1395,6 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
     def plot_fan_chart(self,
                        title=None,
                        ylabel='',
-                       font_scale=3.5,
                        xticks_freq=None):
         """ 
         Plot a fan chart of the conditional density
@@ -1464,10 +1414,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
         dfc.columns = [x.replace('cond_quant_', '') for x in dfc.columns]
 
 
-        # Prepare the plot and fix the style
-        sns.set(style='white', font_scale=font_scale,
-                palette='deep', font='Arial')
-
+        # Prepare the plot
         fig, ax = plt.subplots(1, 1)
         
         # Plot each quantile values
