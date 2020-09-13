@@ -4,7 +4,7 @@ Distributional GARCH package
 Wrapper around the excellent ARCH package by K.Sheppard 
 https://arch.readthedocs.io/
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-09-12 22:44:40 Romain"
+Time-stamp: "2020-09-13 01:26:39 Romain"
 """
 
 ###############################################################################
@@ -1345,7 +1345,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
         ax.tick_params(axis='x', rotation=45, pad=20)
         plt.ylim(0,100)
 
-        plt.show()
+        return(fig)
 
     # Plot the probability integral transform test
     def pit_plot(self,
