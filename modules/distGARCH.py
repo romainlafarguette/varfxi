@@ -4,7 +4,7 @@ Distributional GARCH package
 Wrapper around the excellent ARCH package by K.Sheppard 
 https://arch.readthedocs.io/
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-09-12 22:13:19 Romain"
+Time-stamp: "2020-09-12 22:31:15 Romain"
 """
 
 ###############################################################################
@@ -398,9 +398,9 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
 
     # Public methods: summary table
     def summary_table(self, model_name='GARCH model', var_d=None,
-                      round_param=2, pval=True):
+                      round_param=2,
+                      print_pval=True):
         """
-
         Inputs
         ------
 
@@ -419,10 +419,16 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
         
         # Preparation of the table
         st = 'Significance *10%, **5%, ***1%'
-        var_l = list(self.res.params.index) + ['R2', 'R2 adjusted',
-                                               'Number of observations', 
-                                               'Pvalue in parenthesis',
-                                               st]
+        if print_pval==True:
+            var_l = list(self.res.params.index) + ['R2', 'R2 adjusted',
+                                                   'Number of observations', 
+                                                   'Pvalue in parenthesis',
+                                                   st]
+        else:
+            var_l = list(self.res.params.index) + ['R2', 'R2 adjusted',
+                                                   'Number of observations', 
+                                                   st]
+
 
         summary_table = pd.DataFrame(index=var_l, columns=[model_name])
 
@@ -440,10 +446,10 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
             else:
                 stars=''
 
-            if pval==True:    
+            if print_pval==True:    
                 txt = (f'{str(round(param, round_param)) + str(stars)}'
                        f'({str(round(pval, round_param))})')
-            elif pval==False:
+            elif print_pval==False:
                 txt = (f"{str(round(param, round_param)) + str(stars)}")
             else:
                 raise ValueError('pval parameter misspecified')
@@ -460,13 +466,6 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
         # Add extra information               
         summary_table.loc['Number of observations', model_name] = nobs
                        
-        if pval==True:
-            summary_table.loc['Pvalue in parenthesis', model_name] = ''
-        else:
-            pass
-        
-        summary_table.loc[st, model_name] = ''
-
         # Customization of variables names, if needed
         rename_d = {'Const':'Intercept',
                     'alpha[1]':'Alpha',
@@ -482,7 +481,6 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
         summary_table = summary_table.rename(rename_d, axis='index')
         summary_table_nna = summary_table.fillna('').copy()
 
-        
         return(summary_table_nna)
     
     # Public methods: Plots
