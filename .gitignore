@@ -8,10 +8,11 @@ slides/auto/
 # Ignore some extensions
 *.aux
 *.log
-*.pdf
+*.nav
+*.toc
 
 # Ignore some files
-.gitignore
+
 
 
 
