@@ -1,4 +1,4 @@
-% Time-stamp: <2020-09-12 23:00:26 Romain>
+% Time-stamp: <2020-09-13 01:21:19 Romain>
 % Beamer template for the Macro Stress-Testing Article
 % August 2020
 % Contact: Romain Lafarguette, rlafarguette@imf.org
@@ -56,18 +56,17 @@
 \newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{30pt}}{\enditemize}
 \newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{30pt}}{\endenumerate}
 
-% Define the footer
-\makeatother
-\setbeamertemplate{footline}[page number]
-\newcommand{\myframe}[1]{%
-    \begin{frame}
-        \begin{center}
-            \Large #1 slide \insertframenumber/\inserttotalframenumber\\
-            Page number \thepage/\inserttotalframenumber
-        \end{center}
-    \end{frame}
+% Define the footer with higher/lower adjustment
+\defbeamertemplate{footline}{higher page number}
+{
+  \hfill
+  \usebeamercolor[fg]{page number in head/foot}
+  \usebeamerfont{page number in head/foot}  
+  \thepage/\inserttotalframenumber\kern1em\vskip2pt %Change xxpt to
+                                %lower/higher the footnote
 }
-\makeatletter
+\setbeamertemplate{footline}[higher page number]
+
 
 % Remove navigation symbols and other superfluous elements
 \setbeamertemplate{navigation symbols}{}
@@ -86,7 +85,7 @@
 \title[]{FX Interventions Rules for Central Banks\\
 A Risk-Based Framework}
 \author[]{Romain Lafarguette \and Romain Veyrune}
-\institute[]{MCM Central Bank Operations Division}
+\institute[]{IMF Monetary and Capital Markets Department \\ Central Bank Operations Division}
 
 \date[]{\scriptsize September 16, 2020 \\ \vspace{0.5cm} \scriptsize{\textit{The views
       expressed in this presentation do not necessarily represent the views of
@@ -117,18 +116,54 @@ A Risk-Based Framework}
 \begingroup
 \renewcommand{\insertframenumber}{}
 \begin{frame}
-  \addtocounter{framenumber}{-1}
+  %\addtocounter{framenumber}{-1}
 \maketitle
 \end{frame}
 \endgroup
 
 
 %% ---------------------------------------------------------------------------
-%% Key Messages
+%% Framework
 %% ---------------------------------------------------------------------------
-\section{Key messages}
-\begin{frame}{Key Messages}
+\section{Framework}
 
+\begin{frame}{Contributions}
+
+  \begin{largeitemize}
+    \item Design a rule for central banks that intervene to prevent \textbf{disorderly
+        market conditions}
+    \item Provides guidance on \textbf{when} to intervene ("triggers")
+    \item Appropriate for \textbf{floating exchange rate regimes} with FX
+      risks to the economy (e.g. FX unhedged exposures)
+    \item Consistenty control \textbf{FX risk} rather than arbitrary FX volatility/level threshold
+    \item A \textbf{risk management framework} for central banks' financial
+      stability mandate: aligned with \textbf{industry's best practices} in FX management
+  \end{largeitemize}
+  
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{\color{red}{What the rule is NOT about}}
+  \begin{alertblock}{}
+    \begin{largeitemize}
+    \item Not designed to reach or to preserve a given FX level
+      (e.g. the \textbf{equilibrium exchange rate level})
+    \item Doesn't prevent \textbf{appreciation/depreciation trends} to occur...
+    \item ... but can be compatible with other approaches, e.g. discretionary FXI
+    \item We \textbf{don't discuss the efficiency} of FX interventions from a
+      welfare/macro point of view
+    \item Not a guide to calibrate \textbf{FX interventions amount}
+    \item Not a guide for the optimal \textbf{currency allocation} of FX reserves
+    \end{largeitemize}
+    
+  \end{alertblock}
+  
+\end{frame}
+
+
+
+\begin{frame}{Key Messages}
   Foreign Exchange intervention rules should\\
   \medskip
   
@@ -143,8 +178,12 @@ A Risk-Based Framework}
   \end{largeitemize}
 
 \medskip  
-We propose an FX intervention rule based on \textbf{Conditional Value at Risk}
-  
+We propose an FX intervention rule based on \textbf{Conditional Value-at-Risk}  
+\end{frame}
+
+\begin{frame}
+  \frametitle{VaR FXI Rule}
+    \makebox[\linewidth]{\includegraphics[width=\paperwidth]{var_rule.pdf}}
 \end{frame}
 
 
@@ -152,6 +191,12 @@ We propose an FX intervention rule based on \textbf{Conditional Value at Risk}
 %% Model
 %% ---------------------------------------------------------------------------
 \section{Model}
+
+\begin{frame}{Specification}
+
+ \end{frame}
+
+
 \begin{frame}{Regression Table}
 \setlength\tabcolsep{2pt}  % default value: 6pt
 \tiny  %%  command to change the font size
@@ -164,27 +209,81 @@ We propose an FX intervention rule based on \textbf{Conditional Value at Risk}
 %% In-sample dynamics
 %% ---------------------------------------------------------------------------
 \section{In-sample dynamics}
-\begin{frame}[plain]
+\begin{frame}
 \frametitle{Dynamics of the Mexican Peso against USD}
     \makebox[\linewidth]{\includegraphics[width=\paperwidth]{descriptive_plot.pdf}}
 \end{frame}
 
 
-\begin{frame}[plain]
+\begin{frame}
 \frametitle{Conditional In-Sample Volatility of the Mexican Peso}
     \makebox[\linewidth]{\includegraphics[width=\paperwidth]{conditional_vol_plot.pdf}}
 \end{frame}
 
-
 %% ---------------------------------------------------------------------------
 %% Forecasting
 %% ---------------------------------------------------------------------------
-\begin{frame}[plain]
-\frametitle{Conditional Distribution of the Mexican Peso over Time}
-    \makebox[\linewidth]{\includegraphics[width=\paperwidth]{joyplot.pdf}}
+\section{Forecasting}
+\begin{frame}
+ %\frametitle{Conditional Distributions}
+\makebox[\linewidth]{\includegraphics[width=\paperwidth, height=\paperheight]{joyplot.pdf}}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Fan Chart}
+\makebox[\linewidth]{\includegraphics[width=0.95\paperwidth]{fanchart.pdf}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{VaR FXI Rule}
+    \makebox[\linewidth]{\includegraphics[width=\paperwidth]{var_rule.pdf}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conditional Cumulative Distribution Function}
+    \makebox[\linewidth]{\includegraphics[width=\paperwidth]{conditional_cdf.pdf}}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Conditional Exceedance}
+    \makebox[\linewidth]{\includegraphics[width=\paperwidth]{conditional_exceedance.pdf}}
 \end{frame}
 
 
+\begin{frame}
+  \frametitle{Density Evaluation}
+    \makebox[\linewidth]{\includegraphics[width=\paperwidth]{pitchart.pdf}}
+\end{frame}
+
+
+%% ---------------------------------------------------------------------------
+%% Benchmarking
+%% ---------------------------------------------------------------------------
+\section{Benchmarking}
+
+
+\begin{frame}
+  \frametitle{Rule-Based Benchmarking: Historical Interventions}
+    \makebox[\linewidth]{\includegraphics[width=\paperwidth]{benchmark_minprice.pdf}}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Rule-Based Benchmarking: Risk-Level}
+    \makebox[\linewidth]{\includegraphics[width=\paperwidth]{benchmark_minprice_cdf.pdf}}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Discretion-Based Benchmarking: Historical Interventions}
+    \makebox[\linewidth]{\includegraphics[width=\paperwidth]{benchmark_no_minprice.pdf}}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Discretion-Based Benchmarking: Risk-Level}
+    \makebox[\linewidth]{\includegraphics[width=\paperwidth]{benchmark_no_minprice_cdf.pdf}}
+\end{frame}
 
 
 
