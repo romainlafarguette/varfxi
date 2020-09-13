@@ -4,7 +4,7 @@ Distributional GARCH package
 Wrapper around the excellent ARCH package by K.Sheppard 
 https://arch.readthedocs.io/
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-08-13 23:57:33 Romain"
+Time-stamp: "2020-09-12 22:13:19 Romain"
 """
 
 ###############################################################################
@@ -398,7 +398,7 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
 
     # Public methods: summary table
     def summary_table(self, model_name='GARCH model', var_d=None,
-                      round_param=3):
+                      round_param=2, pval=True):
         """
 
         Inputs
@@ -418,7 +418,7 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
         
         
         # Preparation of the table
-        st = 'Significance thresholds: *10%, **5%, ***1%'
+        st = 'Significance *10%, **5%, ***1%'
         var_l = list(self.res.params.index) + ['R2', 'R2 adjusted',
                                                'Number of observations', 
                                                'Pvalue in parenthesis',
@@ -440,9 +440,14 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
             else:
                 stars=''
 
-            txt = (f"{str(round(param, round_param)) + str(stars)} \n "
-                   f"({str(round(pval,3))})")
-
+            if pval==True:    
+                txt = (f'{str(round(param, round_param)) + str(stars)}'
+                       f'({str(round(pval, round_param))})')
+            elif pval==False:
+                txt = (f"{str(round(param, round_param)) + str(stars)}")
+            else:
+                raise ValueError('pval parameter misspecified')
+            
             summary_table.loc[variable, model_name] = txt
 
         # Add the R2
@@ -451,8 +456,15 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
         r2_adj = f'{round(100*self.res.rsquared_adj,1)} %'
         summary_table.loc['R2', model_name] = r2
         summary_table.loc['R2 adjusted', model_name] = r2_adj
-        summary_table.loc['Number of observations', model_name] = nobs        
-        summary_table.loc['Pvalue in parenthesis', model_name] = ''
+
+        # Add extra information               
+        summary_table.loc['Number of observations', model_name] = nobs
+                       
+        if pval==True:
+            summary_table.loc['Pvalue in parenthesis', model_name] = ''
+        else:
+            pass
+        
         summary_table.loc[st, model_name] = ''
 
         # Customization of variables names, if needed
@@ -468,8 +480,10 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
             rename_d.update(var_d)
 
         summary_table = summary_table.rename(rename_d, axis='index')
+        summary_table_nna = summary_table.fillna('').copy()
 
-        return(summary_table)
+        
+        return(summary_table_nna)
     
     # Public methods: Plots
     def summary_fit_plot(self):
