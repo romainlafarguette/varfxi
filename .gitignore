@@ -3,16 +3,17 @@
 # Ignore some folders
 __pycache__/
 .ipynb_checkpoints/
-slides/auto/
+latex/auto/
 
 # Ignore some extensions
 *.aux
 *.log
 *.nav
+*.snm
 *.toc
 
 # Ignore some files
-
+latex/slides
 
 
 
