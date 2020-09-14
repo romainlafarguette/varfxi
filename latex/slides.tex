@@ -1,4 +1,4 @@
-% Time-stamp: <2020-09-14 09:47:02 Romain>
+% Time-stamp: <2020-09-14 13:15:17 Romain>
 % Beamer template for the Macro Stress-Testing Article
 % August 2020
 % Contact: Romain Lafarguette, rlafarguette@imf.org
@@ -87,9 +87,10 @@ A Risk-Based Framework}
 \author[]{Romain Lafarguette \and Romain Veyrune}
 \institute[]{IMF Monetary and Capital Markets Department \\ Central Bank Operations Division}
 
-\date[]{\scriptsize September 16, 2020 \\ \vspace{0.5cm} \scriptsize{\textit{The views
+\date[]{\scriptsize September 2020 \\ \vspace{0.5cm} \scriptsize{\textit{The views
       expressed in this presentation do not necessarily represent the views of
-      the IMF, its Executive Board, or IMF management.}} \vspace{-0.3cm}}
+      the IMF, its Executive Board, or IMF management\\  \vspace{0.2cm} We thank IMF
+      colleagues for their feedback on the IMF WP draft}} \vspace{-0.7cm}}
 
 \titlegraphic{
     \begin{figure}
@@ -127,21 +128,20 @@ A Risk-Based Framework}
 %% ---------------------------------------------------------------------------
 \section{Framework}
 
-\begin{frame}{Contributions}
-
+\begin{frame}
+  \frametitle{Contributions}
   \begin{largeitemize}
-    \item Design a rule for central banks that intervene to prevent \textbf{disorderly
+    \item Design a rule for central banks to prevent \textbf{FX tail risks and disorderly
         market conditions}
     \item Provides guidance on \textbf{when} to intervene ("triggers")
     \item Appropriate for \textbf{floating exchange rate regimes} with FX
-      risks to the economy (e.g. FX unhedged exposures)
-    \item Consistenty control \textbf{FX risk} rather than arbitrary FX volatility/level threshold
+      macrofinancial risks (e.g. FX unhedged exposures,
+      dollarization, etc.)
+    \item Consistently target \textbf{FX risk} rather than arbitrary FX volatility/level threshold
     \item A \textbf{risk management framework} for central banks' financial
-      stability mandate: aligned with \textbf{industry's best practices} in FX management
-  \end{largeitemize}
-  
+      stability mandate: aligned with \textbf{industry's best practices} in risk management
+  \end{largeitemize}  
 \end{frame}
-
 
 \begin{frame}
   \frametitle{\color{red}{What the rule is NOT about}}
@@ -156,84 +156,110 @@ A Risk-Based Framework}
     \item Not a guide to calibrate \textbf{FX interventions amount}
     \item Not a guide for the optimal \textbf{currency allocation} of FX reserves
     \end{largeitemize}    
-  \end{alertblock}
-  
+  \end{alertblock}  
 \end{frame}
 
-
-
-\begin{frame}{Key Messages}
-  Foreign Exchange intervention rules should\\
-  \medskip
-  
+\begin{frame}
+  \frametitle{Key Messages}
+  Foreign Exchange intervention rules should be:\\
+  \medskip  
   \begin{largeitemize}
-  \item Depend on market conditions
-  \item Objective, be anchored to a risk tolerance level
+  \item \textbf{Adaptative}, depend on market conditions
+  \item \textbf{Objective}, anchored to a risk tolerance level
     rather than an aribtrary FX level threshold
-  \item Capture FX non-linearities and asymmetries between appreciation and
+  \item Capture FX \textbf{non-linearities and asymmetries} between appreciation and
     depreciation
-  \item Be easily operationalizable\\
+  \item Be easily \textbf{operationalizable}, and \textbf{financially viable}\\
   \end{largeitemize}
-
 \medskip  
 We propose an FX intervention rule based on \textbf{Conditional Value-at-Risk}  
 \end{frame}
 
-
-\begin{frame}{Concept: Value-at-Risk Rule}
-
+\begin{frame}
+  \frametitle{Concept: Value-at-Risk FXI Rule}
   \begin{largeitemize}
     \item Rather than using a fixed volatility rule (e.g. intervene if daily
       exchange rate varies by more than 2\%)
-    \item Use a \textbf{risk-based rule}: intervene when the daily exchange rate log-returns are in the
+    \item Use a \textbf{risk-based rule}: intervene when the daily exchange
+      rate log-returns fall within the
       tails of the conditional distribution
     \item Measure the tail-risk via the concept of \textbf{Value-at-Risk} (the
       conditional quantile of the log returns distribution) 
     \item The conditional distribution is estimated daily with a standard
-      financial GARCH model and varies with market conditions
+      financial GARCH model and \textbf{varies with market conditions}
     \item The central bank decides on the \textbf{risk tolerance}:
       e.g. intervene in the tail at 1\%, 5\%, 10\%, etc.
   \end{largeitemize}
 \end{frame}
-
 
 \begin{frame}
   \frametitle{VaR FXI Rule}
     \makebox[\linewidth]{\includegraphics[width=\paperwidth]{var_rule.pdf}}
 \end{frame}
 
-
-\begin{frame}{A Risk-Management Approach to FX Interventions}
+\begin{frame}
+  \frametitle{A Risk-Management Approach to FX Interventions}
   \begin{largeitemize}
-    \item Hedging tail-risks might not be available:
-      incomplete markets
-    \item However, the central bank doesn't substitute to the market to
-      provide hedge instruments in general
-    \item This rule allows flexible exchange rate to act as a shock absorber:
-      provides more flexibility in crisis time
-    \item The central bank risk tolerance should be fixed in accordance with the
-      macrofinancial risk in the economy (unhedged exposures from resident agents, degree of
-      dollarization, etc.) as well as market resilience
+    \item Tail-risks hedge not always available: \textbf{incomplete markets}
+    \item Provide a \textbf{public good} to address market failure. Leave the market
+      to hedge non-tail risks
+    \item \textbf{The central bank is transferring FX risk from the market to
+      its balance sheet}. It buys a risky asset (FX) and issues a risk-free asset
+      (local currency)
+    \item Risk tolerance should depend on the \textbf{macrofinancial risk} (FX
+      unhedged exposures from residents, dollarization, etc.) and \textbf{market resilience}
     \item The financial stability mandate of the central bank is properly
-      formalized and quantified via VaR metric. Aligned with industries' practice in risk management.
-  \end{largeitemize}
-  
+      formalized and quantified via VaR metric.
+  \end{largeitemize}  
 \end{frame}
 
-
-\begin{frame}{Features}
+\begin{frame}
+    \frametitle{Main Features}
   \begin{largeenumerate}
-    \item 
-    
-    \item This rule guarantees that the interventions will occur with a \textbf{fixed
-        frequency} over the medium term
-    \item 
-  \end{largeenumerate}
-  
+  \item This rule allows flexible exchange rate to act as a \textbf{shock absorber}:
+    provides more flexibility in crisis time.
+  \item Doesn't provide a free insurance to the market: avoid \textbf{moral
+      hazard} and support the \textbf{development of hedging market}
+  \item Adaptative rule prevent \textbf{market manipulation and windfall effects}
+  \item This rule guarantees that the interventions will occur with a \textbf{fixed
+        frequency} over the medium term => \textbf{budget neutrality} with
+      symmetric risk preference
+  \item \textbf{Financially optimized}: always buy/sell at the best price
+  \end{largeenumerate}  
 \end{frame}
 
 
+\begin{frame}
+  \frametitle{Operational Implementation}
+  \begin{largeitemize}
+  \item \textbf{Standard data requirements}, easily accessible for a central
+    bank, can be customized
+  \item Parsimonious GARCH model featuring \textbf{embedded heteroskedasticity},  \textbf{asymmetries}
+    (appreciation/depreciation), \textbf{non-linearities} and \textbf{density forecasting}    
+  \item We created a Python package, free and open-source: estimation, forecasting,
+    out-of-sample evaluation, benchmarking, etc. 
+  \item Can be readily used by central banks and deployed during TA missions
+  \end{largeitemize}
+\end{frame}
 
+\begin{frame}
+  \frametitle{Usages}    
+  \begin{largeenumerate}
+    \item Determine FX Intervention triggers
+    \item Conduct market monitoring and provide policy guidance
+    \item Benchmark FX interventions, including discretionary interventions
+    \end{largeenumerate}
+    
+    \bigskip
+    
+  \begin{largeitemize}
+    \item We present below an application of the toolkit to the Mexican Peso, based on publicly
+      available data
+    \item More than 4500 daily observations, from 2009 to 2018, with Bank of
+      Mexico (public) FX interventions, mostly concentrated in 2009 and 2016
+    \end{largeitemize}
+    
+\end{frame}
 
 
 %% ---------------------------------------------------------------------------
@@ -241,44 +267,55 @@ We propose an FX intervention rule based on \textbf{Conditional Value-at-Risk}
 %% ---------------------------------------------------------------------------
 \section{Model}
 
-\begin{frame}{Specification}
-  
-Non-linear, Exponential GARCH (EGARCH) model to estimate the conditional
-VaR of exchange rate log-retrurns $r_t$, $Q(r_t| \Omega_{t-1}, \theta)$
-
-\bigskip
-
-\begin{largeitemize}
-\item[] \textbf{Drift AR-X(1):} $r_{t+1} = \text{Intercept} +
-  \rho r_t + \beta X_{t+1} + \epsilon_{t-1}$\\
-  
-\item[] \textbf{Exponential volatility:} $\log \sigma_{t+1}^{2} = \omega + \beta
+\begin{frame}
+  \frametitle{Specification}
+\begin{largeitemize}  
+\item Non-linear, Exponential GARCH (EGARCH) model 
+\item The dependent variable is the FX log-returns, $r_t = \log(\frac{e_t}{e_{t-1}})$, where
+$e_t$ is the bilateral market exchange rate against the major currency
+(e.g. USD)
+\item \textbf{Drift AR-X(1):} $r_{t+1} = \text{Intercept} +
+  \rho r_t + \beta X_{t+1} + \epsilon_{t-1}$\\  
+\item \textbf{Exponential volatility:} $\log \sigma_{t+1}^{2} = \omega + \beta
 g(r_t)$ where $g(r_t) = \alpha r_t + \gamma(|r_t|-\mathbb{E}|r_t|)$
 
-\item[] \textbf{Error term distribution} $\epsilon_t = \sigma_t \varepsilon_t,
+\item \textbf{Error term distribution} $\epsilon_t = \sigma_t \varepsilon_t,
   \ , \varepsilon_t \sim \text{TSK}(k,v)$\\
-\end{largeitemize}
-
-\bigskip
-
-\begin{largeitemize}
-  \item The GARCH estimation is standard and done with MLE; selection of parameters
-    is done via AIC/BIC criteria.
-  \item The Python package we designed allows to select the control variables, choose
-the lag, fit different distributions, etc.
+  
+\item The forecasted conditional probability distribution function is defined as:
+      \begin{equation*}
+        \hat{f}(r_{t+1} | r_{t}, X_{t+1}) = \text{TSK}(\hat{r}_{t+1}, \hat{\sigma}_{t+1}^{2})
+      \end{equation*}      
 \end{largeitemize}
 \end{frame}
 
-\begin{frame}{Exogeneous Factors}
+% Estimation
+\begin{frame}{Estimation}
+\begin{largeitemize}
+  \item The GARCH estimation is standard and done with MLE; selection of parameters
+    is done via AIC/BIC criteria.
+    
+  \item The Python package we designed allows to select:
 
+    \begin{itemize}
+    \item The exogeneous regressors
+    \item The lag
+    \item The volatility specification (exponential, RiskMetric, standard GARCH,
+      etc.)
+    \item The distribution family of the error-terms (Gaussian,
+    Student, Tskew, Generalized Gaussian)  
+      \end{itemize}    
+\end{largeitemize}
+\end{frame}
+
+\begin{frame}{Exogeneous Regressors}
   \begin{largeenumerate}
-  \item FX bid-ask spread (averaged over the day) => \textbf{FX microstructure}
-  \item Daily interest rate differential with the US Libor => \textbf{CIP}
-  \item The one-month forward exchange rate => \textbf{cost of hedging} on the spot
-    market
-  \item The lagged amount of central bank FX intervention => \textbf{policy interventions}
-  \item The VIX => \textbf{global risk sentiment}
-  \item The EURUSD exchange rate => control for \textbf{global FX factor}
+  \item[] \textbf{FX microstructure}: FX bid-ask spread (averaged over the day)
+  \item[] \textbf{CIP}: daily interest rate differential with the US Libor 
+  \item[] \textbf{Hedging costs}: one-month forward exchange rate =>  
+  \item[] \textbf{Past policy interventions}: lagged amount of central bank FX intervention 
+  \item[] \textbf{Global risk sentiment}: The VIX, implied volatility on the S\&P 500 
+  \item[] \textbf{Global FX factor}: The EURUSD exchange rate
   \end{largeenumerate}
  
 \end{frame}
@@ -291,18 +328,35 @@ the lag, fit different distributions, etc.
 \normalsize
 \end{frame}
 
+\begin{frame}{Formalization of the Intervention Rule}
+  \begin{largeitemize}
+    \item Consider the estimated conditional distribution of the exchange rate log
+      returns $r_t$ defined as
+      \begin{equation*}
+      \mathbb{P}[r_t \leq x] = \int_{-\infty}^{x}\hat{f}(r_t | r_{t-1}, X_t)
+      dr_t        
+      \end{equation*}
+    \item The Conditional Value-at-Risk at threshold $\tau$ is simply defined as
+      the conditional $\tau$-quantile
+      \begin{equation*}
+      Q(r_t, \tau) \equiv  \mathbb{P}[r_t
+      \leq Q(r_t, \tau)] = \tau, \ \text{for} \ \tau \in (0,1)
+      \end{equation*}        
+    \item The FXI intervention rule is a simple boolean rule, based on two
+      risk-thresholds ($\underline{\tau}, \overline{\tau}$), for depreciation
+      and appreciation, potentially risk-symmetric ($\overline{\tau} = 1 - \underline{\tau}$)
+      \begin{equation*}
+\mathbbm{1} \left[ \{r_t \leq \ Q(r_t, \underline{\tau})\} \cup \{r_t \geq \
+  Q(r_t, \overline{\tau})\} \right]
+      \end{equation*}                
+  \end{largeitemize}
+  
+\end{frame}
 
-
-
-%% ---------------------------------------------------------------------------
-%% In-sample dynamics
-%% ---------------------------------------------------------------------------
-\section{In-sample dynamics}
 \begin{frame}
 \frametitle{Dynamics of the Mexican Peso against USD}
     \makebox[\linewidth]{\includegraphics[width=\paperwidth]{descriptive_plot.pdf}}
 \end{frame}
-
 
 \begin{frame}
 \frametitle{Conditional In-Sample Volatility of the Mexican Peso}
@@ -313,8 +367,26 @@ the lag, fit different distributions, etc.
 %% Forecasting
 %% ---------------------------------------------------------------------------
 \section{Forecasting}
+
+\begin{frame}{Forecasting}
+
+  \begin{largeitemize}
+      \item Real-time forecasting based on market conditions
+    \item Estimate the GARCH and derive the forecasted drift and volatility
+    \item Infer the \textbf{full-fledged conditional distribution} of FX log returns for any point
+      in time
+    \item Assess model accuracy via (i) in-sample metrics and (ii) out of
+      sample performance (probability integral transform test)
+    \item The probability integral transform test assess on whether the random
+      variable defined as $PIT(R) \equiv F_{R}R \sim U(0,1)$, where
+      $R$ is the stochastic process of the FX log returns $r_t, \forall t \in
+      [0, T]$
+  \end{largeitemize}
+  
+\end{frame}
+
+
 \begin{frame}
- %\frametitle{Conditional Distributions}
 \makebox[\linewidth]{\includegraphics[width=\paperwidth, height=\paperheight]{joyplot.pdf}}
 \end{frame}
 
@@ -337,7 +409,6 @@ the lag, fit different distributions, etc.
   \frametitle{Conditional Exceedance}
     \makebox[\linewidth]{\includegraphics[width=\paperwidth]{conditional_exceedance.pdf}}
 \end{frame}
-
 
 \begin{frame}
   \frametitle{Density Evaluation}
