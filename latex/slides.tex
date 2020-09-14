@@ -1,4 +1,4 @@
-% Time-stamp: <2020-09-14 13:15:17 Romain>
+% Time-stamp: <2020-09-14 18:29:53 Romain>
 % Beamer template for the Macro Stress-Testing Article
 % August 2020
 % Contact: Romain Lafarguette, rlafarguette@imf.org
@@ -89,8 +89,7 @@ A Risk-Based Framework}
 
 \date[]{\scriptsize September 2020 \\ \vspace{0.5cm} \scriptsize{\textit{The views
       expressed in this presentation do not necessarily represent the views of
-      the IMF, its Executive Board, or IMF management\\  \vspace{0.2cm} We thank IMF
-      colleagues for their feedback on the IMF WP draft}} \vspace{-0.7cm}}
+      the IMF, its Executive Board, or IMF management} \vspace{-0.5cm}}}
 
 \titlegraphic{
     \begin{figure}
@@ -126,13 +125,13 @@ A Risk-Based Framework}
 %% ---------------------------------------------------------------------------
 %% Framework
 %% ---------------------------------------------------------------------------
-\section{Framework}
+\section{Conceptual Framework}
 
 \begin{frame}
   \frametitle{Contributions}
   \begin{largeitemize}
-    \item Design a rule for central banks to prevent \textbf{FX tail risks and disorderly
-        market conditions}
+    \item Design a  rule to \textbf{address tail-risks} related  to direct and indirect
+exposures to exchange rate in the economy
     \item Provides guidance on \textbf{when} to intervene ("triggers")
     \item Appropriate for \textbf{floating exchange rate regimes} with FX
       macrofinancial risks (e.g. FX unhedged exposures,
@@ -141,22 +140,6 @@ A Risk-Based Framework}
     \item A \textbf{risk management framework} for central banks' financial
       stability mandate: aligned with \textbf{industry's best practices} in risk management
   \end{largeitemize}  
-\end{frame}
-
-\begin{frame}
-  \frametitle{\color{red}{What the rule is NOT about}}
-  \begin{alertblock}{}
-    \begin{largeitemize}
-    \item Not designed to reach or to preserve a given FX level
-      (e.g. alignment with the \textbf{equilibrium exchange rate level})
-    \item Doesn't prevent \textbf{appreciation/depreciation trends} to occur...
-    \item ... but can be compatible with other approaches, e.g. discretionary FXI
-    \item We \textbf{don't discuss the efficiency} of FX interventions from a
-      welfare/macro point of view
-    \item Not a guide to calibrate \textbf{FX interventions amount}
-    \item Not a guide for the optimal \textbf{currency allocation} of FX reserves
-    \end{largeitemize}    
-  \end{alertblock}  
 \end{frame}
 
 \begin{frame}
@@ -199,17 +182,17 @@ We propose an FX intervention rule based on \textbf{Conditional Value-at-Risk}
 
 \begin{frame}
   \frametitle{A Risk-Management Approach to FX Interventions}
-  \begin{largeitemize}
-    \item Tail-risks hedge not always available: \textbf{incomplete markets}
-    \item Provide a \textbf{public good} to address market failure. Leave the market
-      to hedge non-tail risks
+  \begin{largeitemize}    
+  \item Tail-risks hedge not always available: \textbf{incomplete markets}
     \item \textbf{The central bank is transferring FX risk from the market to
       its balance sheet}. It buys a risky asset (FX) and issues a risk-free asset
-      (local currency)
+      (local currency)    
+    \item Provide a \textbf{public good} to address market failure. Leave a
+      fix share of risk for the market to hedge 
     \item Risk tolerance should depend on the \textbf{macrofinancial risk} (FX
-      unhedged exposures from residents, dollarization, etc.) and \textbf{market resilience}
+      unhedged exposures from residents, dollarization, etc.) 
     \item The financial stability mandate of the central bank is properly
-      formalized and quantified via VaR metric.
+      formalized and quantified via VaR metric
   \end{largeitemize}  
 \end{frame}
 
@@ -218,8 +201,10 @@ We propose an FX intervention rule based on \textbf{Conditional Value-at-Risk}
   \begin{largeenumerate}
   \item This rule allows flexible exchange rate to act as a \textbf{shock absorber}:
     provides more flexibility in crisis time.
+  \item No excessive interventions in crisis time which are often ineffective
+    and costly (exhaust central bank FX reserves)
   \item Doesn't provide a free insurance to the market: avoid \textbf{moral
-      hazard} and support the \textbf{development of hedging market}
+      hazard} and foster the \textbf{development of hedging market}
   \item Adaptative rule prevent \textbf{market manipulation and windfall effects}
   \item This rule guarantees that the interventions will occur with a \textbf{fixed
         frequency} over the medium term => \textbf{budget neutrality} with
@@ -235,10 +220,25 @@ We propose an FX intervention rule based on \textbf{Conditional Value-at-Risk}
   \item \textbf{Standard data requirements}, easily accessible for a central
     bank, can be customized
   \item Parsimonious GARCH model featuring \textbf{embedded heteroskedasticity},  \textbf{asymmetries}
-    (appreciation/depreciation), \textbf{non-linearities} and \textbf{density forecasting}    
-  \item We created a Python package, free and open-source: estimation, forecasting,
-    out-of-sample evaluation, benchmarking, etc. 
-  \item Can be readily used by central banks and deployed during TA missions
+    (appreciation/depreciation), \textbf{non-linearities} (exponential
+    volatility) and parametric \textbf{density forecasting}    
+  \item We created a Python wrapper, \textbf{free and open-source}: estimation, forecasting,
+    out-of-sample evaluation, benchmarking, etc. Results are \textbf{fully replicable}
+  \item Can be readily used by central banks and deployed during Technical Assistance missions
+  \end{largeitemize}
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Challenges}
+  \begin{largeitemize}
+      \item Some central banks might be reluctant to use a VaR-rule: more
+        difficult to communicate to the public
+      \item However, FXI occur on the wholesale FX market, where market
+        participants are fully aware of the VaR concept
+    \item Some policy markers might prefer to keep discretion
+    \item Trade-off: a transparent rule anchors better market expectations,
+      maximize efficiency and isolate the central bank for political pressures    
   \end{largeitemize}
 \end{frame}
 
@@ -274,17 +274,18 @@ We propose an FX intervention rule based on \textbf{Conditional Value-at-Risk}
 \item The dependent variable is the FX log-returns, $r_t = \log(\frac{e_t}{e_{t-1}})$, where
 $e_t$ is the bilateral market exchange rate against the major currency
 (e.g. USD)
-\item \textbf{Drift AR-X(1):} $r_{t+1} = \text{Intercept} +
+\item \textbf{Drift AR-X(1):} $r_{t+1} = \alpha_d +
   \rho r_t + \beta X_{t+1} + \epsilon_{t-1}$\\  
 \item \textbf{Exponential volatility:} $\log \sigma_{t+1}^{2} = \omega + \beta
-g(r_t)$ where $g(r_t) = \alpha r_t + \gamma(|r_t|-\mathbb{E}|r_t|)$
+g(r_t)$ where $g(r_t) = \alpha_v r_t + \gamma(|r_t|-\mathbb{E}|r_t|)$
 
-\item \textbf{Error term distribution} $\epsilon_t = \sigma_t \varepsilon_t,
-  \ , \varepsilon_t \sim \text{TSK}(k,v)$\\
+\item \textbf{Error term distribution} $\epsilon_t = \sigma_t \varepsilon_t
+  \ , \varepsilon_t \sim \text{TSK}(0, 1,\nu)$\\
   
 \item The forecasted conditional probability distribution function is defined as:
       \begin{equation*}
-        \hat{f}(r_{t+1} | r_{t}, X_{t+1}) = \text{TSK}(\hat{r}_{t+1}, \hat{\sigma}_{t+1}^{2})
+        \hat{f}(r_{t+1} | r_{t}, X_{t+1}) = \text{TSK}(\hat{r}_{t+1},
+        \hat{\sigma}_{t+1}^{2}, \hat{\nu})
       \end{equation*}      
 \end{largeitemize}
 \end{frame}
@@ -292,30 +293,28 @@ g(r_t)$ where $g(r_t) = \alpha r_t + \gamma(|r_t|-\mathbb{E}|r_t|)$
 % Estimation
 \begin{frame}{Estimation}
 \begin{largeitemize}
-  \item The GARCH estimation is standard and done with MLE; selection of parameters
-    is done via AIC/BIC criteria.
-    
-  \item The Python package we designed allows to select:
-
+\item The GARCH estimation is standard and done with maximimum likelihood
+ \item Selection of parameters is done via AIC/BIC criteria.    
+  \item Our Python package allows to flexibly select:
     \begin{itemize}
-    \item The exogeneous regressors
-    \item The lag
+    \item The set of exogeneous regressors
+    \item The number of lags
     \item The volatility specification (exponential, RiskMetric, standard GARCH,
       etc.)
     \item The distribution family of the error-terms (Gaussian,
-    Student, Tskew, Generalized Gaussian)  
+    Student, Tskew, Generalized Gaussian, etc.)  
       \end{itemize}    
 \end{largeitemize}
 \end{frame}
 
 \begin{frame}{Exogeneous Regressors}
   \begin{largeenumerate}
-  \item[] \textbf{FX microstructure}: FX bid-ask spread (averaged over the day)
-  \item[] \textbf{CIP}: daily interest rate differential with the US Libor 
-  \item[] \textbf{Hedging costs}: one-month forward exchange rate =>  
-  \item[] \textbf{Past policy interventions}: lagged amount of central bank FX intervention 
-  \item[] \textbf{Global risk sentiment}: The VIX, implied volatility on the S\&P 500 
-  \item[] \textbf{Global FX factor}: The EURUSD exchange rate
+  \item \textbf{FX microstructure}: FX bid-ask spread (averaged over the day)
+  \item \textbf{CIP}: daily interest rate differential with the US Libor 
+  \item \textbf{Hedging costs}: one-month forward exchange rate
+  \item \textbf{Past policy interventions}: lagged amount of central bank FX intervention 
+  \item \textbf{Global risk sentiment}: The VIX, implied volatility on the S\&P 500 
+  \item \textbf{Global FX factor}: The EURUSD exchange rate
   \end{largeenumerate}
  
 \end{frame}
@@ -346,7 +345,7 @@ g(r_t)$ where $g(r_t) = \alpha r_t + \gamma(|r_t|-\mathbb{E}|r_t|)$
       risk-thresholds ($\underline{\tau}, \overline{\tau}$), for depreciation
       and appreciation, potentially risk-symmetric ($\overline{\tau} = 1 - \underline{\tau}$)
       \begin{equation*}
-\mathbbm{1} \left[ \{r_t \leq \ Q(r_t, \underline{\tau})\} \cup \{r_t \geq \
+\mathbbm{1} \left[ \{r_t \leq \ Q(r_t, \underline{\tau})\} \cup \{r_t > \
   Q(r_t, \overline{\tau})\} \right]
       \end{equation*}                
   \end{largeitemize}
@@ -368,7 +367,8 @@ g(r_t)$ where $g(r_t) = \alpha r_t + \gamma(|r_t|-\mathbb{E}|r_t|)$
 %% ---------------------------------------------------------------------------
 \section{Forecasting}
 
-\begin{frame}{Forecasting}
+\begin{frame}
+  \frametitle{Forecasting}
 
   \begin{largeitemize}
       \item Real-time forecasting based on market conditions
@@ -378,8 +378,8 @@ g(r_t)$ where $g(r_t) = \alpha r_t + \gamma(|r_t|-\mathbb{E}|r_t|)$
     \item Assess model accuracy via (i) in-sample metrics and (ii) out of
       sample performance (probability integral transform test)
     \item The probability integral transform test assess on whether the random
-      variable defined as $PIT(R) \equiv F_{R}R \sim U(0,1)$, where
-      $R$ is the stochastic process of the FX log returns $r_t, \forall t \in
+      variable defined as $PIT(R) \equiv F_{R}R$ is uniformally distributed
+      $F_{R}R \sim U(0,1)$, where $R$ is the stochastic process of the FX log returns $r_t, \forall t \in
       [0, T]$
   \end{largeitemize}
   
@@ -421,6 +421,24 @@ g(r_t)$ where $g(r_t) = \alpha r_t + \gamma(|r_t|-\mathbb{E}|r_t|)$
 %% ---------------------------------------------------------------------------
 \section{Benchmarking}
 
+\begin{frame}
+  \frametitle{Bank of Mexico FX Interventions Setup}  
+  \begin{largeitemize}
+    \item The Banco Mexico (BM) implemented both discretionary and
+      fixed-volatility FXI and intervened via transparent FX auctions
+    \item Difference between rule and discretion was the reservation rate applied to the auction:
+      \begin{itemize}
+      \item \textbf{Rule-based setting}: BM operated an auction every day
+        with a pre-announced reservation rate, \textbf{a minimum rate} for
+        eligible bids
+      \item \textbf{Discretionary setting}: the auction was organized at the BM's discretion without reservation rate
+      \end{itemize}
+  \item Often, no demand for the ruled-based auction as the market rate was below the reservation rate
+  \item Use the conditional cumulative distribution function (CDF) as
+    benchmark: what was the risk level when the central bank intervened?
+  \end{largeitemize}
+\end{frame}
+
 
 \begin{frame}
   \frametitle{Rule-Based Benchmarking}
@@ -447,8 +465,64 @@ g(r_t)$ where $g(r_t) = \alpha r_t + \gamma(|r_t|-\mathbb{E}|r_t|)$
 
 
 
+\begin{frame}
+  \frametitle{Benchmarking Results}
+  \begin{largeitemize}
+    \item The fixed volatility rule did not fully prevented BM to intervene
+      outside of the tails of the conditional distribution
+    \item In that respect, VaR-based intervention would have been better
+    \item However, interventions under fixed volatility were significantly
+      less frequently outside of the tails than discretionary interventions
+    \item \textbf{Discretion triggers are not identifiable based on risk}
+  \end{largeitemize}
+\end{frame}
 
-  
+
+%% ---------------------------------------------------------------------------
+%% Conclusion
+%% ---------------------------------------------------------------------------
+
+\section{Policy Implications and Future Work}
+
+\begin{frame}
+  \frametitle{Policy Implications}
+  \begin{largeitemize}
+   \item Useful for floating rate regimes, where the central bank is concerned with FX
+     risks to financial stability
+    \item The VaR-based rule could be considered \textbf{as one option} to improve the
+      rules that central banks currently use
+    \item Let the nominal exchange rate acts as a \textbf{shock absorber}
+    \item Could be used to accompany the \textbf{transition to exchange rate
+      flexibility}, with gradually less and less interventions
+  \item \textbf{Foster the development of hedging markets}
+    \item Properly \textbf{fix market incentives
+      and anchor expectations}: avoid moral hazard and windfall effects
+  \item More generally, could be used by central banks for \textbf{market and risk monitoring}
+  \end{largeitemize}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Future Work}
+  \begin{largeenumerate}
+    \item Use expected shortfall (ES) instead of VaR, as ES has better risk properties
+    
+    \item Look \textbf{beyond spot FX markets} and apply a similar and consistent
+      approach to:
+      \begin{itemize}
+      \item FX derivatives, e.g. forward spreads
+      \item Offshore/onshore interest
+        rate markets
+      \item Fixed income market 
+      \end{itemize}
+   \item Determine the risk tolerance by \textbf{identifying vulnerabilities} and their
+     impact to the economy. Align with the "\textbf{at-risk}" work done in MCM
+  \end{largeenumerate}
+\end{frame}
+
+
+
 
 %% ---------------------------------------------------------------------------
 %% End document
