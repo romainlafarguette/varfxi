@@ -4,7 +4,7 @@ Distributional GARCH package
 Wrapper around the excellent ARCH package by K.Sheppard 
 https://arch.readthedocs.io/
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-09-13 01:26:39 Romain"
+Time-stamp: "2020-09-15 17:22:55 Romain"
 """
 
 ###############################################################################
@@ -203,7 +203,7 @@ class DistGARCH(object):
                          title_returns = 'Historical returns',
                          title_level = 'Historical level',
                          title_density = 'Historical distribution of returns',
-                         y_label_returns = 'pips',
+                         y_label_returns = 'bps',
                          y_label_level = 'FX rate',
                          xticks_freq=None):
         """ 
