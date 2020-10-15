@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-14 23:19:19 Romain"
+Time-stamp: "2020-10-14 23:45:16 Romain"
 """
 
 ###############################################################################
@@ -224,16 +224,48 @@ plt.savefig(var_rule_f, bbox_inches='tight')
 plt.show()
 plt.close('all')
 
+###############################################################################
+#%% Unconditional Distribution Benchmarking
+###############################################################################
+start_date = '2020-01-01'
+hist_sample = df.loc[:start_date, 'FX log returns'].dropna().values
+forecast_sample = df.loc[start_date:, 'FX log returns'].dropna().values
 
+
+# Fit the unconditional distribution with Gaussian Kernel
+from scipy import stats
+unc_kde = stats.gaussian_kde(hist_sample)
+unc_logscore = np.log(unc_kde.evaluate(forecast_sample))
+
+
+# Fit the pit
 
 #%%
 
 
-dgfor.pdf_date('2020-01-02', sample_lim=0.01)
-
-pdf_date
+pits = self.dfor['pit'].dropna().copy()
 
 
-data = self.df.loc['2020-01-01':, :].copy()
+unc_kde.integrate_box_1d(np.NINF)
+
+
+
+###############################################################################
+#%% Kernel
+###############################################################################
+
+
+
+
+# Compute the logscore for each period
+dtrue = df.loc['2020-01-01':, :].copy()
+
+forecast_dates = dtrue.index
+
+dtrue['FX log returns']
+
+
+
+dgfor.dist_fit('2020-01-02').pdf(0)
 
 

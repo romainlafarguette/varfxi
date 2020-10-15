@@ -4,7 +4,7 @@ Distributional GARCH package
 Wrapper around the excellent ARCH package by K.Sheppard 
 https://arch.readthedocs.io/
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-14 23:15:53 Romain"
+Time-stamp: "2020-10-14 23:23:43 Romain"
 """
 
 ###############################################################################
@@ -747,9 +747,9 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
 
 
     # Public methods
-    def dist_fit(self, fdate, sample_lim=0.1):
+    def dist_fit(self, fdate):
         """
-        Return the pdf for a given date
+        Return the scipy random variable for a given date
         """
         
         # Take a sample at a given date
