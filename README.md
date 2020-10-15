@@ -14,7 +14,9 @@ You can use the code for non-commercial applications, providing that you cite th
 Lafarguette, R. and Veyrune, R. (2020) "Foreign Exchange Interventions Rules for Central Banks: A Risk-Based Framework", IMF Working Paper
 
 The folder is organized as follows:
-- VaR-FX Interventions.ipynb replicates the results of the paper
+- mxn_estimation.py is the pure Python file with the core estimation and
+  robustness analysis
+- VaR-FX Interventions.ipynb is a Jupyter notebook, which illustrates the approach
 - modules/ contains the modules for this project, in particular distGARCH which infers a conditional distribution from a GARCH model
 - data/ contains public data files, with FX rate and FX interventions from Banco Mexico website
 - img/ contains some images to illustrate the Jupyter Notebook
