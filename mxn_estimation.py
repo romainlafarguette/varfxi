@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-14 21:44:08 Romain"
+Time-stamp: "2020-10-14 23:14:12 Romain"
 """
 
 ###############################################################################
@@ -49,8 +49,7 @@ import seaborn as sns                                   # Graphical tools
 
 # Graphics options
 plt.rcParams["figure.figsize"] = 25,15
-plt.rcParams['figure.dpi'] = 600
-sns.set(style='white', font_scale=4, palette='deep', font='Arial',
+sns.set(style='white', font_scale=2, palette='deep', font='Arial',
         rc={'text.usetex' : False}) 
 
 # Pandas options
@@ -71,18 +70,20 @@ dm = pd.read_csv(macro_p, parse_dates=['date'], index_col=['date'])
 inter_p = os.path.join('data', 'intervention_data.csv')
 di = pd.read_csv(inter_p, parse_dates=['date'], index_col=['date'])
 
-df = pd.merge(dm, di, on=['date'], how='left')
+df = pd.merge(dm, di, on=['date'], how='left').sort_index().copy() # Merge
+df = df[~df.index.duplicated()].copy() # Duplicated index
 
 # New macro variables
 df['FX level'] = df['mxn_usd_spot'].copy()
-df['FX log returns'] = 100*logret(df['mxn_usd_spot'])
+df['FX log returns'] = 10000*logret(df['mxn_usd_spot'])
 df['Bid-ask spread abs value'] = np.abs(df['bid_ask_spread'])
 df['Min-max spread abs value'] = np.abs(df['min_max_spread'])
 df['Forward points first difference'] = df['mxn_fwd_1m'].diff(1)/100
-df['Interbank rate vs Libor'] = (df['mxn_interbank_1m'] - df['usa_libor_1m']).diff(1)
+df['Interbank rate vs Libor'] = (df['mxn_interbank_1m']
+                                 - df['usa_libor_1m']).diff(1)
 df['VIX first diff'] = df['vix'].diff(1)
-df['EURUSD log returns'] = 100*logret(df['eur_usd_spot'])
-df['Oil prices log returns'] = 100*logret(df['oil_prices'])
+df['EURUSD log returns'] = 10000*logret(df['eur_usd_spot'])
+df['Oil prices log returns'] = 10000*logret(df['oil_prices'])
 
 # FX intervention variables
 df['FX intervention in USD'] = df['sell_amount'].fillna(0)
@@ -99,8 +100,6 @@ df['Intercept'] = 1
 #%% Fit the GARCH model for different specifications
 ###############################################################################
 # Prepare the list of variables
-constant = []
-
 microstructure = ['Bid-ask spread abs value',
                   'Min-max spread abs value',
                   'Forward points first difference']
@@ -114,9 +113,8 @@ vix = eurusd + ['VIX first diff']
 baseline = vix + ['FX intervention dummy lag', 'Oil prices log returns']
 
 # List of models
-models_l = [constant, microstructure, cip, eurusd, vix, baseline]
-labels_l = ['Constant', 'Microstructure', 'CIP', 'Dollar move',
-            'Risk Appetite', 'Baseline']
+models_l = [microstructure, cip, eurusd, vix, baseline]
+labels_l = ['Microstructure', 'CIP', 'Dollar move', 'Risk Appetite', 'Baseline']
 
 specification_tables_l = list()
 specification_tables_short_l = list()
@@ -129,7 +127,7 @@ for label, model in zip(labels_l, models_l): # Run for different specifications
                         exog_l=model, 
                         lags_l=[1], 
                         vol_model=EGARCH(1,1,1),
-                        dist_family=Normal())
+                        dist_family=SkewStudent())
 
         # Fit the model
         dgfit = dgm.fit()
@@ -176,7 +174,6 @@ short_new_index = [x for x in new_index if x in dsum_short.index]
 dsum_short_f = dsum_short.loc[short_new_index, :].copy()
 tex_short_f = os.path.join('output', 'regressions_table_short.tex')
 dsum_short_f.fillna('').to_latex(tex_short_f)
-
 dsum_short_f
 
 ###############################################################################
@@ -184,7 +181,6 @@ dsum_short_f
 ###############################################################################
 
 #### Specify the model
-
 dg = DistGARCH(depvar_str='FX log returns',
                data=df,
                level_str='FX level', 
@@ -193,19 +189,51 @@ dg = DistGARCH(depvar_str='FX log returns',
                vol_model=EGARCH(1,1,1),
                # ARCH(1,1), EGARCH(1,1,1), GARCH(1,1),
                # EWMAVariance(None), RiskMetrics2006(),
-               dist_family=Normal(),
-               # Normal, StudentsT, SkewStudent(), GeneralizedError()
+               dist_family=SkewStudent(),
+               # Normal(), StudentsT(), SkewStudent(), GeneralizedError()
 )
 
 # Fit the model
 dgf = dg.fit()
 
-#%%
-
-# Forecast for 2020
+# Forecast 2020
 dgfor = dgf.forecast('2020-01-01', horizon=1)
 
+###############################################################################
+#%% Plot
+###############################################################################
+# Plot
+dgfor.pit_plot(title=
+               'Probability Integral Transform (PIT) Test, Out-of-sample')
+
+# Save the figure
+pitchart_f = os.path.join('output', 'pitchart.pdf')
+plt.savefig(pitchart_f, bbox_inches='tight')
+plt.show()
+plt.close('all')
 
 
+
+#%%
+# Plot
+dgfor.plot_pdf_rule(fdate='2020-04-03', q_low=0.025, q_high=0.975)
+
+# Save the figure
+var_rule_f = os.path.join('output', 'var_rule.pdf')
+plt.savefig(var_rule_f, bbox_inches='tight')
+plt.show()
+plt.close('all')
+
+
+
+#%%
+
+
+pdf_date('2020-01-01', sample_lim=0.01)
+
+pdf_date
+
+
+data = self.df.loc['2020-01-01':, :].copy()
 
 
