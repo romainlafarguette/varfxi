@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-15 00:40:52 Romain"
+Time-stamp: "2020-10-15 01:52:48 Romain"
 """
 
 ###############################################################################
@@ -305,8 +305,42 @@ print(f'test statistic: {tt:.3f}, pval:{pval:.3f}')
 
 
 ###############################################################################
-#%% 
+#%% Financial performance
 ###############################################################################
+
+# To avoid large FX variation, take only one year with roughly same volumes
+dfs = df.loc['2015-10-01':'2016-10-30', :].copy()
+
+# Take only the data for which there is intervention
+dmin = dfs.loc[dfs['fx_intervention_minprice']>0, :].copy()
+dno = dfs.loc[dfs['fx_intervention_nominprice']>0, :].copy()
+
+# BM has been selling USD against local currency: how much?
+total_usd_min = dmin['fx_intervention_minprice'].sum()
+total_usd_nomin = dno['fx_intervention_nominprice'].sum()
+
+# Roughly same amounts
+print(total_usd_min)
+print(total_usd_nomin)
+
+
+# Compute the equivalent in local currency
+dmin['FXI in LC'] = dmin['fx_intervention_minprice']*dmin['FX level']
+dno['FXI in LC'] = dno['fx_intervention_nominprice']*dno['FX level']
+
+# Compute the ratio
+dmin['FXI in LC'].sum()/total_usd_min
+dno['FXI in LC'].sum()/total_usd_nomin
+
+# Weight the FXI
+dmin['fxi_wgt'] = dmin['fx_intervention_minprice']/total_usd_min
+dno['fxi_wgt'] = dno['fx_intervention_nominprice']/total_usd_nomin
+
+min_depreciation = np.sum(dmin['fxi_wgt']*dmin['FX log returns'])
+nomin_depreciation = np.sum(dno['fxi_wgt']*dno['FX log returns'])
+
+
+
 
 
 
