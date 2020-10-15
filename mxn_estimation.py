@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-14 23:45:16 Romain"
+Time-stamp: "2020-10-14 23:55:50 Romain"
 """
 
 ###############################################################################
@@ -22,6 +22,7 @@ import arch                                             # ARCH/GARCH models
 # Functional imports
 from datetime import datetime as date                   # Short date function
 from dateutil.relativedelta import relativedelta        # Dates manipulation 
+from statsmodels.distributions.empirical_distribution import ECDF
 
 # ARCH package functional imports
 from arch.univariate import ARX # Drift model
@@ -225,6 +226,12 @@ plt.show()
 plt.close('all')
 
 ###############################################################################
+#%% Logscore
+###############################################################################
+
+
+
+###############################################################################
 #%% Unconditional Distribution Benchmarking
 ###############################################################################
 start_date = '2020-01-01'
@@ -237,21 +244,39 @@ from scipy import stats
 unc_kde = stats.gaussian_kde(hist_sample)
 unc_logscore = np.log(unc_kde.evaluate(forecast_sample))
 
+# Estimate the PIT
+line_support = np.arange(0,1, 0.01)
 
-# Fit the pit
+unc_pits = [unc_kde.integrate_box_1d(np.NINF, x) for x in forecast_sample]
 
-#%%
+# Compute the ecdf on the pits
+unc_ecdf = ECDF(unc_pits)
+# Fit it on the line support
+unc_pit_line = unc_ecdf(line_support)
+
+# Confidence intervals based on Rossi and Shekopysan JoE 2019
+ci_u = [x+1.34*len(unc_pits)**(-0.5) for x in line_support]
+ci_l = [x-1.34*len(unc_pits)**(-0.5) for x in line_support]
 
 
-pits = self.dfor['pit'].dropna().copy()
+# Prepare the plots
+fig, ax = plt.subplots(1)
 
-
-unc_kde.integrate_box_1d(np.NINF)
-
-
+ax.plot(line_support, unc_pit_line, color='blue',
+        label='Out-of-sample empirical CDF',
+        lw=2)
+ax.plot(line_support, line_support, color='red', label='Theoretical CDF')
+ax.plot(line_support, ci_u, color='red', label='5 percent critical values',
+        linestyle='dashed')
+ax.plot(line_support, ci_l, color='red', linestyle='dashed')
+ax.legend()
+ax.set_xlabel('Quantiles', labelpad=20)
+ax.set_ylabel('Cumulative probability', labelpad=20)
+ax.set_title('Unconditional Distribution PIT test', y=1.02)
+plt.show()
 
 ###############################################################################
-#%% Kernel
+#%% Conditional Kernel
 ###############################################################################
 
 
