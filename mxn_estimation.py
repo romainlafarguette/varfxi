@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-14 23:14:12 Romain"
+Time-stamp: "2020-10-14 23:19:19 Romain"
 """
 
 ###############################################################################
@@ -229,7 +229,7 @@ plt.close('all')
 #%%
 
 
-pdf_date('2020-01-01', sample_lim=0.01)
+dgfor.pdf_date('2020-01-02', sample_lim=0.01)
 
 pdf_date
 
