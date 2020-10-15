@@ -4,7 +4,7 @@ Distributional GARCH package
 Wrapper around the excellent ARCH package by K.Sheppard 
 https://arch.readthedocs.io/
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-09-15 17:22:55 Romain"
+Time-stamp: "2020-10-14 23:15:53 Romain"
 """
 
 ###############################################################################
@@ -747,7 +747,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
 
 
     # Public methods
-    def pdf_date(self, fdate, sample_lim=0.1):
+    def dist_fit(self, fdate, sample_lim=0.1):
         """
         Return the pdf for a given date
         """
@@ -763,17 +763,11 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
             fdate = sample.tail(1).index[0].strftime('%Y-%m-%d')
 
         # Fit the distribution
-        # I am lazy, the arch dist have no pdf readily done so I fit a sample..
         params_fit = self.scipy_dist.fit(ssample)
         rv = self.scipy_dist(*params_fit) # Frozen random variate
-        support = np.linspace(np.percentile(ssample, sample_lim),
-                              np.percentile(ssample, 100-sample_lim), 1000)
 
-        # Compute the pdf
-        pdf = rv.pdf(support)
-        dpdf = pd.DataFrame(pdf, index=support, columns=['pdf'])
-        
-        return(dpdf)
+        # Return the scipy random variable
+        return(rv)
         
     def fixed_thresholds_FXI(self, thresholds_t):
         """ 
