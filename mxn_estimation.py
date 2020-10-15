@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-14 23:55:50 Romain"
+Time-stamp: "2020-10-15 00:40:52 Romain"
 """
 
 ###############################################################################
@@ -226,19 +226,32 @@ plt.show()
 plt.close('all')
 
 ###############################################################################
+#%% Density performance
+###############################################################################
+start_date = '2020-01-01'
+hist_sample = df.loc[:start_date, 'FX log returns'].dropna().values
+fdate_l = list(df.loc[start_date:, 'FX log returns'].index)[1:]
+
+###############################################################################
 #%% Logscore
 ###############################################################################
+forecast_date_l = list() # because some dates have no pdf
+logscore_l = list()
 
+for fdate in fdate_l:
+    try:
+        true_val = float(df.loc[fdate, 'FX log returns'])
+        log_score = np.log(dgfor.dist_fit(fdate).pdf(true_val))
+        logscore_l.append(log_score)
+        forecast_date_l.append(fdate)
+    except:
+        print(fdate)
 
+forecast_sample = df.loc[forecast_date_l, 'FX log returns'].dropna().values
 
 ###############################################################################
 #%% Unconditional Distribution Benchmarking
 ###############################################################################
-start_date = '2020-01-01'
-hist_sample = df.loc[:start_date, 'FX log returns'].dropna().values
-forecast_sample = df.loc[start_date:, 'FX log returns'].dropna().values
-
-
 # Fit the unconditional distribution with Gaussian Kernel
 from scipy import stats
 unc_kde = stats.gaussian_kde(hist_sample)
@@ -246,7 +259,6 @@ unc_logscore = np.log(unc_kde.evaluate(forecast_sample))
 
 # Estimate the PIT
 line_support = np.arange(0,1, 0.01)
-
 unc_pits = [unc_kde.integrate_box_1d(np.NINF, x) for x in forecast_sample]
 
 # Compute the ecdf on the pits
@@ -257,7 +269,6 @@ unc_pit_line = unc_ecdf(line_support)
 # Confidence intervals based on Rossi and Shekopysan JoE 2019
 ci_u = [x+1.34*len(unc_pits)**(-0.5) for x in line_support]
 ci_l = [x-1.34*len(unc_pits)**(-0.5) for x in line_support]
-
 
 # Prepare the plots
 fig, ax = plt.subplots(1)
@@ -276,21 +287,35 @@ ax.set_title('Unconditional Distribution PIT test', y=1.02)
 plt.show()
 
 ###############################################################################
-#%% Conditional Kernel
+#%% Kernel regressions
+###############################################################################
+
+
+
+###############################################################################
+#%% Log score comparisons via Diebold Mariano test statistic
+###############################################################################
+model_ls_diff = logscore_l - unc_logscore
+norm_factor = np.sqrt(np.var(model_ls_diff)/len(logscore_l))
+
+tt = np.mean(model_ls_diff)/norm_factor # Follows a N(0,1)
+pval = 1-stats.norm.cdf(tt, 0, 1) # Two-sided test
+print(f'test statistic: {tt:.3f}, pval:{pval:.3f}')
+
+
+
+###############################################################################
+#%% 
 ###############################################################################
 
 
 
 
-# Compute the logscore for each period
-dtrue = df.loc['2020-01-01':, :].copy()
-
-forecast_dates = dtrue.index
-
-dtrue['FX log returns']
 
 
 
-dgfor.dist_fit('2020-01-02').pdf(0)
+
+
+
 
 
