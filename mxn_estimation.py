@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-15 20:28:43 Romain"
+Time-stamp: "2020-10-16 00:08:23 Romain"
 """
 
 ###############################################################################
@@ -237,7 +237,7 @@ hist_sample = df.loc[:start_date, 'FX log returns'].dropna().values
 fdate_l = list(df.loc[start_date:, 'FX log returns'].index)[1:]
 
 ###############################################################################
-#%% Logscore
+#%% Logscore of the GARCH model
 ###############################################################################
 forecast_date_l = list() # because some dates have no pdf
 logscore_l = list()
@@ -259,7 +259,7 @@ forecast_sample = df.loc[forecast_date_l, 'FX log returns'].dropna().values
 # Fit the unconditional distribution with Gaussian Kernel
 from scipy import stats
 unc_kde = stats.gaussian_kde(hist_sample)
-unc_logscore = np.log(unc_kde.evaluate(forecast_sample))
+unc_logscore = np.log(unc_kde.pdf(forecast_sample))
 
 # Estimate the PIT
 line_support = np.arange(0,1, 0.01)
@@ -276,7 +276,6 @@ ci_l = [x-1.34*len(unc_pits)**(-0.5) for x in line_support]
 
 # Prepare the plots
 fig, ax = plt.subplots(1)
-
 ax.plot(line_support, unc_pit_line, color='blue',
         label='Out-of-sample empirical CDF',
         lw=2)
@@ -291,7 +290,7 @@ ax.set_title('Unconditional Distribution PIT test', y=1.02)
 plt.show()
 
 ###############################################################################
-#%% Quantile projections and resampling
+#%% Quantile Projections Benchmarking
 ###############################################################################
 quantile_l = list(np.arange(0.05, 1, 0.05)) # Every 5% quantiles 
 horizon_l = [1] # Just one day
@@ -301,38 +300,84 @@ df['current_fx_logret'] = df['FX log returns'].copy()
 dependent = 'FX log returns'
 regressors_l = ['current_fx_logret'] + baseline
 variables_l = [dependent] + regressors_l
-dfn = df[variables_l].dropna().copy()
+dfn = df[variables_l].dropna().copy() 
 
 # Rename all variables, replace space by _
 new_cols_l = [x.replace(' ', '_').lower() for x in dfn.columns]
 dfn = dfn.rename(columns={k:v for k,v in zip(dfn.columns, new_cols_l)}).copy()
+dfn['fx_log_returns_fwd'] = dfn['fx_log_returns'].shift(-1) # For later
 
-# New variables
-dependent = 'fx_log_returns'
+# Renamed variables
+dependent = 'fx_log_returns' # Note that the horizon will project the variable
 regressors_l = [x for x in new_cols_l if x not in [dependent]]
-qp = QuantileProj(dependent, regressors_l, dfn, horizon_l)
-qpf = qp.fit(quantile_l, alpha=0.05)
+df_train = dfn.loc[:'2019', :].copy() # Train up to 2019
+qr = QuantileProj(dependent, regressors_l, df_train, horizon_l)
+qr_fit = qr.fit(quantile_l, alpha=0.05)
 
 # Coefficients plots
-#qpf.plot.coeffs_grid(horizon=1)
+#qr_fit.plot.coeffs_grid(horizon=1)
 #plt.show()
 
+# Test for PIT and logscores in once by fitting a Gaussian kernel
+q_logscore_l = list()
+q_pit_l = list()
 
+for fdate in forecast_date_l:
+    true_val = float(dfn.loc[fdate, 'fx_log_returns_fwd']) # Future val        
+    X = dfn.loc[[fdate], regressors_l].dropna().copy() # Conditioning
+    qp = qr_fit.proj(X).sample(seed=18041202, len_sample=1000)
+    q_sample = qp['fx_log_returns'].values
+    q_kde = stats.gaussian_kde(q_sample) # Fit a Gaussian kernel
+    q_logscore = float(np.log(q_kde.pdf(true_val))) # pdf
+    q_pit = q_kde.integrate_box_1d(np.NINF, true_val) # cdf
+    
+    q_logscore_l.append(q_logscore) # Store
+    q_pit_l.append(q_pit) # Store
 
+#%% PIT plot
+# Estimate the PIT
+line_support = np.arange(0,1, 0.01)
 
+# Compute the ecdf on the pits
+q_ecdf = ECDF(q_pit_l)
+# Fit it on the line support
+q_pit_line = q_ecdf(line_support)
 
+# Confidence intervals based on Rossi and Shekopysan JoE 2019
+ci_u = [x+1.34*len(q_pit_l)**(-0.5) for x in line_support]
+ci_l = [x-1.34*len(q_pit_l)**(-0.5) for x in line_support]
+
+# Prepare the plots
+fig, ax = plt.subplots(1)
+ax.plot(line_support, q_pit_line, color='blue',
+        label='Out-of-sample empirical CDF',
+        lw=2)
+ax.plot(line_support, line_support, color='red', label='Theoretical CDF')
+ax.plot(line_support, ci_u, color='red', label='5 percent critical values',
+        linestyle='dashed')
+ax.plot(line_support, ci_l, color='red', linestyle='dashed')
+ax.legend()
+ax.set_xlabel('Quantiles', labelpad=20)
+ax.set_ylabel('Cumulative probability', labelpad=20)
+ax.set_title('Qreg Benchmark Distribution PIT test', y=1.02)
+plt.show()
 
 ###############################################################################
 #%% Log score comparisons via Diebold Mariano test statistic
 ###############################################################################
+# Against unconditional
 model_ls_diff = logscore_l - unc_logscore
-norm_factor = np.sqrt(np.var(model_ls_diff)/len(logscore_l))
-
-100*np.mean(model_ls_diff/np.abs(unc_logscore))
-
-tt = np.mean(model_ls_diff)/norm_factor # Follows a N(0,1)
+norm_factor = np.sqrt(np.nanvar(model_ls_diff)/len(logscore_l))
+tt = np.nanmean(model_ls_diff)/norm_factor # Follows a N(0,1)
 pval = 1-stats.norm.cdf(tt, 0, 1) # Two-sided test
-print(f'test statistic: {tt:.3f}, pval:{pval:.3f}')
+print(f'Against unconditional test statistic: {tt:.3f}, pval:{pval:.3f}')
+
+# Against quantile reg
+model_qreg_diff = [x-y for x,y in zip(logscore_l, q_logscore_l)]
+norm_qreg_factor = np.sqrt(np.nanvar(model_ls_diff)/len(logscore_l))
+tt_qreg = np.nanmean(model_qreg_diff)/norm_qreg_factor # Follows a N(0,1)
+pval_qreg = 1-stats.norm.cdf(tt_qreg, 0, 1) # Two-sided test
+print(f'Against qreg test statistic: {tt_qreg:.3f}, pval:{pval_qreg:.3f}')
 
 ###############################################################################
 #%% Financial performance: minimum and no minimum prices
