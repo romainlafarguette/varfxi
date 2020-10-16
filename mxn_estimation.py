@@ -328,7 +328,7 @@ qr_fit.plot.coeffs_grid(horizon=1,
 plt.subplots_adjust(wspace=0.5, hspace=0.5)
 
 plt.savefig(fp, bbox_inches='tight')
-plt.show()
+#plt.show()
 plt.close('all')
 
 # Estimate PIT and logscores in once by fitting a Gaussian kernel
@@ -507,7 +507,7 @@ dgnfor.pit_plot(title=
 # Save the figure
 pitchart_f = os.path.join('output', 'pitchart_garch_gaussian.pdf')
 plt.savefig(pitchart_f, bbox_inches='tight')
-plt.show()
+#plt.show()
 plt.close('all')
 
 
@@ -540,7 +540,7 @@ dgafor.pit_plot(title=
 # Save the figure
 pitchart_f = os.path.join('output', 'pitchart_garch_tskew.pdf')
 plt.savefig(pitchart_f, bbox_inches='tight')
-plt.show()
+#plt.show()
 plt.close('all')
 
 ###############################################################################
@@ -572,7 +572,7 @@ dgafor.pit_plot(title=
 # Save the figure
 pitchart_f = os.path.join('output', 'pitchart_garch_gaussian.pdf')
 plt.savefig(pitchart_f, bbox_inches='tight')
-plt.show()
+#plt.show()
 plt.close('all')
 
 
