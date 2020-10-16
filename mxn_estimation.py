@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-16 00:20:30 Romain"
+Time-stamp: "2020-10-16 00:39:51 Romain"
 """
 
 ###############################################################################
@@ -81,8 +81,8 @@ df = df[~df.index.duplicated()].copy() # Duplicated index
 # New macro variables
 df['FX level'] = df['mxn_usd_spot'].copy()
 df['FX log returns'] = 10000*logret(df['mxn_usd_spot'])
-df['Bid ask spread abs value'] = np.abs(df['bid_ask_spread'])
-df['Min max spread abs value'] = np.abs(df['min_max_spread'])
+df['Bid ask abs'] = np.abs(df['bid_ask_spread'])
+df['Min max abs'] = np.abs(df['min_max_spread'])
 df['Forward points first difference'] = df['mxn_fwd_1m'].diff(1)/100
 df['Interbank rate vs Libor'] = (df['mxn_interbank_1m']
                                  - df['usa_libor_1m']).diff(1)
@@ -108,8 +108,8 @@ df['FX log returns_fwd'] = df['FX log returns'].shift(-1)
 #%% Fit the GARCH model for different specifications
 ###############################################################################
 # Prepare the list of variables
-microstructure = ['Bid ask spread abs value',
-                  'Min max spread abs value',
+microstructure = ['Bid ask abs',
+                  'Min max abs',
                   'Forward points first difference']
 
 cip = microstructure + ['Interbank rate vs Libor']
@@ -156,7 +156,7 @@ dsum = pd.concat(specification_tables_l, axis=1)
 dsum_short = pd.concat(specification_tables_short_l, axis=1)
 
 new_index = ['Intercept', 'Lag FX log returns',
-             'Bid ask spread abs value', 'Min max spread abs value',
+             'Bid ask abs', 'Min max abs',
              'Forward points first difference',
              'Interbank rate vs Libor', 
              'EURUSD log returns', 'VIX first diff', 
@@ -298,16 +298,17 @@ plt.close('all')
 quantile_l = list(np.arange(0.05, 1, 0.05)) # Every 5% quantiles 
 horizon_l = [1] # Just one day
 
-df['current_fx_logret'] = df['FX log returns'].copy()
+df['Current FX log returns'] = df['FX log returns'].copy()
 
 dependent = 'FX log returns'
-regressors_l = ['current_fx_logret'] + baseline
+regressors_l = ['Current FX log returns'] + baseline
 variables_l = [dependent] + regressors_l
 dfn = df[variables_l].dropna().copy() 
 
 # Rename all variables, replace space by _
 new_cols_l = [x.replace(' ', '_').lower() for x in dfn.columns]
-dfn = dfn.rename(columns={k:v for k,v in zip(dfn.columns, new_cols_l)}).copy()
+label_d = {k:v for k,v in zip(dfn.columns, new_cols_l)}
+dfn = dfn.rename(columns=label_d).copy()
 dfn['fx_log_returns_fwd'] = dfn['fx_log_returns'].shift(-1) # For later
 
 # Renamed variables
@@ -317,11 +318,17 @@ df_train = dfn.loc[:'2019', :].copy() # Train up to 2019
 qr = QuantileProj(dependent, regressors_l, df_train, horizon_l)
 qr_fit = qr.fit(quantile_l, alpha=0.05)
 
+label_d_rev = {v:k for k,v in label_d.items()}
+
 # Coefficients plots
 fp = os.path.join('output', 'coeff_chart_qreg.pdf')
-qr_fit.plot.coeffs_grid(horizon=1)
+qr_fit.plot.coeffs_grid(horizon=1,
+                        title='FX Log Returns Quantile Coefficients',
+                        label_d=label_d_rev)
+plt.subplots_adjust(wspace=0.5, hspace=0.5)
+
 plt.savefig(fp, bbox_inches='tight')
-#plt.show()
+plt.show()
 plt.close('all')
 
 # Estimate PIT and logscores in once by fitting a Gaussian kernel
@@ -468,6 +475,105 @@ dfin.loc['Total volume bn USD',
 dfin.loc['Number of interventions', 'No minimum price'] = dno.shape[0]
 dfin.loc['Number of interventions', 'Minimum price'] = dmin.shape[0]
 dfin.loc['Number of interventions', 'VaR rule'] = dmin.shape[0]
+
+
+
+###############################################################################
+#%% Alternative model: Gaussian EGaRCH  
+###############################################################################
+#### Specify the model
+dgn = DistGARCH(depvar_str='FX log returns',
+                data=df,
+                level_str='FX level', 
+                exog_l=baseline, # Defined above 
+                lags_l=[1], 
+                vol_model=EGARCH(1,1,1),
+                # ARCH(1,1), EGARCH(1,1,1), GARCH(1,1),
+                # EWMAVariance(None), RiskMetrics2006(),
+                dist_family=Normal(),
+                # Normal(), StudentsT(), SkewStudent(), GeneralizedError()
+)
+
+# Fit the model
+dgnf = dgn.fit()
+
+# Forecast 2020
+dgnfor = dgnf.forecast('2020-01-01', horizon=1)
+
+# Plot
+dgnfor.pit_plot(title=
+               'EGARCH Gaussian PIT test, Out-of-sample')
+
+# Save the figure
+pitchart_f = os.path.join('output', 'pitchart_garch_gaussian.pdf')
+plt.savefig(pitchart_f, bbox_inches='tight')
+plt.show()
+plt.close('all')
+
+
+###############################################################################
+#%% Alternative model: GARCH with Tskew
+###############################################################################
+#### Specify the model
+dga = DistGARCH(depvar_str='FX log returns',
+                data=df,
+                level_str='FX level', 
+                exog_l=baseline, # Defined above 
+                lags_l=[1], 
+                vol_model=GARCH(1,1),
+                # ARCH(1,1), EGARCH(1,1,1), GARCH(1,1),
+                # EWMAVariance(None), RiskMetrics2006(),
+                dist_family=SkewStudent(),
+                # Normal(), StudentsT(), SkewStudent(), GeneralizedError()
+)
+
+# Fit the model
+dgaf = dga.fit()
+
+# Forecast 2020
+dgafor = dgaf.forecast('2020-01-01', horizon=1)
+
+# Plot
+dgafor.pit_plot(title=
+               'GARCH TSkew PIT test, Out-of-sample')
+
+# Save the figure
+pitchart_f = os.path.join('output', 'pitchart_garch_tskew.pdf')
+plt.savefig(pitchart_f, bbox_inches='tight')
+plt.show()
+plt.close('all')
+
+###############################################################################
+#%% Alternative model: GARCH with Gaussian
+###############################################################################
+#### Specify the model
+dga = DistGARCH(depvar_str='FX log returns',
+                data=df,
+                level_str='FX level', 
+                exog_l=baseline, # Defined above 
+                lags_l=[1], 
+                vol_model=GARCH(1,1),
+                # ARCH(1,1), EGARCH(1,1,1), GARCH(1,1),
+                # EWMAVariance(None), RiskMetrics2006(),
+                dist_family=Normal(),
+                # Normal(), StudentsT(), SkewStudent(), GeneralizedError()
+)
+
+# Fit the model
+dgaf = dga.fit()
+
+# Forecast 2020
+dgafor = dgaf.forecast('2020-01-01', horizon=1)
+
+# Plot
+dgafor.pit_plot(title=
+               'GARCH TSkew PIT test, Out-of-sample')
+
+# Save the figure
+pitchart_f = os.path.join('output', 'pitchart_garch_gaussian.pdf')
+plt.savefig(pitchart_f, bbox_inches='tight')
+plt.show()
+plt.close('all')
 
 
 
