@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-15 01:52:48 Romain"
+Time-stamp: "2020-10-15 20:25:51 Romain"
 """
 
 ###############################################################################
@@ -44,6 +44,10 @@ warnings.filterwarnings("ignore", category=ConvergenceWarning)
 import distGARCH; importlib.reload(distGARCH)           # Distributional GARCH
 from distGARCH import DistGARCH
 
+sys.path.append(os.path.join('modules', 'quantileproj'))
+import quantileproj; importlib.reload(quantileproj)     # The package
+from quantileproj import QuantileProj                   # The class
+
 # Graphics
 import matplotlib.pyplot as plt                         # Graphical package  
 import seaborn as sns                                   # Graphical tools
@@ -77,8 +81,8 @@ df = df[~df.index.duplicated()].copy() # Duplicated index
 # New macro variables
 df['FX level'] = df['mxn_usd_spot'].copy()
 df['FX log returns'] = 10000*logret(df['mxn_usd_spot'])
-df['Bid-ask spread abs value'] = np.abs(df['bid_ask_spread'])
-df['Min-max spread abs value'] = np.abs(df['min_max_spread'])
+df['Bid ask spread abs value'] = np.abs(df['bid_ask_spread'])
+df['Min max spread abs value'] = np.abs(df['min_max_spread'])
 df['Forward points first difference'] = df['mxn_fwd_1m'].diff(1)/100
 df['Interbank rate vs Libor'] = (df['mxn_interbank_1m']
                                  - df['usa_libor_1m']).diff(1)
@@ -97,12 +101,15 @@ df.loc[df['FX intervention in USD'] > 0, 'FX intervention dummy'] = 1
 df['FX intervention dummy lag'] = df['FX intervention dummy'].shift(1)
 df['Intercept'] = 1
 
+df['FX log returns_fwd'] = df['FX log returns'].shift(-1)
+
+
 ###############################################################################
 #%% Fit the GARCH model for different specifications
 ###############################################################################
 # Prepare the list of variables
-microstructure = ['Bid-ask spread abs value',
-                  'Min-max spread abs value',
+microstructure = ['Bid ask spread abs value',
+                  'Min max spread abs value',
                   'Forward points first difference']
 
 cip = microstructure + ['Interbank rate vs Libor']
@@ -111,11 +118,11 @@ eurusd = cip + ['EURUSD log returns']
 
 vix = eurusd + ['VIX first diff']
 
-baseline = vix + ['FX intervention dummy lag', 'Oil prices log returns']
+baseline = vix + ['Oil prices log returns', 'FX intervention dummy lag']
 
 # List of models
 models_l = [microstructure, cip, eurusd, vix, baseline]
-labels_l = ['Microstructure', 'CIP', 'Dollar move', 'Risk Appetite', 'Baseline']
+labels_l = ['Microstructure', 'CIP', 'Dollar move', 'Risk Appetite','Baseline']
 
 specification_tables_l = list()
 specification_tables_short_l = list()
@@ -154,7 +161,7 @@ dsum = pd.concat(specification_tables_l, axis=1)
 dsum_short = pd.concat(specification_tables_short_l, axis=1)
 
 new_index = ['Intercept', 'Lag FX log returns',
-             'Bid-ask spread abs value', 'Min-max spread abs value',
+             'Bid ask spread abs value', 'Min max spread abs value',
              'Forward points first difference',
              'Interbank rate vs Libor', 
              'EURUSD log returns', 'VIX first diff', 
@@ -180,7 +187,6 @@ dsum_short_f
 ###############################################################################
 #%% Baseline model: Fit and forecast
 ###############################################################################
-
 #### Specify the model
 dg = DistGARCH(depvar_str='FX log returns',
                data=df,
@@ -201,7 +207,7 @@ dgf = dg.fit()
 dgfor = dgf.forecast('2020-01-01', horizon=1)
 
 ###############################################################################
-#%% Plot
+#%% Plots
 ###############################################################################
 # Plot
 dgfor.pit_plot(title=
@@ -213,11 +219,9 @@ plt.savefig(pitchart_f, bbox_inches='tight')
 plt.show()
 plt.close('all')
 
-
-
 #%%
 # Plot
-dgfor.plot_pdf_rule(fdate='2020-04-03', q_low=0.025, q_high=0.975)
+dgfor.plot_pdf_rule(fdate='2020-08-03', q_low=0.025, q_high=0.975)
 
 # Save the figure
 var_rule_f = os.path.join('output', 'var_rule.pdf')
@@ -287,8 +291,32 @@ ax.set_title('Unconditional Distribution PIT test', y=1.02)
 plt.show()
 
 ###############################################################################
-#%% Kernel regressions
+#%% Quantile projections and resampling
 ###############################################################################
+quantile_l = list(np.arange(0.05, 1, 0.05)) # Every 5% quantiles 
+horizon_l = [1] # Just one day
+
+df['current_fx_logret'] = df['FX log returns'].copy()
+
+dependent = 'FX log returns'
+regressors_l = ['current_fx_logret'] + baseline
+variables_l = [dependent] + regressors_l
+dfn = df[variables_l].dropna().copy()
+
+# Rename all variables, replace space by _
+new_cols_l = [x.replace(' ', '_').lower() for x in dfn.columns]
+dfn = dfn.rename(columns={k:v for k,v in zip(dfn.columns, new_cols_l)}).copy()
+
+# New variables
+dependent = 'fx_log_returns'
+regressors_l = [x for x in new_cols_l if x not in [dependent]]
+qp = QuantileProj(dependent, regressors_l, dfn, horizon_l)
+qpf = qp.fit(quantile_l, alpha=0.05)
+
+# Coefficients plots
+#qpf.plot.coeffs_grid(horizon=1)
+#plt.show()
+
 
 
 
@@ -298,16 +326,15 @@ plt.show()
 model_ls_diff = logscore_l - unc_logscore
 norm_factor = np.sqrt(np.var(model_ls_diff)/len(logscore_l))
 
+100*np.mean(model_ls_diff/np.abs(unc_logscore))
+
 tt = np.mean(model_ls_diff)/norm_factor # Follows a N(0,1)
 pval = 1-stats.norm.cdf(tt, 0, 1) # Two-sided test
 print(f'test statistic: {tt:.3f}, pval:{pval:.3f}')
 
-
-
 ###############################################################################
-#%% Financial performance
+#%% Financial performance: minimum and no minimum prices
 ###############################################################################
-
 # To avoid large FX variation, take only one year with roughly same volumes
 dfs = df.loc['2015-10-01':'2016-10-30', :].copy()
 
@@ -315,41 +342,76 @@ dfs = df.loc['2015-10-01':'2016-10-30', :].copy()
 dmin = dfs.loc[dfs['fx_intervention_minprice']>0, :].copy()
 dno = dfs.loc[dfs['fx_intervention_nominprice']>0, :].copy()
 
+# Var FXI rule
+# Here buy when it is above, since the quotation is reversed
+dgfor15 = dgf.forecast('2015-10-01', horizon=1)
+dv = dgfor15.VaR_FXI(qv_l=[0.05, 0.95]).dropna(subset=['Above'])
+dv = dv.loc['2015-10-01':'2016-10-30', :].copy()
+
 # BM has been selling USD against local currency: how much?
 total_usd_min = dmin['fx_intervention_minprice'].sum()
 total_usd_nomin = dno['fx_intervention_nominprice'].sum()
 
+# Take average volume for min intervention
+dv['fx_intervention_var'] = dmin['fx_intervention_minprice'].mean()
+total_usd_var = dv['fx_intervention_var'].sum() # Same as min
+
 # Roughly same amounts
 print(total_usd_min)
 print(total_usd_nomin)
-
+print(total_usd_var)
 
 # Compute the equivalent in local currency
 dmin['FXI in LC'] = dmin['fx_intervention_minprice']*dmin['FX level']
 dno['FXI in LC'] = dno['fx_intervention_nominprice']*dno['FX level']
+dv['FXI in LC'] = dv['fx_intervention_var']*dv['FX level']
 
-# Compute the ratio
-dmin['FXI in LC'].sum()/total_usd_min
-dno['FXI in LC'].sum()/total_usd_nomin
+# Compute the average fx
+avg_min = dmin['FXI in LC'].sum()/total_usd_min
+avg_nomin = dno['FXI in LC'].sum()/total_usd_nomin
+avg_var = dv['FXI in LC'].sum()/total_usd_var
 
 # Weight the FXI
 dmin['fxi_wgt'] = dmin['fx_intervention_minprice']/total_usd_min
 dno['fxi_wgt'] = dno['fx_intervention_nominprice']/total_usd_nomin
 
-min_depreciation = np.sum(dmin['fxi_wgt']*dmin['FX log returns'])
-nomin_depreciation = np.sum(dno['fxi_wgt']*dno['FX log returns'])
+min_dep = np.sum(dmin['fxi_wgt']*dmin['FX log returns'])
+nomin_dep = np.sum(dno['fxi_wgt']*dno['FX log returns'])
+var_dep = np.mean(dv['FX log returns']) # Same wgt by construction
 
 
+### Summary table
+dfin = pd.DataFrame(columns=['No minimum price', 'Minimum price', 'VaR rule'],
+                    index=['Daily variation bps', 'Average exchange rate',
+                           'FX Performance against discretionary',
+                           'Total volume bn USD', 'Number of interventions'])
+
+dfin.loc['Daily variation bps', 'No minimum price'] = round(nomin_dep,1)
+dfin.loc['Daily variation bps', 'Minimum price'] = round(min_dep,1)
+dfin.loc['Daily variation bps', 'VaR rule'] = round(var_dep,1)
+
+dfin.loc['Average exchange rate', 'No minimum price'] = round(avg_nomin,1)
+dfin.loc['Average exchange rate', 'Minimum price'] = round(avg_min,1)
+dfin.loc['Average exchange rate', 'VaR rule'] = round(avg_var,1)
+
+dfin.loc['FX Performance against discretionary',
+         'No minimum price'] = '0 %'
+dfin.loc['FX Performance against discretionary',
+         'Minimum price'] = f'{round(100*((avg_min/avg_nomin)-1),1)} %'
+dfin.loc['FX Performance against discretionary',
+         'VaR rule'] = f'{round(100*((avg_var/avg_nomin)-1),1)} %'
 
 
+dfin.loc['Total volume bn USD',
+         'No minimum price'] = round(total_usd_min/1000,2)
+dfin.loc['Total volume bn USD',
+         'Minimum price'] = round(total_usd_nomin/1000,2)
+dfin.loc['Total volume bn USD',
+         'VaR rule'] = round(total_usd_var/1000,2)
 
-
-
-
-
-
-
-
+dfin.loc['Number of interventions', 'No minimum price'] = dno.shape[0]
+dfin.loc['Number of interventions', 'Minimum price'] = dmin.shape[0]
+dfin.loc['Number of interventions', 'VaR rule'] = dmin.shape[0]
 
 
 
