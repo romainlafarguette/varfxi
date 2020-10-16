@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-15 20:25:51 Romain"
+Time-stamp: "2020-10-15 20:28:43 Romain"
 """
 
 ###############################################################################
@@ -316,6 +316,8 @@ qpf = qp.fit(quantile_l, alpha=0.05)
 # Coefficients plots
 #qpf.plot.coeffs_grid(horizon=1)
 #plt.show()
+
+
 
 
 
