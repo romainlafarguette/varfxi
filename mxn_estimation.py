@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-16 00:08:23 Romain"
+Time-stamp: "2020-10-16 00:20:30 Romain"
 """
 
 ###############################################################################
@@ -54,8 +54,8 @@ import seaborn as sns                                   # Graphical tools
 
 # Graphics options
 plt.rcParams["figure.figsize"] = 25,15
-sns.set(style='white', font_scale=2, palette='deep', font='Arial',
-        rc={'text.usetex' : False}) 
+sns.set(style='white', font_scale=4, palette='deep', font='serif',
+        rc={'text.usetex' : True}) 
 
 # Pandas options
 pd.set_option('display.max_rows', 50)
@@ -128,30 +128,25 @@ specification_tables_l = list()
 specification_tables_short_l = list()
 error_l = list()
 for label, model in zip(labels_l, models_l): # Run for different specifications
-    try:
-        dgm = DistGARCH(depvar_str='FX log returns',
-                        data=df,
-                        level_str='FX level', 
-                        exog_l=model, 
-                        lags_l=[1], 
-                        vol_model=EGARCH(1,1,1),
-                        dist_family=SkewStudent())
+    dgm = DistGARCH(depvar_str='FX log returns',
+                    data=df,
+                    level_str='FX level', 
+                    exog_l=model, 
+                    lags_l=[1], 
+                    vol_model=EGARCH(1,1,1),
+                    dist_family=SkewStudent())
 
-        # Fit the model
-        dgfit = dgm.fit()
+    # Fit the model
+    dgfit = dgm.fit()
 
-        # Generate the tables
-        var_d = {'FX l...rns[1]':'Lag FX log returns'}
-        sumtable = dgfit.summary_table(model_name=label, var_d=var_d,
-                                       print_pval=True)
-        sumtable_short = dgfit.summary_table(model_name=label, var_d=var_d,
-                                             print_pval=False)
-        specification_tables_l.append(sumtable)
-        specification_tables_short_l.append(sumtable_short)
-    except:
-        error_l.append(label)
-
-print(error_l)
+    # Generate the tables
+    var_d = {'FX l...rns[1]':'Lag FX log returns'}
+    sumtable = dgfit.summary_table(model_name=label, var_d=var_d,
+                                   print_pval=True)
+    sumtable_short = dgfit.summary_table(model_name=label, var_d=var_d,
+                                         print_pval=False)
+    specification_tables_l.append(sumtable)
+    specification_tables_short_l.append(sumtable_short)
 
 ###############################################################################
 #%% Export the table
@@ -182,7 +177,6 @@ short_new_index = [x for x in new_index if x in dsum_short.index]
 dsum_short_f = dsum_short.loc[short_new_index, :].copy()
 tex_short_f = os.path.join('output', 'regressions_table_short.tex')
 dsum_short_f.fillna('').to_latex(tex_short_f)
-dsum_short_f
 
 ###############################################################################
 #%% Baseline model: Fit and forecast
@@ -207,7 +201,7 @@ dgf = dg.fit()
 dgfor = dgf.forecast('2020-01-01', horizon=1)
 
 ###############################################################################
-#%% Plots
+#%% Plots of the baseline model
 ###############################################################################
 # Plot
 dgfor.pit_plot(title=
@@ -216,18 +210,23 @@ dgfor.pit_plot(title=
 # Save the figure
 pitchart_f = os.path.join('output', 'pitchart.pdf')
 plt.savefig(pitchart_f, bbox_inches='tight')
-plt.show()
+#plt.show()
 plt.close('all')
 
-#%%
-# Plot
+# Plot of the VaR rule
 dgfor.plot_pdf_rule(fdate='2020-08-03', q_low=0.025, q_high=0.975)
 
 # Save the figure
 var_rule_f = os.path.join('output', 'var_rule.pdf')
 plt.savefig(var_rule_f, bbox_inches='tight')
-plt.show()
+#plt.show()
 plt.close('all')
+
+###############################################################################
+#%% Discretionary vs rule-based FXI
+###############################################################################
+# To copy from the Jupyter notebook
+
 
 ###############################################################################
 #%% Density performance
@@ -287,7 +286,11 @@ ax.legend()
 ax.set_xlabel('Quantiles', labelpad=20)
 ax.set_ylabel('Cumulative probability', labelpad=20)
 ax.set_title('Unconditional Distribution PIT test', y=1.02)
-plt.show()
+fp = os.path.join('output', 'pit_chart_unconditional.pdf')
+plt.savefig(fp, bbox_inches='tight')
+#plt.show()
+plt.close('all')
+
 
 ###############################################################################
 #%% Quantile Projections Benchmarking
@@ -315,10 +318,13 @@ qr = QuantileProj(dependent, regressors_l, df_train, horizon_l)
 qr_fit = qr.fit(quantile_l, alpha=0.05)
 
 # Coefficients plots
-#qr_fit.plot.coeffs_grid(horizon=1)
+fp = os.path.join('output', 'coeff_chart_qreg.pdf')
+qr_fit.plot.coeffs_grid(horizon=1)
+plt.savefig(fp, bbox_inches='tight')
 #plt.show()
+plt.close('all')
 
-# Test for PIT and logscores in once by fitting a Gaussian kernel
+# Estimate PIT and logscores in once by fitting a Gaussian kernel
 q_logscore_l = list()
 q_pit_l = list()
 
@@ -333,8 +339,7 @@ for fdate in forecast_date_l:
     
     q_logscore_l.append(q_logscore) # Store
     q_pit_l.append(q_pit) # Store
-
-#%% PIT plot
+    
 # Estimate the PIT
 line_support = np.arange(0,1, 0.01)
 
@@ -360,7 +365,11 @@ ax.legend()
 ax.set_xlabel('Quantiles', labelpad=20)
 ax.set_ylabel('Cumulative probability', labelpad=20)
 ax.set_title('Qreg Benchmark Distribution PIT test', y=1.02)
-plt.show()
+
+fp = os.path.join('output', 'pit_chart_qreg.pdf')
+plt.savefig(fp, bbox_inches='tight')
+#plt.show()
+plt.close('all')
 
 ###############################################################################
 #%% Log score comparisons via Diebold Mariano test statistic
