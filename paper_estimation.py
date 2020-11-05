@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-10-16 00:39:51 Romain"
+Time-stamp: "2020-11-04 22:20:38 Romain"
 """
 
 ###############################################################################
@@ -23,6 +23,7 @@ import arch                                             # ARCH/GARCH models
 from datetime import datetime as date                   # Short date function
 from dateutil.relativedelta import relativedelta        # Dates manipulation 
 from statsmodels.distributions.empirical_distribution import ECDF
+from scipy import stats                                 # Statistics 
 
 # ARCH package functional imports
 from arch.univariate import ARX # Drift model
@@ -34,11 +35,7 @@ from arch.univariate import (Normal, StudentsT, # Distribution of residuals
 # Ignore a certain type of warnings which occurs in ML estimation
 from arch.utility.exceptions import (
     ConvergenceWarning, DataScaleWarning, StartingValueWarning,
-    convergence_warning, data_scale_warning, starting_value_warning,
-)
-import warnings
-warnings.filterwarnings("ignore", category=RuntimeWarning)
-warnings.filterwarnings("ignore", category=ConvergenceWarning)
+    convergence_warning, data_scale_warning, starting_value_warning)
 
 # Local modules
 import distGARCH; importlib.reload(distGARCH)           # Distributional GARCH
@@ -60,6 +57,11 @@ sns.set(style='white', font_scale=4, palette='deep', font='serif',
 # Pandas options
 pd.set_option('display.max_rows', 50)
 pd.set_option('display.max_columns', 10)
+
+# Warnings management
+import warnings
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+warnings.filterwarnings("ignore", category=ConvergenceWarning)
 
 ###############################################################################
 #%% Local functions
@@ -102,7 +104,6 @@ df['FX intervention dummy lag'] = df['FX intervention dummy'].shift(1)
 df['Intercept'] = 1
 
 df['FX log returns_fwd'] = df['FX log returns'].shift(-1)
-
 
 ###############################################################################
 #%% Fit the GARCH model for different specifications
@@ -256,7 +257,6 @@ forecast_sample = df.loc[forecast_date_l, 'FX log returns'].dropna().values
 #%% Unconditional Distribution Benchmarking
 ###############################################################################
 # Fit the unconditional distribution with Gaussian Kernel
-from scipy import stats
 unc_kde = stats.gaussian_kde(hist_sample)
 unc_logscore = np.log(unc_kde.pdf(forecast_sample))
 
