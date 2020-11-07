@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-11-06 16:03:24 Romain"
+Time-stamp: "2020-11-07 02:30:10 Romain"
 """
 
 ###############################################################################
@@ -149,13 +149,13 @@ for label, model in zip(labels_l, models_l): # Run for different specifications
     specification_tables_l.append(sumtable)
     specification_tables_short_l.append(sumtable_short)
 
-###############################################################################
-#%% Export the table
-###############################################################################
 # Merge all the summary tables (need to reorder some rows)
 dsum = pd.concat(specification_tables_l, axis=1)
 dsum_short = pd.concat(specification_tables_short_l, axis=1)
 
+###############################################################################
+#%% Specification of the model 
+###############################################################################
 new_index = ['Intercept', 'Lag FX log returns',
              'Bid ask abs', 'Min max abs',
              'Forward points first difference',
@@ -178,6 +178,8 @@ short_new_index = [x for x in new_index if x in dsum_short.index]
 dsum_short_f = dsum_short.loc[short_new_index, :].copy()
 tex_short_f = os.path.join('output', 'regressions_table_short.tex')
 dsum_short_f.fillna('').to_latex(tex_short_f)
+dsum_short.to_csv(os.path.join('output', 'regressions_table_short.csv'),
+                  index=True)
 
 ###############################################################################
 #%% Baseline model: Fit and forecast
@@ -313,6 +315,13 @@ dfin.loc['Number of interventions', 'VaR rule'] = dmin.shape[0]
 # Export to latex
 fin_f = os.path.join('output', 'financial_perf.tex')
 dfin.fillna('').to_latex(fin_f)
+dfin.to_csv(os.path.join('output', 'financial_perf.csv'), index=True)
+
+###############################################################################
+###############################################################################
+#%% Benchmarking exercise
+###############################################################################
+###############################################################################
 
 ###############################################################################
 #%% Density performance
@@ -338,11 +347,7 @@ for fdate in fdate_l:
 
 forecast_sample = df.loc[forecast_date_l, 'FX log returns'].dropna().values
 
-###############################################################################
-###############################################################################
-#%% Benchmarking exercise
-###############################################################################
-###############################################################################
+
 # Store the results
 bench_l = ['Baseline', 'Unconditional', 'Quantile Reg', 
            'Gaussian EGARCH', 'TSkew GARCH', 'Gaussian GARCH']
@@ -486,18 +491,18 @@ dbench.loc['Quantile Reg', 'PIT'] = 'Pass'
 ###############################################################################
 #%% Log score comparisons via Diebold Mariano test statistic
 ###############################################################################
-# Against unconditional
+# Unconditional against baseline
 model_ls_diff = unc_logscore - logscore_l
 norm_factor = np.sqrt(np.nanvar(model_ls_diff)/len(logscore_l))
 tt_unc = np.nanmean(model_ls_diff)/norm_factor # Follows a N(0,1)
-pval_unc = 1-stats.norm.cdf(tt_unc, 0, 1) # Two-sided test
-print(f'Against unconditional test statistic: {tt:.3f}, pval:{pval:.3f}')
+pval_unc = stats.norm.cdf(tt_unc, 0, 1) # Two-sided test
+print(f'Against unconditional test statistic: {tt_unc:.3f}, pval:{pval_unc:.3f}')
 
-# Against quantile reg
+# Quantile reg against baseline
 model_qreg_diff = [x-y for x,y in zip(q_logscore_l, logscore_l)]
 norm_qreg_factor = np.sqrt(np.nanvar(model_ls_diff)/len(logscore_l))
 tt_qreg = np.nanmean(model_qreg_diff)/norm_qreg_factor # Follows a N(0,1)
-pval_qreg = 1-stats.norm.cdf(tt_qreg, 0, 1) # Two-sided test
+pval_qreg = stats.norm.cdf(tt_qreg, 0, 1) # Two-sided test
 print(f'Against qreg test statistic: {tt_qreg:.3f}, pval:{pval_qreg:.3f}')
 
 dbench.loc['Unconditional', 'Logscore diff against Baseline'] = round(tt_unc,2)
@@ -538,48 +543,25 @@ plt.savefig(pitchart_f, bbox_inches='tight')
 #plt.show()
 plt.close('all')
 
+# Gaussian EGARCH logscore
+nlogscore_l = list()
+for fdate in forecast_date_l:
+    true_val = float(df.loc[fdate, 'FX log returns'])
+    log_score = np.log(dgnfor.dist_fit(fdate).pdf(true_val))
+    nlogscore_l.append(log_score)
 
+# Gaussian EGARCH against baseline
+model_ls_diff = [x-y for x,y in zip(nlogscore_l, logscore_l)]
+norm_factor = np.sqrt(np.nanvar(model_ls_diff)/len(logscore_l))
+tt_n = np.nanmean(model_ls_diff)/norm_factor # Follows a N(0,1)
+pval_n = stats.norm.cdf(tt_n, 0, 1) # Two-sided test
 
-
-dbench.loc['Unconditional', 'Logscore diff against Baseline'] = round(tt_unc,2)
-dbench.loc['Unconditional', 'Diff pvalue'] = f'{round(pval_unc,2)}'
-
-
+dbench.loc['Gaussian EGARCH', 'PIT'] = 'Fail'
+dbench.loc['Gaussian EGARCH', 'Logscore diff against Baseline'] = round(tt_n,3)
+dbench.loc['Gaussian EGARCH', 'Diff pvalue'] = f'{round(pval_n,3)}'
 
 ###############################################################################
 #%% Alternative model: GARCH with Tskew
-###############################################################################
-#### Specify the model
-dga = DistGARCH(depvar_str='FX log returns',
-                data=df,
-                level_str='FX level', 
-                exog_l=baseline, # Defined above 
-                lags_l=[1], 
-                vol_model=GARCH(1,1),
-                # ARCH(1,1), EGARCH(1,1,1), GARCH(1,1),
-                # EWMAVariance(None), RiskMetrics2006(),
-                dist_family=SkewStudent(),
-                # Normal(), StudentsT(), SkewStudent(), GeneralizedError()
-)
-
-# Fit the model
-dgaf = dga.fit()
-
-# Forecast 2020
-dgafor = dgaf.forecast('2020-01-01', horizon=1)
-
-# Plot
-dgafor.pit_plot(title=
-               'GARCH TSkew PIT test, Out-of-sample')
-
-# Save the figure
-pitchart_f = os.path.join('output', 'pitchart_garch_tskew.pdf')
-plt.savefig(pitchart_f, bbox_inches='tight')
-#plt.show()
-plt.close('all')
-
-###############################################################################
-#%% Alternative model: GARCH with Gaussian
 ###############################################################################
 #### Specify the model
 dga = DistGARCH(depvar_str='FX log returns',
@@ -602,13 +584,87 @@ dgafor = dgaf.forecast('2020-01-01', horizon=1)
 
 # Plot
 dgafor.pit_plot(title=
-               'GARCH TSkew PIT test, Out-of-sample')
+               'GARCH Gaussian PIT test, Out-of-sample')
 
 # Save the figure
 pitchart_f = os.path.join('output', 'pitchart_garch_gaussian.pdf')
 plt.savefig(pitchart_f, bbox_inches='tight')
-#plt.show()
+plt.show()
 plt.close('all')
+
+# Gaussian GARCH logscore
+alogscore_l = list()
+for fdate in forecast_date_l:
+    true_val = float(df.loc[fdate, 'FX log returns'])
+    log_score = np.log(dgafor.dist_fit(fdate).pdf(true_val))
+    alogscore_l.append(log_score)
+
+# Gaussian GARCH against baseline
+model_ls_diff = [x-y for x,y in zip(alogscore_l, logscore_l)]
+norm_factor = np.sqrt(np.nanvar(model_ls_diff)/len(logscore_l))
+tt_a = np.nanmean(model_ls_diff)/norm_factor # Follows a N(0,1)
+pval_a = stats.norm.cdf(tt_a, 0, 1) # Two-sided test
+
+dbench.loc['Gaussian GARCH', 'PIT'] = 'Fail'
+dbench.loc['Gaussian GARCH', 'Logscore diff against Baseline'] = round(tt_a,3)
+dbench.loc['Gaussian GARCH', 'Diff pvalue'] = f'{round(pval_a,3)}'
+
+###############################################################################
+#%% Alternative model: GARCH with Gaussian
+###############################################################################
+#### Specify the model
+dgs = DistGARCH(depvar_str='FX log returns',
+                data=df,
+                level_str='FX level', 
+                exog_l=baseline, # Defined above 
+                lags_l=[1], 
+                vol_model=GARCH(1,1),
+                # ARCH(1,1), EGARCH(1,1,1), GARCH(1,1),
+                # EWMAVariance(None), RiskMetrics2006(),
+                dist_family=SkewStudent(),
+                # Normal(), StudentsT(), SkewStudent(), GeneralizedError()
+)
+
+# Fit the model
+dgsf = dgs.fit()
+
+# Forecast 2020
+dgsfor = dgsf.forecast('2020-01-01', horizon=1)
+
+# Plot
+dgsfor.pit_plot(title=
+               'GARCH TSkew PIT test, Out-of-sample')
+
+# Save the figure
+pitchart_f = os.path.join('output', 'pitchart_garch_tskew.pdf')
+plt.savefig(pitchart_f, bbox_inches='tight')
+plt.legend(frameon=False)
+plt.show()
+plt.close('all')
+
+# Gaussian Tskew logscore
+slogscore_l = list()
+for fdate in forecast_date_l:
+    true_val = float(df.loc[fdate, 'FX log returns'])
+    log_score = np.log(dgsfor.dist_fit(fdate).pdf(true_val))
+    slogscore_l.append(log_score)
+
+# Gaussian Tskew against baseline
+model_ls_diff = [x-y for x,y in zip(slogscore_l, logscore_l)]
+norm_factor = np.sqrt(np.nanvar(model_ls_diff)/len(logscore_l))
+tt_s = np.nanmean(model_ls_diff)/norm_factor # Follows a N(0,1)
+pval_s = stats.norm.cdf(tt_s, 0, 1) # Two-sided test
+
+dbench.loc['TSkew GARCH', 'PIT'] = 'Fail'
+dbench.loc['TSkew GARCH', 'Logscore diff against Baseline'] = round(tt_s,3)
+dbench.loc['TSkew GARCH', 'Diff pvalue'] = round(pval_s,3)
+
+# Export to latex and csv
+bench_f = os.path.join('output', 'benchmark_table.tex')
+dbench.fillna('').to_latex(bench_f)
+dbench.to_csv(os.path.join('output', 'benchmark_table.csv'), index=True)
+
+
 
 
 
