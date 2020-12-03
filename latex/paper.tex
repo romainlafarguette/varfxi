@@ -1,0 +1,389 @@
+% Time-stamp: <2020-12-03 11:03:42 RLafarguette>
+% LateX template 
+% August 2020, Romain Lafarguette, rlafarguette@imf.org
+
+%% ---------------------------------------------------------------------------
+%% Preamble: Packages and Setup
+%% ---------------------------------------------------------------------------
+% Document class and font
+\documentclass[11pt]{article}
+
+% Language
+\usepackage[english]{babel}
+
+% Layout
+%\usepackage[margin=1in]{geometry}
+\usepackage[DIV=12]{typearea} % Page layout & margin set-up
+\usepackage{setspace} % Linespread
+\onehalfspacing % x 1,5 spacing
+
+% Font and encoding
+\usepackage[utf8]{inputenc} % For input
+\usepackage[T1]{fontenc} % For outut
+\usepackage{lmodern} % Standard LateX font
+\usepackage[babel=true]{microtype}  % "Subliminal refinements towards typographical perfection"
+\microtypesetup{final, tracking=true, kerning=true, spacing=true}
+
+% Graphics
+\usepackage{graphicx} % Insert graphics
+\usepackage{subfig} % Multiple graphs in one figure
+\graphicspath{{./figures/logo/}{./figures/output/}} % Relative paths for graphics
+
+% Tables
+\usepackage{booktabs, rotating, multirow, pdflscape} % Tabular rules and other macros
+
+% Floats, captions and footnotes
+\usepackage{float, caption, capt-of} 
+
+% Put the charts at the end
+% \usepackage[nomarkers]{endfloat}
+
+% Mathematics 
+\usepackage{amsmath, amsthm, amssymb, mathtools, bbm} % American Mathematical Society macros 
+
+% Subfiles and separate compilations
+%\usepackage{subfiles}
+
+% Manage authors and affiliations
+\usepackage{authblk} % Properly align institutions name in the title page
+
+% References and hyper references 
+\usepackage{url} % Insert url
+\usepackage{natbib} % Year-name format
+\usepackage{color}  % Color package
+\definecolor{darkblue}{rgb}{0,0,0.44} % Customized color for external hyper references
+\definecolor{burgundy}{rgb}{0.5, 0.0, 0.13} % Customized color for internal hyper references
+
+% Hyperlinks in pdf
+\usepackage[pdftex]{thumbpdf} % Thumbnails
+\usepackage[%
+    bookmarks=true,   % bookmarks
+    bookmarksnumbered=false,
+    pdfpagemode=, % bookmark closed at the opening
+    pdfstartview=FitH, % all the heigth
+    pdfpagelayout=SinglePage, % perpage view
+    colorlinks=true, % Coloured links
+    breaklinks=true, % new line for too long links
+    urlcolor= darkblue, % external links color
+    citecolor=darkblue, % bibliography citations
+    linkcolor=burgundy, % Internal links color
+    pdfborder={0 0 0}   % No borders
+    ]{hyperref} % Extensive support for hypertext in LaTeX
+
+\hypersetup{% PDF metadata
+  pdftitle = {Foreign Exchange Intervention Rule for Central Banks: A Risk-Based Framework},
+  pdfauthor = {Lafarguette and Veyrune},
+  pdfkeywords = {Foreign Exchange Intervention Rule for Central Banks: A Risk-Based Framework},
+  pdfsubject = {Finance, Financial Economics},
+  pdfcreator = {Lafarguette and Veyrune},
+  pdfproducer = {Lafarguette and Veyrune},
+  pdfpagemode = {UseOutlines}, % When opening pdf. UseOutlines, FullScreen, etc. 
+  pdfstartview = {Fit}}
+
+% Footnote without marker, for the title
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+% A few macros: environments
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+%% ---------------------------------------------------------------------------
+%% Title, authors and affiliations
+%% ---------------------------------------------------------------------------
+\title{\textbf{Foreign Exchange Intervention Rule for Central Banks:
+A Risk-Based Framework}}
+
+\author{Romain Lafarguette}
+\author{Romain Veyrune}
+\affil{International Monetary Fund} 
+\date{December 2020}
+
+%% ---------------------------------------------------------------------------
+%% Begin the document
+%% ---------------------------------------------------------------------------
+\begin{document}
+
+\maketitle      \blfootnote{Contacts:      \url{rlafarguette@imf.org}      and
+\url{rveyrune@imf.org}. Both of the Monetary and Capital Markets Department of
+the IMF.  The authors thank  Suman Basu, Dimitris Drakopoulos,  Kelly Eckhold,
+Chris Erceg, Andres Gonzales, Simon  Gray, Darryl King, Vladimir Klyuev, Jorge
+Kriljenko,  Istvan Mak,  Thomas McGregor,  Stephen Mulema,  Umang Rawat,  Olga
+Stankova,  and  Kevin Wiseman  for  their  comments  and insights.  Karen  Lee
+provided research  assistance. The public  data and Python codes  to replicate
+the      results      of      this       paper      are      available      at
+https://romainlafarguette.github.io/software/.  The  views  expressed  in  IMF
+Working Papers are those of the authors and do not necessarily represent the
+views of the IMF, its Executive Board, or IMF management.}
+
+%% ---------------------------------------------------------------------------
+%% Abstract
+%% ---------------------------------------------------------------------------
+
+\begin{abstract} This  paper presents  a new rule  for central  banks’ foreign
+exchange (FX) interventions, using the concept of Value at Risk (VaR). The VaR
+rule is  used to design an  intervention policy that consistently  transfers a
+given share of exchange rate risk from  the market to the central bank balance
+sheet, depending  on the economy exposure  to exchange rate risk.  A VaR-based
+intervention  rule is  desirable for  countries under  floating exchange  rate
+arrangements,  where central  banks intervene  in  the FX  market to  preserve
+financial stability. This approach is  consistent with the price and financial
+stability mandates of  many central banks, including  inflation targeters. The
+VaR  rule has  other appealing  features  for central  banks, including  being
+forward  looking and  budget neutral  over the  medium term.  The VaR  rule is
+back-tested on Banco Mexico’s publicly available FX interventions data between
+2008  and  2016,  both  with  and  without  a  preannounced  fixed  volatility
+threshold.\\
+\end{abstract}
+\bigskip
+
+\noindent \textbf{Keywords:} Foreign Exchange Interventions, Value at Risk, Exchange Rate at Risk, GARCH 
+
+\medskip
+
+\noindent \textbf{JEL classification:} E58 (Central Banks and Their Policies), F31 (Foreign Exchange), G17 (Financial Forecasting and Simulations)
+
+%% ---------------------------------------------------------------------------
+%% Suppress page number on title page 
+%% ---------------------------------------------------------------------------
+\thispagestyle{empty} 
+\newpage
+\pagenumbering{arabic}
+
+%% ---------------------------------------------------------------------------
+%% Introduction
+%% ---------------------------------------------------------------------------
+\section{Introduction}
+\label{sec:introduction}
+
+The 2018 IMF  Annual Report on Exchange Arrangement  and Exchange Restrictions
+classified 65  exchange arrangements as  either floating or free  floating, of
+which 38 implemented  inflation targeting.  In those  arrangements, the supply
+and demand  in the foreign  exchange (FX)  market determine the  exchange rate
+with no predictable path.  As a result,  the exchange rate risk is not managed
+by the  authorities and  remains fully  with the  private sector,  despite the
+financial stability risk  that it entails. As hinted by  the breakdown between
+floating  and “free”  floating, not  all  central banks  are comfortable  with
+ruling out participation in the FX market. Even those with a strong commitment
+to floating, for  example, Chile, Mexico, and Norway, did  intervene in the FX
+market   in   cases   of   exceptional    stress,   such   as   the   COVID-19
+pandemic.\footnote{See,                      for                      example,
+https://www.fx-markets.com/foreign-exchange/4624581/chile-launches-biggest-fx-intervention-in-20-years,
+https://www.wsj.com/articles/norwegian-krone-soars-amid-signs-of-central-bank-intervention-11585068173}\\
+
+Typical FX intervention objectives in a floating exchange rate arrangement are
+variants of  preserving market  functioning, for example,  smoothing excessive
+exchange  rate  volatility and  addressing  disorderly  market conditions,  or
+correcting exchange rate misalignment. The  literature adds objectives such as
+an adequate stock  of reserves, external competitiveness,  and price stability
+(\cite{patel2019},  \cite{chamon2019}). These  all circle  back to  notions of
+market  stability  (having enough  foreign  reserves  to intervene  later)  or
+exchange rate  equilibrium (external and  price stability), both of  which are
+underpinned by the notion of macrofinancial risk to the economy.\\
+
+The main  contribution of this  paper is to  look at intervention  through the
+prism of risk. Each economy presents  to a different extent unhedged exposures
+to  exchange rate  risk. Unhedged  exposures  include any  direct or  indirect
+exposition to  exchange rate risk  by any economic agents.  They fundamentally
+depend on structural features of the  economies, chiefly their size and degree
+of openness. The degree of resilience  to foreign exchange risk―that is, large
+swings in the  exchange rate―that the economy can  absorb varies substantially
+across countries.  As interventions  in the FX  spot market  transfer exchange
+rate  risk off  the  market, FX  interventions  can be  desirable  even for  a
+floating exchange  rate regime,  as maintaining orderly  conditions on  the FX
+market is part of a broad financial stability mandate.\\
+
+Central banks usually  keep a fair degree of opacity  about their intervention
+triggers, which  makes it difficult to  determine how much exchange  rate risk
+they   consider  the   market   could  manage   on  its   own   and  when   to
+intervene. However,  it could be  inferred from actual intervention  if enough
+data on  interventions are published.  Other  central banks, such as  those in
+Colombia,   Guatemala,  and   Mexico,  use   transparent  intervention   rules
+\citep{chamon2019} that reveal, at least partially, their risk tolerance.\\
+
+This  paper proposes  an  empirical  methodology based  on  Value  at Risk  to
+determine  the  trigger of  an  FX  intervention  rule  anchored to  the  risk
+tolerance of the central bank (the VaR rule) that absorbs a constant amount of
+exchange rate risk and leaves the rest in the market. This risk-based strategy
+is beneficial both from a financial stability angle and because of its support
+of the development of the FX risk hedging market. This methodology can also be
+used  to  reverse  engineer  central  banks' risk  tolerance  based  on  their
+intervention in the FX spot market.\\
+
+There are important conceptual caveats to  mention. Our paper does not explore
+the efficiency of FX interventions, as  we use a simple reduced-form framework
+without causal identification.  The paper  focuses on the timing (the trigger)
+for intervention  and not  on the optimal  intervention amount.   Further work
+could explore these issues.\\
+
+This paper relates to the  rule-versus-discretion literature. The paper argues
+that  the VaR  rule offers  many of  the benefits  attached to  the rule-based
+approach  while  minimizing common  pitfalls  of  rules.   In this  sense,  it
+contributes to  constant efforts  of central  banks to  improve the  design of
+policy rules  \citep{taylor2017} in the  domain of exchange rate  policy.  The
+most remarkable advantage  of the VaR-based intervention is that  it keeps the
+risk  transfers constant,  while it  would increase  or decrease,  possibility
+without   limit,  with   exchange  rate   volatility  under   fixed-volatility
+triggers.\\
+
+The  empirical methodology  is applied  to the  case of  Mexico. The  peso has
+floated for a long period in one  of the most liquid FX markets among emerging
+economies.  In  addition,  Banco   Mexico's  (BM)  website  provides  detailed
+intervention data since 2008. Banco Mexico also implemented interventions both
+with a  minimum bid rate (that  is, a preannounced fixed  volatility rule) and
+without  a  minimum  bid  rate,   providing  a  diversity  of  experiences  in
+intervention  strategy.  Our  paper  focuses  on  only  one  dimension  of  FX
+interventions: preventing  excessive volatility  on the FX  market benchmarked
+against a risk-based metric. Other relevant  reasons and motives may well have
+been factored into BM intervention without a minimum price.\\
+
+The rest  of the paper  is organized as follows:  Section \ref{sec:literature}
+presents  a  brief  literature  review.   Section  \ref{sec:var-interventions}
+explains the concept of the exchange rate at risk and the formalization of the
+FX intervention rule.  Section IV presents the empirical framework  based on a
+GARCH model.  Section  V provides the operational framework  for central banks
+using the model for their FX interventions. Section VI back-tests the model on
+Mexico public data. Section VII concludes.\\
+
+%% ---------------------------------------------------------------------------
+%% Literature Review
+%% ---------------------------------------------------------------------------
+\section{Literature Review}
+\label{sec:literature}
+
+The literature on policy rules mainly focuses on the monetary policy decision.
+The  debate is  essentially whether  the  monetary policy  decision should  be
+guided by a  pre-established reaction function (the rule)  or by policymakers’
+expert judgment (discretion).  The reasoning is that rules reduce  the cost of
+disinflation  policy  if the  monetary  authorities  have not  established  an
+inflation aversion reputation by curbing  an inflation expectation of rational
+economic agents \citep{kydland1977}.  Once  a reputation has been established,
+the  rule  may  not  be  superior   to  discretion  based  on  sound  judgment
+\citep{barro1983}.\\
+
+While less  explored in the literature,  the same arguments could  apply to FX
+intervention  rules. They  can  likely  signal the  commitment  to a  floating
+exchange rate (within boundaries) and convince rational economic agents (which
+may challenge  the central bank  commitment to  float) that the  exchange rate
+will experience at least a certain degree of volatility. In addition, FX rules
+serve to anchor market expectations \citep{montoro2013} and  to provide
+some sense of safety to the market, thereby contributing to its stability.\\
+
+More  generally,  central banks’  commitment  can  be  used to  steer  agents’
+behavior. For example, \cite{krugman1991} shows that a commitment to intervene
+as the  exchange rate leaves  a target zone causes  change in the  behavior of
+economic  agents,  even  when  there   is  no  explicit  intervention.   Also,
+\cite{fanelli2020} show  that commitment to future  interventions is necessary
+to have an impact on exchange rates today.  Finally, \cite{basu2018} show that
+commitment  has additional  benefits over  discretion when  there are  capital
+outflows and FX reserves may run out.\\
+
+An important  aspect to consider for  FX interventions is the  source of shock
+that the central bank would like  to mitigate. In micro-founded optimal policy
+frameworks, the rationale for FX interventions depends on the shock generating
+the exchange rate  movement. For example, in \cite{basu2020}, exchange
+rate movements  owing to permanent  real shocks―for example,  productivity and
+commodity  prices,  and fundamental  changes  in  world interest  rates―should
+generally be accommodated unless they trigger financial constraints. Financial
+stability depends both  on cyclical (exchange rate  volatility) and structural
+factors such that domestic FX hedging,  not just the exchange rate volatility,
+could motivate  the central banks  to smooth movements associated  with higher
+uncovered interested  rate parity (UIP)  premia. Therefore, according  to this
+literature, only  those exchange  rate movements associated  with identifiable
+global financial shocks and growing bid-ask  spreads should be included in the
+rule,  while movements  arising  from  commodity price  shocks  should not  be
+included. However, in  practice, the diagnosis of the  shock requires judgment
+(\cite{basu2020}, \cite{cavallino2019}), and  identifying in  real time  the
+source of the shock is often not possible. Therefore, the FX intervention rule
+we present here has a somewhat narrow focus. The rationale for the VaR rule is
+to preserve orderly market conditions by preventing excess volatility and tail
+risks to  materialize, irrespective of  their source. One important  aspect is
+that  any  source  of  shocks  could  potentially  degenerate  into  financial
+stability risks, as long as it creates risks to unhedged exposure. This is the
+reason we do  not identify the source  of the shock in this  paper, which also
+has benefits in terms of implementation.\\
+
+In  this  paper, an  intervention  is  deemed rule  based  when  it reacts  to
+predetermined parameters to deliver predictable responses. The most used rules
+are  based  on fixed-volatility  triggers  such  as day-to-day  exchange  rate
+change, for  example, 2  percent depreciation from  the previous  day exchange
+rate close.   The rule can  be disclosed or kept  secret by the  central bank,
+although,   in   the   latter   case,   it   may   become   transparent   with
+experience. \cite{patel2019} surveyed 21 emerging market central banks and six
+out  the   21  regularly  use   an  intervention   rule,  while  four   do  so
+occasionally.\\
+
+Some studied the  efficiency of FX rules and usually  find them less efficient
+than discretion. However,  in some cases, the understanding  of rules includes
+tactics such as  "leaning against the wind," that is,  delaying the adjustment
+of the  exchange rate,  which would  not be  considered a  rule in  this paper
+\citep{chutasripanich2015}. In other cases, it  involves central banks with an
+already  established  preference  for   floating,  for  which  the  literature
+indicates that the  rule may not be superior  to discretion \citep{fatum2005}.
+While   country-specific   empirical    work   on   rule-based   interventions
+(fixed-volatility  triggers) was  performed for  Canada \citep{fatum2005}  and
+Columbia  \citep{kuersteiner2018},  none  was  completed for  Mexico,  to  our
+knowledge.\\
+
+The concept of VaR, as formalized in \cite{jorion2007}, is frequently used for
+financial applications, for managing  risk exposure, for portfolio allocation,
+and so  on. \cite{alexander2009}  provides a comprehensive  review of  VaR for
+market risk analysis.  Among many applications  of the VaR model, one can cite
+in the  FX field \cite{aljanabi2006}, who  proposes to consistently use  a VaR
+framework for managing trading risk exposure  of FX securities, in the context
+of emerging and illiquid markets.  \cite{bredin2004} review the performance of
+a number of VaR methods using a portfolio  based on the FX exposure of a small
+open economy.\\
+
+Using  ARCH/GARCH  (Autoregressive Conditional  Heteroskedasticity/Generalized
+Autoregressive Conditional  Heteroskedasticity) models  for estimating  VaR is
+also  standard  practice  in  the  literature.   \cite{engle2001}  conducts  a
+comprehensive overview of the ARCH/GARCH  models in financial econometrics and
+devotes an entire section to  estimating VaR.  \cite{giot2004} model daily VaR
+using realized  volatility and  ARCH models,  and show  that it  has excellent
+forecasting  performances.   \cite{chan2007}  use nonlinear  GARCH  models  to
+estimate  VaR  in  the  presence  of a  data  generating  process  with  heavy
+tails. Other types of  models could be used to estimate  VaR, such as quantile
+regressions    \citep{gaglianone2011},    copulas   \citep{patton2001},    and
+nonparametric  kernel \citep{hoogerheide2010}.   However, the  GARCH model  is
+used for this paper because it is a standard model used by market participants
+and central  banks around  the world, with  widespread implementation  on many
+statistical packages.  Besides, as \cite{jeon2002}  show, FX markets are quite
+efficient  and their  features  fit well  the simple  and  robust approach  of
+standard GARCH models.\\
+
+Finally,  GARCH  models  are  frequently  used for  the  analysis  of  the  FX
+markets. \cite{hansen2005}  argue that in  the context of daily  exchange rate
+returns, nothing can  beat a GARCH(1,1) model,  while \cite{mcmillan2012} show
+that  an  intraday  GARCH(1,1)  model generally  provides  superior  forecasts
+compared with all other models.\\
+
+%% ---------------------------------------------------------------------------
+%% VaR Interventions and Exchange Rate Value-at-Risk
+%% ---------------------------------------------------------------------------
+\section{VaR Interventions and Exchange Rate Value-at-Risk}
+\label{sec:var-interventions}
+
+%% ---------------------------------------------------------------------------
+%% Bibliography
+%% ---------------------------------------------------------------------------
+\newpage
+\singlespacing
+\bibliographystyle{apalike2}
+\bibliography{bibliography}
+
+%% ---------------------------------------------------------------------------
+%% Annex
+%% ---------------------------------------------------------------------------
+\newpage
+\appendix 
+\section{Annex}
+
+%% ---------------------------------------------------------------------------
+%% End the document
+%% ---------------------------------------------------------------------------
+\end{document}
