@@ -7,16 +7,14 @@ latex/auto/
 
 # Ignore some extensions
 *.aux
+*.bbl
+*.blg
 *.log
 *.nav
 *.out
 *.snm
 *.toc
+*.docx
 
 # Ignore some files
-latex/slides
 data/MXN_raw_data.xslx
-
-
-
-
