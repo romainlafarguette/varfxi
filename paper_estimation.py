@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-11-07 02:30:10 Romain"
+Time-stamp: "2020-12-03 21:08:51 Romain"
 """
 
 ###############################################################################
@@ -206,24 +206,23 @@ dgfor = dgf.forecast('2020-01-01', horizon=1)
 ###############################################################################
 #%% Plots of the baseline model
 ###############################################################################
-# Plot
-dgfor.pit_plot(title=
-               'Probability Integral Transform (PIT) Test, Out-of-sample')
+# # Plot
+# dgfor.pit_plot(title= '')
 
-# Save the figure
-pitchart_f = os.path.join('output', 'pitchart.pdf')
-plt.savefig(pitchart_f, bbox_inches='tight')
-#plt.show()
-plt.close('all')
+# # Save the figure
+# pitchart_f = os.path.join('output', 'pitchart.pdf')
+# plt.savefig(pitchart_f, bbox_inches='tight')
+# #plt.show()
+# plt.close('all')
 
-# Plot of the VaR rule
-dgfor.plot_pdf_rule(fdate='2020-08-03', q_low=0.025, q_high=0.975)
+# # Plot of the VaR rule
+# dgfor.plot_pdf_rule(fdate='2020-08-03', q_low=0.025, q_high=0.975)
 
-# Save the figure
-var_rule_f = os.path.join('output', 'var_rule.pdf')
-plt.savefig(var_rule_f, bbox_inches='tight')
-#plt.show()
-plt.close('all')
+# # Save the figure
+# var_rule_f = os.path.join('output', 'var_rule.pdf')
+# plt.savefig(var_rule_f, bbox_inches='tight')
+# #plt.show()
+# plt.close('all')
 
 ###############################################################################
 #%% Discretionary vs rule-based FXI
@@ -478,7 +477,7 @@ ax.plot(line_support, ci_l, color='red', linestyle='dashed')
 ax.legend()
 ax.set_xlabel('Quantiles', labelpad=20)
 ax.set_ylabel('Cumulative probability', labelpad=20)
-ax.set_title('Qreg Benchmark Distribution PIT test', y=1.02)
+ax.set_title('', y=1.02)
 
 fp = os.path.join('output', 'pit_chart_qreg.pdf')
 plt.savefig(fp, bbox_inches='tight')
@@ -534,8 +533,7 @@ dgnf = dgn.fit()
 dgnfor = dgnf.forecast('2020-01-01', horizon=1)
 
 # Plot
-dgnfor.pit_plot(title=
-               'EGARCH Gaussian PIT test, Out-of-sample')
+dgnfor.pit_plot(title='')
 
 # Save the figure
 pitchart_f = os.path.join('output', 'pitchart_egarch_gaussian.pdf')
@@ -561,7 +559,7 @@ dbench.loc['Gaussian EGARCH', 'Logscore diff against Baseline'] = round(tt_n,3)
 dbench.loc['Gaussian EGARCH', 'Diff pvalue'] = f'{round(pval_n,3)}'
 
 ###############################################################################
-#%% Alternative model: GARCH with Tskew
+#%% Alternative model: GARCH with Gaussian
 ###############################################################################
 #### Specify the model
 dga = DistGARCH(depvar_str='FX log returns',
@@ -583,8 +581,7 @@ dgaf = dga.fit()
 dgafor = dgaf.forecast('2020-01-01', horizon=1)
 
 # Plot
-dgafor.pit_plot(title=
-               'GARCH Gaussian PIT test, Out-of-sample')
+dgafor.pit_plot(title='')
 
 # Save the figure
 pitchart_f = os.path.join('output', 'pitchart_garch_gaussian.pdf')
@@ -610,7 +607,7 @@ dbench.loc['Gaussian GARCH', 'Logscore diff against Baseline'] = round(tt_a,3)
 dbench.loc['Gaussian GARCH', 'Diff pvalue'] = f'{round(pval_a,3)}'
 
 ###############################################################################
-#%% Alternative model: GARCH with Gaussian
+#%% Alternative model: GARCH with Tskew
 ###############################################################################
 #### Specify the model
 dgs = DistGARCH(depvar_str='FX log returns',
@@ -632,8 +629,7 @@ dgsf = dgs.fit()
 dgsfor = dgsf.forecast('2020-01-01', horizon=1)
 
 # Plot
-dgsfor.pit_plot(title=
-               'GARCH TSkew PIT test, Out-of-sample')
+dgsfor.pit_plot(title='')
 
 # Save the figure
 pitchart_f = os.path.join('output', 'pitchart_garch_tskew.pdf')

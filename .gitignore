@@ -9,7 +9,9 @@ latex/auto/
 *.aux
 *.bbl
 *.blg
+*.lof
 *.log
+*.lot
 *.nav
 *.out
 *.snm
@@ -17,4 +19,9 @@ latex/auto/
 *.docx
 
 # Ignore some files
+latex/slides
 data/MXN_raw_data.xslx
+
+
+
+
