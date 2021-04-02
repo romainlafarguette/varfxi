@@ -1,4 +1,4 @@
-% Time-stamp: <2020-12-03 21:37:38 Romain>
+% Time-stamp: <2021-04-01 10:59:51 rlafarguette>
 % LateX template 
 % August 2020, Romain Lafarguette, rlafarguette@imf.org
 
@@ -102,10 +102,9 @@
 \title{\textbf{Foreign Exchange Intervention Rule for Central Banks:
 A Risk-Based Framework}}
 
-\author{Romain Lafarguette}
-\author{Romain Veyrune}
-\affil{International Monetary Fund} 
-\date{December 2020}
+\author{Romain Lafarguette and Romain Veyrune}
+%\affil{International Monetary Fund} 
+\date{\today}
 
 %% ---------------------------------------------------------------------------
 %% Begin the document
@@ -114,39 +113,37 @@ A Risk-Based Framework}}
 
 \maketitle      \blfootnote{Contacts:      \url{rlafarguette@imf.org}      and
 \url{rveyrune@imf.org}. Corresponding author: \url{rlafarguette@imf.org}. Both
-at the Monetary and Capital Markets  Department of the IMF.  The authors thank
-Suman Basu, Dimitris Drakopoulos, Kelly Eckhold, Chris Erceg, Andres Gonzales,
-Simon Gray, Darryl King, Vladimir  Klyuev, Jorge Kriljenko, Istvan Mak, Thomas
-McGregor, Stephen  Mulema, Umang Rawat,  Olga Stankova, and Kevin  Wiseman for
-their  comments and  insights.  Karen  Lee provided  research assistance.  The
-public  data and  Python codes  to  replicate the  results of  this paper  are
-available  at \url{https://romainlafarguette.github.io/software/}.   The views
-expressed  in  IMF  Working  Papers  are  those of  the  authors  and  do  not
-necessarily  represent the  views  of the  IMF, its  Executive  Board, or  IMF
-management.}
+at the Monetary and Capital Markets  Department of the International Monetary Fund.  The authors thank
+Tobias Adrian, Suman Basu, Dimitris Drakopoulos, Kelly Eckhold, Chris Erceg,
+Andres Gonzales, Simon Gray, Darryl King, Vladimir  Klyuev, Jorge Kriljenko,
+Istvan Mak, Thomas McGregor, Stephen  Mulema, Umang Rawat,  Olga Stankova, and
+Kevin  Wiseman for their  comments and  insights.  Karen  Lee provided
+research assistance.  The public  data and  Python codes  to  replicate the
+results of  this paper  are available  at
+\url{https://romainlafarguette.github.io/software/}.}
 
 %% ---------------------------------------------------------------------------
 %% Abstract
 %% ---------------------------------------------------------------------------
 
-\begin{abstract} This  paper presents  a new rule  for central  banks’ foreign
-exchange (FX) interventions, using the concept of Value at Risk (VaR). The VaR
-rule is  used to design an  intervention policy that consistently  transfers a
-given share of exchange rate risk from  the market to the central bank balance
-sheet, depending  on the economy exposure  to exchange rate risk.  A VaR-based
-intervention  rule is  desirable for  countries under  floating exchange  rate
-arrangements,  where central  banks intervene  in  the FX  market to  preserve
-financial stability. This approach is  consistent with the price and financial
-stability mandates of  many central banks, including  inflation targeters. The
-VaR  rule has  other appealing  features  for central  banks, including  being
-forward  looking and  budget neutral  over the  medium term.  The VaR  rule is
-back-tested on Banco Mexico’s publicly available FX interventions data between
-2008  and  2016,  both  with  and  without  a  preannounced  fixed  volatility
-threshold.\\
+\begin{abstract} This paper presents a rule for foreign exchange interventions
+(FXI),  designed to  preserve financial  stability in  floating exchange  rate
+arrangements. The FXI rule addresses a  market failure: the absence of hedging
+solution for  tail exchange rate risk  (i.e.  high volatility) in  the market.
+Market impairment or  overshoot of exchange rate between  two equilibria could
+generate  high volatility  and threaten  financial stability  due to  unhedged
+exposures to exchange rate  risk in the economy.  The rule  uses the concept of
+Value at Risk (VaR) to define FXI  triggers. While it provides to the market a
+hedge against tail risk, the rule  allows the exchange rate to smoothly adjust
+to new  equilibria.  In addition, the  rule is budget neutral  over the medium
+term,  encourages  a prudent  risk  management  in  the  market, and  is  more
+resilient to  speculative attacks than  other rules, such  as fixed-volatility
+rules.  The  empirical methodology is  backtested on Banco Mexico's  FXIs data
+between 2008 and 2016.\\
 \end{abstract}
 \bigskip
 
-\noindent \textbf{Keywords:} Foreign Exchange Interventions, Value at Risk, Exchange Rate at Risk, GARCH 
+\noindent \textbf{Keywords:} Foreign Exchange Interventions, Value at Risk, GARCH 
 
 \medskip
 
@@ -164,21 +161,21 @@ threshold.\\
 %% Table of contents, list of figures and tables
 %% ---------------------------------------------------------------------------
 
-\begin{NoHyper}  
-\tableofcontents
-%\addtocontents{toc}{~\hfill\textbf{Page}\par}
-\thispagestyle{empty} 
+% \begin{NoHyper}  
+% \tableofcontents
+% %\addtocontents{toc}{~\hfill\textbf{Page}\par}
+% \thispagestyle{empty} 
 
-\listoftables
-%\addtocontents{lof}{~\hfill\textbf{Page}\par}
-\thispagestyle{empty} 
+% \listoftables
+% %\addtocontents{lof}{~\hfill\textbf{Page}\par}
+% \thispagestyle{empty} 
 
-\newpage
-\listoffigures
+% \newpage
+% \listoffigures
 
-% \addtocontents{lot}{~\hfill\textbf{Page}\par}
-\thispagestyle{empty} 
-\end{NoHyper}  
+% % \addtocontents{lot}{~\hfill\textbf{Page}\par}
+% \thispagestyle{empty} 
+% \end{NoHyper}  
 
 %% ---------------------------------------------------------------------------
 %% Introduction
@@ -189,209 +186,148 @@ threshold.\\
 \section{Introduction}
 \label{sec:introduction}
 
-The 2018 IMF  Annual Report on Exchange Arrangement  and Exchange Restrictions
-classified 65  exchange arrangements as  either floating or free  floating, of
-which 38 implemented  inflation targeting.  In those  arrangements, the supply
-and demand  in the foreign  exchange (FX)  market determine the  exchange rate
-with no predictable path.  As a result,  the exchange rate risk is not managed
-by the  authorities and  remains fully  with the  private sector,  despite the
-financial stability risk  that it entails. As hinted by  the breakdown between
-floating  and “free”  floating, not  all  central banks  are comfortable  with
-ruling out participation in the FX market. Even those with a strong commitment
-to floating, for  example, Chile, Mexico, and Norway, did  intervene in the FX
-market   in   cases   of   exceptional    stress,   such   as   the   COVID-19
-pandemic.\footnote{See, for example,\\
-\url{https://www.fx-markets.com/foreign-exchange/4624581/chile-launches-biggest-fx-intervention-in-20-years},\\
+The   2019  IMF   Annual   Report  on   Exchange   Arrangement  and   Exchange
+Restrictions\footnote{Available at \url{https://www.elibrary-areaer.imf.org/Pages/Home.aspx}}
+classified 66 exchange arrangements as  either floating or "free" floating. In
+these arrangements,  the supply and  the demand  in the foreign  exchange (FX)
+market, absent official sector FX  intervention (FXI), determines the exchange
+rate. The exchange  rate risk could, then, be entirely  managed by the private
+sector,  often through  the use  of derivative  instruments. The  central bank
+transacts FX only to manage its FX reserves or in its role as fiscal agent for
+the government.  However,  a market failure constraining  the private sector’s
+ability  to manage  FX risks  may significantly  increase financial  stability
+risks.   Therefore, no  central  banks, in  either  floating or  free-floating
+arrangements, rule out interventions on the FX market. Even central banks with
+a strong  commitment to floating  did intervene in the  FX market in  cases of
+exceptional stress, such as  the COVID-19 pandemic.\footnote{See, for example,
+\url{https://www.fx-markets.com/foreign-exchange/4624581/chile-launches-biggest-fx-intervention-in-20-years},
 \url{https://www.wsj.com/articles/norwegian-krone-soars-amid-signs-of-central-bank-intervention-11585068173}}\\
 
-Typical FX intervention objectives in a floating exchange rate arrangement are
-variants of  preserving market  functioning, for example,  smoothing excessive
-exchange  rate  volatility and  addressing  disorderly  market conditions,  or
-correcting exchange rate misalignment. The  literature adds objectives such as
-an adequate stock  of reserves, external competitiveness,  and price stability
-(\cite{patel2019},  \cite{chamon2019}). These  all circle  back to  notions of
-market  stability  (having enough  foreign  reserves  to intervene  later)  or
-exchange rate  equilibrium (external and  price stability), both of  which are
-underpinned by the notion of macrofinancial risk to the economy.\\
+We conceptualize  central banks' FXIs  in floating  exchange rate as  a public
+good,  specifically  an  insurance,  provided by  the  public  sector  against
+exchange rate tail  risks. The private sector might not  be able to completely
+hedge FX risk  either because markets participants have  not internalized such
+risks, or because  hedging markets are incomplete in a  given jurisdiction, or
+because hedging  costs cannot  be optimally  shared among  participants. Under
+such  circumstances,  public  intervention  could  be  warranted  to  preserve
+financial stability.  Our  approach aligns with the  literature supporting the
+idea that public intervention is desirable  when a market failure prevents the
+market to supply optimally a desirable public good (\cite{stiglitz1993}).\\
 
-The main  contribution of this  paper is to  look at intervention  through the
-prism of risk. Each economy presents  to a different extent unhedged exposures
-to  exchange rate  risk. Unhedged  exposures  include any  direct or  indirect
-exposition to  exchange rate risk  by any economic agents.  They fundamentally
-depend on structural features of the  economies, chiefly their size and degree
-of openness. The degree of resilience  to foreign exchange risk―that is, large
-swings in the  exchange rate―that the economy can  absorb varies substantially
-across countries.  As interventions  in the FX  spot market  transfer exchange
-rate  risk off  the  market, FX  interventions  can be  desirable  even for  a
-floating exchange  rate regime,  as maintaining orderly  conditions on  the FX
-market is part of a broad financial stability mandate.\\
+Economies are  more vulnerable to large  variations in the exchange  rate when
+unhedged exposures are  larger. Exposures can be  direct, such as a  firm or a
+household borrows in FX while its  income is denominated in local currency, or
+indirect, such  as the exchange  rate pass  through on domestic  prices, which
+ultimately affects the welfare of economic agents. FX market microstructure–in
+particular depth  and liquidity–plays a  role as liquid markets  absorb shocks
+smoothly,   reducing  the   likelihood  of   sudden  volatility   pikes.   The
+macro-financial risk materializes when a  large swing in exchange rate impacts
+vulnerable agents,  leading to  balance sheets  impairments, which  could have
+systemic  implications. In  other words,  vulnerable economies–with  pervasive
+unhedged  exposures (e.g.   dollarized small  open economies)  and shallow  FX
+markets–would  require more  public insurance  coverage against  FX volatility
+compared  to  more  robust  economies  with  less  significant  exposures  and
+resilient FX markets.\\
 
-Central banks usually  keep a fair degree of opacity  about their intervention
-triggers, which  makes it difficult to  determine how much exchange  rate risk
-they   consider  the   market   could  manage   on  its   own   and  when   to
-intervene. However,  it could be  inferred from actual intervention  if enough
-data on  interventions are published.  Other  central banks, such as  those in
-Colombia,   Guatemala,  and   Mexico,  use   transparent  intervention   rules
-\citep{chamon2019} that reveal, at least partially, their risk tolerance.\\
+The rule proposed in this paper does  not indicate how much of the risk should
+be covered  by the central  bank. Instead,  this paper designs  an operational
+framework that ensures that the central bank can easily provide an FX hedge to
+the market,  in a consistent  and transparent way. Public  insurance provision
+entails pitfalls, such  as the cost of the insurance  and the proper alignment
+of incentives  to avoid  moral hazard  reflected in  excessive risk  taking by
+private agents  (\cite{mckinnon2000}).  Central  banks habitually keep  a fair
+degree of opacity about their  intervention triggers, which makes it difficult
+to determine how much exchange rate risk they consider the market could manage
+on its own.  Often, central banks do not formally assess exposures to unhedged
+exchange rate  risk in the  economy and how much  risk their FXI  are removing
+from the market. Although not formalized by central banks, FXI risk mitigation
+could  be inferred  ex-post  from  actual interventions  if  granular data  on
+interventions are available.  Other central  banks, such as those in Colombia,
+Guatemala, and Mexico, use  transparent intervention rules (\cite{chamon2019})
+that partially reveal how much of the risk they intend to cover themselves.\\
 
-This  paper proposes  an  empirical  methodology based  on  Value  at Risk  to
-determine  the  trigger of  an  FX  intervention  rule  anchored to  the  risk
-tolerance of the central bank (the VaR rule) that absorbs a constant amount of
-exchange rate risk and leaves the rest in the market. This risk-based strategy
-is beneficial both from a financial stability angle and because of its support
-of the development of the FX risk hedging market. This methodology can also be
-used  to  reverse  engineer  central  banks' risk  tolerance  based  on  their
-intervention in the FX spot market.\\
-
-There are important conceptual caveats to  mention. Our paper does not explore
-the efficiency of FX interventions, as  we use a simple reduced-form framework
-without causal identification.  The paper  focuses on the timing (the trigger)
-for intervention  and not  on the optimal  intervention amount.   Further work
-could explore these issues.\\
-
-This paper relates to the  rule-versus-discretion literature. The paper argues
-that  the VaR  rule offers  many of  the benefits  attached to  the rule-based
-approach  while  minimizing common  pitfalls  of  rules.   In this  sense,  it
-contributes to  constant efforts  of central  banks to  improve the  design of
-policy rules  \citep{taylor2017} in the  domain of exchange rate  policy.  The
-most remarkable advantage  of the VaR-based intervention is that  it keeps the
-risk  transfers constant,  while it  would increase  or decrease,  possibility
-without   limit,  with   exchange  rate   volatility  under   fixed-volatility
-triggers.\\
-
-The  empirical methodology  is applied  to the  case of  Mexico. The  peso has
-floated for a long period in one  of the most liquid FX markets among emerging
-economies.  In  addition,  Banco   Mexico's  (BM)  website  provides  detailed
-intervention data since 2008. Banco Mexico also implemented interventions both
-with a  minimum bid rate (that  is, a preannounced fixed  volatility rule) and
-without  a  minimum  bid  rate,   providing  a  diversity  of  experiences  in
-intervention  strategy.  Our  paper  focuses  on  only  one  dimension  of  FX
-interventions: preventing  excessive volatility  on the FX  market benchmarked
-against a risk-based metric. Other relevant  reasons and motives may well have
-been factored into BM intervention without a minimum price.\\
-
-The rest  of the paper  is organized as follows:  Section \ref{sec:literature}
-presents  a  brief  literature  review.   Section  \ref{sec:var-interventions}
-explains the concept of the exchange rate at risk and the formalization of the
-FX  intervention  rule.   Section \ref{sec:empirical-framework}  presents  the
-empirical     framework    based     on     a     GARCH    model.      Section
-\ref{sec:operational-framework} provides the operational framework for central
-banks    using   the    model    for   their    FX   interventions.    Section
-\ref{sec:mexico-case}  back-tests the  model  on Mexico  public data.  Section
-\ref{sec:conclusion} concludes.\\
-
-%% ---------------------------------------------------------------------------
-%% Literature Review
-%% ---------------------------------------------------------------------------
-\section{Literature Review}
-\label{sec:literature}
-
-The literature on policy rules mainly focuses on the monetary policy decision.
-The  debate is  essentially whether  the  monetary policy  decision should  be
-guided by a  pre-established reaction function (the rule)  or by policymakers’
-expert judgment (discretion).  The reasoning is that rules reduce  the cost of
-disinflation  policy  if the  monetary  authorities  have not  established  an
-inflation aversion reputation by curbing  an inflation expectation of rational
-economic agents \citep{kydland1977}.  Once  a reputation has been established,
-the  rule  may  not  be  superior   to  discretion  based  on  sound  judgment
-\citep{barro1983}.\\
-
-While less  explored in the literature,  the same arguments could  apply to FX
-intervention  rules. They  can  likely  signal the  commitment  to a  floating
-exchange rate (within boundaries) and convince rational economic agents (which
-may challenge  the central bank  commitment to  float) that the  exchange rate
-will experience at least a certain degree of volatility. In addition, FX rules
-serve to anchor market expectations \citep{montoro2013} and  to provide
-some sense of safety to the market, thereby contributing to its stability.\\
-
-More  generally,  central banks’  commitment  can  be  used to  steer  agents’
-behavior. For example, \cite{krugman1991} shows that a commitment to intervene
-as the  exchange rate leaves  a target zone causes  change in the  behavior of
-economic  agents,  even  when  there   is  no  explicit  intervention.   Also,
-\cite{fanelli2020} show  that commitment to future  interventions is necessary
-to have an impact on exchange rates today.  Finally, \cite{basu2018} show that
-commitment  has additional  benefits over  discretion when  there are  capital
-outflows and FX reserves may run out.\\
-
-An important  aspect to consider for  FX interventions is the  source of shock
-that the central bank would like  to mitigate. In micro-founded optimal policy
-frameworks, the rationale for FX interventions depends on the shock generating
-the exchange rate  movement. For example, in \cite{basu2020}, exchange
-rate movements  owing to permanent  real shocks―for example,  productivity and
-commodity  prices,  and fundamental  changes  in  world interest  rates―should
-generally be accommodated unless they trigger financial constraints. Financial
-stability depends both  on cyclical (exchange rate  volatility) and structural
-factors such that domestic FX hedging,  not just the exchange rate volatility,
-could motivate  the central banks  to smooth movements associated  with higher
-uncovered interested  rate parity (UIP)  premia. Therefore, according  to this
-literature, only  those exchange  rate movements associated  with identifiable
-global financial shocks and growing bid-ask  spreads should be included in the
-rule,  while movements  arising  from  commodity price  shocks  should not  be
-included. However, in  practice, the diagnosis of the  shock requires judgment
-(\cite{basu2020}, \cite{cavallino2019}), and  identifying in  real time  the
-source of the shock is often not possible. Therefore, the FX intervention rule
-we present here has a somewhat narrow focus. The rationale for the VaR rule is
-to preserve orderly market conditions by preventing excess volatility and tail
-risks to  materialize, irrespective of  their source. One important  aspect is
-that  any  source  of  shocks  could  potentially  degenerate  into  financial
-stability risks, as long as it creates risks to unhedged exposure. This is the
-reason we do  not identify the source  of the shock in this  paper, which also
-has benefits in terms of implementation.\\
-
-In  this  paper, an  intervention  is  deemed rule  based  when  it reacts  to
-predetermined parameters to deliver predictable responses. The most used rules
-are  based  on fixed-volatility  triggers  such  as day-to-day  exchange  rate
-change, for  example, 2  percent depreciation from  the previous  day exchange
-rate close.   The rule can  be disclosed or kept  secret by the  central bank,
-although,   in   the   latter   case,   it   may   become   transparent   with
+In  this  paper, an  intervention  is  deemed  rule-based  when it  reacts  to
+predetermined parameters to deliver predictable responses. The most frequently
+used  FXI rules  are based  on  fixed-volatility triggers  such as  day-to-day
+exchange rate change, for example 2 percent depreciation from the previous day
+exchange rate  close. The  FXI rule  can be  disclosed or  kept secret  by the
+central bank,  although, in the  latter case,  it may become  transparent with
 experience. \cite{patel2019} surveyed 21 emerging market central banks and six
 out  the   21  regularly  use   an  intervention   rule,  while  four   do  so
 occasionally.\\
 
-Some studied the  efficiency of FX rules and usually  find them less efficient
-than discretion. However,  in some cases, the understanding  of rules includes
-tactics such as  "leaning against the wind," that is,  delaying the adjustment
-of the  exchange rate,  which would  not be  considered a  rule in  this paper
-\citep{chutasripanich2015}. In other cases, it  involves central banks with an
-already  established  preference  for   floating,  for  which  the  literature
-indicates that the  rule may not be superior  to discretion \citep{fatum2005}.
-While   country-specific   empirical    work   on   rule-based   interventions
-(fixed-volatility  triggers) was  performed for  Canada \citep{fatum2005}  and
-Columbia  \citep{kuersteiner2018},  none  was  completed for  Mexico,  to  our
-knowledge.\\
+Foreign exchange intervention rules are used to anchor agents’ expectation and
+influence  their behaviors  such as  to  support the  central bank  objectives
+(\cite{krugman1991},   \cite{montoro2013},   and   \cite{fanelli2020}).    The
+shortcoming of  many FXI rules  is that they might  not be flexible  enough to
+accommodate  a  wide range  of  situations,  and  may  have to  be  abandoned,
+challenging    ex   ante    the   authority’s    commitment   to    the   rule
+(\cite{kydland1977}).  In this paper, we consider  the rule as an input in the
+FXI  decision without  discussing  what weight  should be  given  to the  rule
+compared with policy marker judgement. The  objective of paper is more to help
+central bank in developing tools for FXI than to contribute to the rule versus
+discretion literature (\cite{barro1983} and \cite{taylor2017}).\\
 
-The concept of VaR, as formalized in \cite{jorion2007}, is frequently used for
-financial applications, for managing  risk exposure, for portfolio allocation,
-and so  on. \cite{alexander2009}  provides a comprehensive  review of  VaR for
-market risk analysis.  Among many applications  of the VaR model, one can cite
-in the  FX field \cite{aljanabi2006}, who  proposes to consistently use  a VaR
-framework for managing trading risk exposure  of FX securities, in the context
-of emerging and illiquid markets.  \cite{bredin2004} review the performance of
-a number of VaR methods using a portfolio  based on the FX exposure of a small
-open economy.\\
+The recent  conceptual framework developed  by the IMF, the  Integrated Policy
+Framework  (IPF),  provides new  theoretical  foundations  to FXIs.   The  IPF
+integrates monetary  policy, exchange  rate policy, capital  flows management,
+and financial stability into a unified approach (\cite{basu2020}).\\
 
-Using  ARCH/GARCH  (Autoregressive Conditional  Heteroskedasticity/Generalized
-Autoregressive Conditional  Heteroskedasticity) models  for estimating  VaR is
-also  standard  practice  in  the  literature.   \cite{engle2001}  conducts  a
-comprehensive overview of the ARCH/GARCH  models in financial econometrics and
-devotes an entire section to  estimating VaR.  \cite{giot2004} model daily VaR
-using realized  volatility and  ARCH models,  and show  that it  has excellent
-forecasting  performances.   \cite{chan2007}  use nonlinear  GARCH  models  to
-estimate  VaR  in  the  presence  of a  data  generating  process  with  heavy
-tails. Other types of  models could be used to estimate  VaR, such as quantile
-regressions    \citep{gaglianone2011},    copulas   \citep{patton2001},    and
-nonparametric  kernel \citep{hoogerheide2010}.   However, the  GARCH model  is
-used for this paper because it is a standard model used by market participants
-and central  banks around  the world, with  widespread implementation  on many
-statistical packages.  Besides, as \cite{jeon2002}  show, FX markets are quite
-efficient  and their  features  fit well  the simple  and  robust approach  of
-standard GARCH models.\\
+In the IPF, deviations from the  uncovered interest rate parity (UIP) motivate
+FXIs in  the spot market. Deviations  from the uncovered interest  rate parity
+(the  UIP risk  premium)  signal market  dysfunctions (\cite{imf2020}),  which
+arise  from  imperfect  arbitrage  by   financial  intermediaries  in  the  FX
+market. UIP-deviations  based FXI would  address FX market  dysfunctions which
+originate from impaired arbitrage, and not from a structural adjustment of the
+real exchange  rate, which should  take place to  allow the economy  to absorb
+shocks. FXIs  are expected to reduce  the UIP risk premium,  thereby improving
+economic  welfare  through  a  re-alignment  of the  real  exchange  with  its
+equilibrium  value. Therefore,  the IPF  presents  UIP-based FXI  as a  useful
+complement to monetary policy, which could also have positive implications for
+financial stability.\\
 
-Finally,  GARCH  models  are  frequently  used for  the  analysis  of  the  FX
-markets. \cite{hansen2005}  argue that in  the context of daily  exchange rate
-returns, nothing can  beat a GARCH(1,1) model,  while \cite{mcmillan2012} show
-that  an  intraday  GARCH(1,1)  model generally  provides  superior  forecasts
-compared with all other models.\\
+In real  time, however, it  might be operationally challenging  to distinguish
+between structural shocks and UIP deviations. The estimation of UIP deviations
+relies  on the  expected future  spot rate,  which might  not be  available or
+accurately measured  when the  FX shock  hits the  market. The  UIP-based FXI,
+while  optimal  theoretically,  cannot  always  be  implemented  in  practice,
+particularly  in  markets  with  limited   depth  and  liquidity,  and  scarce
+information. Still, these markets are precisely  those where FXIs are the most
+needed. Therefore, a practical implementable approach is necessary.\\
+
+This  paper  proposes an  operational  framework  based  on  a VaR  metric  to
+determine the triggers of an FXI rule  (the VaR rule). Like the UIP-based FXI,
+the VaR rule  allows exchange rate to reach a  new equilibrium, while reducing
+the risk of exchange  rate overshot. The VaR-rule controls the  FX risk on the
+market, thereby contributing  to its stability. Since the  central bank always
+leave  a certain  degree of  risk on  the market,  the VaR  rule encourages  a
+prudent exchange rate risk management by the private sector and stimulates the
+demand  for  market-to-market  FX  hedging.    Besides,  VaR  FXI  has  unique
+advantages, such as  budget neutrality over the medium-term  and robustness to
+market manipulation. Finally,  the fixed frequency of FXIs under  the VaR rule
+help to determine the maximum FXI  amount consistent with both (i) the reserve
+adequacy constraint; and (ii) the minimum  amount necessary to have a credible
+impact on the exchange rate.\\
+
+The empirical  methodology is backtested  using Mexico data. The  Mexican peso
+has floated  for a  long period  in one of  the most  liquid FX  markets among
+emerging economies. In addition, Banco Mexico’s (BM) website provides detailed
+intervention data since 2008. Banco Mexico also implemented interventions both
+with a  minimum bid rate; that  is, a preannounced fixed-volatility  rule, and
+without  a  minimum  bid  rate,   providing  a  diversity  of  experiences  in
+intervention  strategies.   Our  paper  focuses  on  one  dimension  of  FXIs:
+preventing  exchange  rate  tail   risks,  benchmarked  against  a  risk-based
+metric. Other relevant motives may  have been factored into BM’s interventions
+without a minimum rate and are outside of the scope of this paper.\\
+
+The    rest   of    the    paper   is    organized    as   follows:    Section
+\ref{sec:var-interventions}    formalizes     the    FXI     rule.     Section
+\ref{sec:empirical-framework}  presents the  empirical  framework  based on  a
+GARCH model.  Section \ref{sec:operational-framework} provides the operational
+framework  for  central  banks  using  the  model  for  their  FXIs.   Section
+\ref{sec:mexico-case}  back-tests the  model on  Mexico public  data.  Section
+\ref{sec:conclusion} concludes.\\
+
 
 %% ---------------------------------------------------------------------------
 %% VaR Interventions and Exchange Rate Value-at-Risk
@@ -399,30 +335,30 @@ compared with all other models.\\
 \section{VaR Interventions and Exchange Rate at Risk}
 \label{sec:var-interventions}
 
-The Exchange  Rate at  Risk ($ERaR$)  is the percentile  at a  given threshold
-$\theta$ of  the conditional distribution  of the exchange rate  returns $r_t$
-(that is, the VaR). It measures how much a set of investments (here, FX) might
-lose  with a  given probability  and  during a  set period,  for example,  one
-day. VaR models  are commonly used in central and  commercial banking for risk
-analysis and  management.  Formally, the $ERaR$  is the minimum of  the set of
-values verifying the following condition, assuming that the density $f(r_{t+1}
-| X_t)$ is properly defined over the exchange rate returns support:
+
+The exchange  rate at risk  ($ERaR$) is defined as  the percentile at  a given
+threshold  $\theta$  of the  conditional  distribution  of the  exchange  rate
+returns $r_t$; that  is, the Value-at-Risk (VaR). The VaR  measures how much a
+financial variable  (here, FX spot)  might lose  with a given  probability and
+during  a  set  period,  for example,  one  day.  Figure  \ref{fig:varconcept}
+illustrates the concept.  Formally, assuming that the density $f(r_{t+1} | X_t
+)$ is properly  defined over the real  line, the exchange rate at  risk is the
+minimum of the set of values verifying the following condition:\\
 
 \begin{equation*}
   \mathbb{P}\left[r_t \leq ERaR | X_t \right] = \theta
 \end{equation*}
 
 Where  $\mathbb{P}$ is  the  probability distribution  function  (PDF) of  the
-density $f(r_{t+1}|X_t)$.
+density   $f(r_{t+1}|X_t)$.   
 
-% \begin{figure}
-% \centering
-% \includegraphics[width= 0.75\textwidth, keepaspectratio]{../output/varconcept.png}
-% \caption{Var Concept}
-% \source{Source: semanticscholar.com}
-% \label{fig:varconcept}
-% \end{figure}
-
+\begin{figure}
+  \centering
+\caption{VaR Concept}
+\includegraphics[width= 0.75\textwidth, keepaspectratio]{../output/varconcept.png}
+\source{Source: semanticscholar.com}
+\label{fig:varconcept}
+\end{figure}
 
 A conditional VaR depends on a set  of variables, which can vary in real time.
 The distribution on which  the VaR is estimated is based  on the properties of
@@ -437,38 +373,37 @@ $f(r_{t+1}|X_t)$ where $X_t$ is a vector of explanatory variables.
 \end{equation*}
 
 
-The VaR  approach fixes how much  risk remains in  the market and how  much is
-absorbed by the central bank. On the contrary, with fixed-volatility triggers,
-the risk  transferred to the  central bank varies  with volatility; it  is not
-fixed, as with a VaR. The risk removed from the market can be expressed in USD
-terms. The  GARCH model  used to  estimate the  model delivers  a full-fledged
-conditional  density  of  the  exchange  rate  logreturns.   It  is  therefore
-straightforward  to   estimate  the   expected  shortfall  of   exchange  rate
-depreciation  or  appreciation  that  the   central  bank  is  preventing  for
-occurring. If the central bank knows the aggregate level of FX exposure in the
-system, the risk  in USD terms removed  from the market is the  product of the
-expected exchange rate shortfall with the system-wide FX exposures.\\
+The concept of VaR, as formalized  in \cite{jorion2007}, is frequently used in
+central  and  commercial banking  for  financial  applications, managing  risk
+exposure,   and  portfolio   management.    \cite{alexander2009}  provides   a
+comprehensive review of VaR for  market risk analysis. Among many applications
+of the  VaR model,  one can  cite, in the  FX field,  \cite{aljanabi2006}, who
+proposes  to  use consistently  a  VaR  framework  for managing  trading  risk
+exposure  of   FX  securities  in   the  context  of  emerging   and  illiquid
+markets. \cite{bredin2004} review the performance of several VaR methods using
+a portfolio based on the FX exposure of a small open economy.\\
 
 
 Under the VaR  approach, the policy decision determines how  much risk will be
 transferred,  which has  macroeconomic  underpinning.   The quantile  $\theta$
-represents the central bank's commitment  to absorb a predetermined portion of
-the exchange rate risk. Our model  gives full discretion to the policymaker to
-decide on  the risk tolerance.  Conceptually,  the risk tolerance should  be a
-function of the pervasiveness of exchange rate exposures in the economy due to
-(1) currency mismatches in balance  sheets; and (2) exchange rate pass-through
-to  domestic  price.   The  VaR  can  be expressed  as  a  percentage  of  the
-distribution or in nominal terms, if  unhedged exposures can be quantified, by
-applying  the percentage  to  the  estimated nominal  amount  of the  unhedged
-exposure. Then, the VaR  can be presented as a percentage  of GDP to emphasize
-macroeconomic implications.\\
+represents the central  bank's commitment to absorb a  predetermined and fixed
+share of the exchange  rate risk through its FXIs.  On  the contrary, the risk
+transferred to the  central bank varies with  volatility with fixed-volatility
+triggers: the  risk transfer  is high  with high volatility  and low  with low
+volatility,  raising the  issue of  moral hazard  as market  participants know
+ex-ante  that the  central  bank will  hedge all  volatility  above a  certain
+threshold. Regarding the optimal risk transfer; i.e. the level of $\theta$, it
+is a function  of the pervasiveness of exchange rate  exposures in the economy
+due to currency mismatches in balance sheets and exchange rate pass-through to
+domestic prices.\\
+
 
 Mathematically,  the decision  rule is  formalized as  an intervention  region
 $\mathcal{R}_\theta\left(r_t\right)$,   based   on   the   economy   tolerance
 thresholds  for  depreciation   and  appreciation,  respectively  ($\theta_l$,
 $\theta_u$).    The  decision   rule  is   binary:  if   $r_t$  falls   within
 $\mathcal{R}_\theta$,  then the  central bank  intervenes; otherwise,  it does
-not. These  regions evolve every day  as a function of  market conditions. For
+not. These  regions evolve every day  as a function of  market conditions. In
 the rest of the paper, we assume that intervention regions are symmetric, that
 is,  unhedged exposures  to  the  exchange appreciation  are  as important  as
 unhedged exposures  to depreciation,  to keep  the likelihood  of intervention
@@ -485,95 +420,20 @@ risk.
 Where $Q(r_t |  X_{t-1}, \theta)$ is the $\theta$-quantile  of the conditional
 log-returns distribution $f(r_{t+1}|X_t)$.\\
 
-The VaR-based FX interventions formalized above are conceptually appealing, as
-they are  rooted in the  principles of  modern financial analysis.  The points
-below explain why VaR-based FX intervention complies with these principles:
+The VaR rule  provides an objectifiable approach to FXIs.  It gives the policy
+maker a clear  anchor when deciding on intervention which  is directly derived
+from  the financial  stability objective.  Fixed-volatility triggers  could be
+derived from  an analysis of  the volatility  that the market  could tolerate;
+however, they are one more step remote from the policy objective.\\
 
-\begin{itemize}
-  
-\item  VaR-based FX  interventions  provide an  objectifiable  approach to  FX
-interventions by shifting  the policy focus on the exchange  rate risk instead
-of the  exchange rate level.  Central banks should  let the market  operate as
-long as current FX developments are  within their risk tolerance and intervene
-otherwise. Another benefit  of the VaR rule is that  it allows the policymaker
-to  anchor its  risk  tolerance  as a  function  of  market and  macroeconomic
-conditions (see more discussion below).
-
-\item  VaR-based FX  interventions are  forward-looking, that  is, conditional
-VaRs are  forecasted.  Central  bankers should  intervene to  prevent imminent
-risks.   Also,   forward-looking  variable  thresholds  reduce   the  risk  of
-opportunistic  and strategic  behaviors  from market  participants, who  might
-otherwise take speculative positions when the central bank intervenes in fixed
-thresholds. Indeed, as market participants are changing behavior, the VaR rule
-is changing too.  This complicates  the possibility for market participants to
-take speculative  positions, as  they would need  to anticipate  perfectly how
-their  new behavior,  as  well as  the  rest  of the  market,  will shift  the
-conditional  FX distribution.   On the  contrary, with  fixed thresholds  (for
-example, plus or  minus 2 percent), market participants know  exactly when the
-central bank will intervene.
-
-\item  VaR-based FX  interventions  are adaptive  to  market conditions.   The
-VaR-based triggers loosen or tighten with volatility to keep the likelihood of
-FX interventions  unchanged, thereby  accommodating both exchange  rate trends
-and changes in volatility regime.  VaR-based FX interventions are, thus, ideal
-to accompany the transition to more  exchange rate flexibility in a smooth and
-controlled  fashion.   For  example,  policymakers  could  increase  the  risk
-tolerance progressively as the FX market depth increases.
-
-\item  VaR-based  FX  interventions  capture the  FX  market’s  nonlinear  and
-asymmetric reactions to shocks. Exceeding  a certain level of volatility could
-result in sudden shifts in  expectations, closing large positions, and herding
-behavior among market participants. Besides,  markets may not react equally to
-exchange rate appreciation and depreciation.
-
-\item  VaR-based   FX  interventions  incorporate  information   from  several
-indicators. The VaR includes several exogenous variables (for example, bid-ask
-spread, FX forward  points, interest rate differential, and so  on) that bring
-additional information to the estimation  of the conditional volatility. These
-exogenous variables can be  used to factor in the specifics  of a given market
-and customize the measure. Our  current modeling approach is parsimonious, but
-it  could be  augmented to  incorporate  more complex  models, capturing,  for
-example, structural breaks or regime shifts.
-
-\item  VaR-based  FX interventions  support  the  development of  the  hedging
-market,  as this  makes sure  that interventions  leave some  risk within  the
-market.  The  central  bank  is  not hedging  the  market  against  all  risks
-concerning a certain  fixed threshold; it is hedging only  against tail risks,
-which are typically  difficult to hedge in  the market. Via the  VaR rule, the
-central bank provides a public good  (the hedge), while limiting moral hazards
-stemming from  market overconfidence in central  bank interventions. VaR-based
-FX interventions also moderate hedging costs  by absorbing some of the risk to
-preserve market functioning.
-
-\item Symmetric VaR-based FX interventions are unbiased and budget neutral. If
-symmetric, this assumes an equal probability  of buying and selling FX, making
-interventions budget  neutral over time.  Besides,  VaR-based FX interventions
-avoid  bias  in  the exchange  rate  policy  in  favor  of a  weak  or  strong
-currency. However,  asymmetric VaR  rule FX interventions  could be  used, for
-example, to  accumulate reserves  by choosing a  higher buying  frequency than
-selling.
-
-\item VaR-based  FX interventions derive from  a simple time series  model and
-are, therefore, easy to operationalize. The model requires a limited amount of
-data,  available   in  the   public  domain,   and  their   interpretation  is
-unambiguous. VaR  triggers are transparent  and relatively easy  to understand
-and  to  communicate  to  the  market  while  being  part  of  a  more  global
-communication  strategy from  the central  bank (see,  for example,  the newly
-issued  Central Bank  Transparency Code  published by  the IMF  in 2020).   FX
-interventions are  performed on the  wholesale market, where  participants are
-aware of the concept of VaR. The  general public might indeed be less familiar
-with  the concept,  but  this is  of little  consequence  from an  operational
-standpoint. Besides,  technical-based rules  are objective and  strengthen the
-independence  of the  central bank  against political  interference, as  these
-rules are more difficult to bend.
-
-\item VaR-based  FX interventions are  financially sound for the  central bank
-(Annex \ref{sec:fin-perf}).  The central bank  buys and sells  FX with
-the  same probability  (if symmetric)  as the  extremes of  the exchange  rate
-distribution, and  on the  "good side"  of the  market (selling  expensive and
-buying cheap), thereby using its resources efficiently.
-\end{itemize}
-
+The  VaR  rule  is  financially  sound for  the  central  bank  (see  Appendix
+\ref{sec:fin-perf}).   The  central bank  buys  and  sells  FX with  the  same
+probability (with symmetric FXI, for instance 5\% and 95\%) at the extremes of
+the exchange rate distribution, and on  the "good side" of the market (selling
+expensive  and  buying  cheap),   thereby  using  its  resources  efficiently.
+Profitability   has  been   associated  in   the  literature   with  efficient
+intervention    to    support     FX    markets    (\cite{friedman1953}    and
+\cite{sandri2020}).\\
 
 %% ---------------------------------------------------------------------------
 %% Empirical Framework
@@ -584,26 +444,42 @@ buying cheap), thereby using its resources efficiently.
 \subsection{Specification}
 \label{sec:specification}
 
-A nonlinear univariate EGARCH-X model  is used to estimate the forward-looking
-exchange  rate  Value at  Risk  $Q\left(r_t\  \right|\ t-1,\  \theta)$.   More
-precisely,  the  VaR-based  FX  interventions model  presented  here  uses  an
-Exponential  GARCH  (EGARCH) model  of  volatility  with exogenous  regressors
-(EGARCH-X) to adequately capture nonlinearities and asymmetries. The advantage
-of the  EGARCH-X model is  that it is a  relatively parsimonious model,  as it
-incorporates  nonlinearities and  asymmetries with  only two  equations. GARCH
-models are also very stable, and easy to implement and to understand, compared
-with more complex  forecasting models. Besides, the literature  has shown that
-GARCH  models have  very decent  forecasting performances  in the  case of  FX
-markets (see, for example, \cite{mcmillan2012}).\\
+We use  ARCH/GARCH (Autoregressive  Conditional Heteroskedasticity/Generalized
+Autoregressive  Conditional  Heteroskedasticity)   model  for  estimating  the
+forward-looking   exchange   rate   Value  at   Risk   $Q(r_t|   t-1,\theta)$.
+\cite{engle2001} conducted  a comprehensive overview of  the ARCH/GARCH models
+in financial econometrics in which he  devoted an entire section to estimating
+VaR. \cite{giot2004} model daily VaR using realized volatility and ARCH models
+and show that  it has excellent forecasting  performances. \cite{chan2007} use
+nonlinear GARCH  models to estimate VaR  in the presence of  a data generating
+process with heavy tails.\\
 
-That  being  said,   other  models  (such  as   copulas,  kernel  regressions,
-time-varying coefficient  models, and  so on)  could be  used to  estimate the
-conditional distribution in real time, and even intraday.  The model presented
-here is a proof of concept and could be refined by the central bank for actual
-implementation and  operational work.   The EGARCH  specification incorporates
-three components: drift,  volatility, and the distribution of  the error terms
-or innovations.\\
+Other  types  of models  could  be  used to  estimate  VaR,  such as  quantile
+regressions   (\cite{gaglianone2011}),    copulas   (\cite{patton2001}),   and
+nonparametric kernel  (\cite{hoogerheide2010}).  However,  the GARCH  model is
+used in this paper because it is  commonly used in the industry and by central
+banks. GARCH models  relies on standard maximum likelihood  estimators and are
+implemented    in   many    statistical   packages,    making   them    easily
+operationalizable.   Besides, as  \cite{jeon2002} show,  FX markets  are quite
+efficient,  and their  features fit  well the  simple and  robust approach  of
+standard  GARCH models.   Finally, GARCH  models are  frequently used  for the
+analysis of  the FX markets.  \cite{hansen2005}  argue that in the  context of
+daily exchange rate returns, no alternative model can beat a GARCH(1,1) model,
+while  \cite{mcmillan2012} show  that an  intraday GARCH(1,1)  model generally
+provides superior forecasts compared with all other models.\\
 
+More precisely, the VaR rule presented here uses an Exponential GARCH (EGARCH)
+model  of volatility.   The advantage  of the  EGARCH model  is that  it is  a
+relatively   parsimonious   model   which  incorporates   nonlinearities   and
+asymmetries with only  two equations. Exceeding a certain  level of volatility
+could result  in sudden shifts  in expectations, closing large  positions, and
+herding behavior  among market  participants. Besides,  markets may  not react
+equally to exchange rate appreciation and depreciation. The model presented is
+a  proof   of  concept  and  could   be  refined  by  the   central  bank  for
+implementation.\\
+
+The EGARCH specification incorporates three components: drift, volatility, and
+the distribution of the error terms or innovations.\\
 
 \begin{itemize}
 \item \textbf{Drift}: $r_t= \bm{Intercept} + \bm{\rho} r_{t-1} + \bm{\beta}
@@ -627,26 +503,43 @@ The parameters in \textbf{bold} are estimated by the GARCH model.\\
 The  estimates  use  an  EGARCH-X(1,1)  with  Tskew  distributed  innovations,
 estimated  via  Maximum  Likelihood  Estimation.\footnote{We  built  a  Python
 wrapper around  the comprehensive  "ARCH" Python  package, developed  by Kevin
-Sheppard  from Oxford  University  \citep{sheppard2020}} The  public data  and
-Python  codes  to  replicate  the  results of  this  paper  are  available  at
-\url{https://romainlafarguette.github.io/software/}   GARCH   models   are   a
+Sheppard  from Oxford  University  \citep{sheppard2020}} GARCH  models are  a
 standard approach to estimating  and forecasting volatility \citep{engle2001}.
 The number  and order  of lags  are chosen based  on AIC/BIC  criteria (Akaike
-Information Criterion/Bayesian Information  Criterion).  An alternative model
+Information Criterion/Bayesian  Information Criterion).  An  alternative model
 is  the  JP  Morgan  RiskMetrics model  \citep{zumbach2007},  with  exogeneous
 regressors and  innovations distributed  with generalized  error distribution,
-also   known   as   generalized   Gaussian   distribution   (GGD).    Annex
+also   known    as   generalized    Gaussian   distribution    (GGD).    Annex
 \ref{sec:benchmarking}  presents  different   specifications  and  alternative
 models as a robustness exercise.\\
 
-Exogeneous  regressors  are incorporated  into  the  model to  capture  market
-microstructures,  interest  rate  parity,  and  international  risk  sentiment
-factors. The  objective is to  add more information  in the estimation  of the
-VaR,  thereby  refining  the  estimation of  FX  intervention  triggers.  This
-approach  is  advantageous because  it  combines  the information  of  several
-intervention indicators in  a single measure. Although our  estimation is done
-at the daily  level, we incorporated some proxies for  intraday volatility and
-liquidity. The estimates include the following regressors:
+With  the GARCH  specification  presented above,  the VaR  rule  allows for  a
+progressive adjustment of the exchange rate  to its new equilibrium value. The
+estimated conditional volatility  includes a drift that  reflects the exchange
+rate trend and reduces the likelihood that the VaR rule triggers FXIs when the
+exchange rate  is on an appreciating  or depreciating trend. In  addition, the
+conditional  distribution  changes with  the  volatility  regime to  keep  the
+likelihood  of  interventions unchanged,  thereby  loosening  the triggers  as
+volatility increases.  On the contrary, fixed-volatility rules do not adapt to
+trends and volatility regimes.\\
+
+The exchange rate adjustment to a  new equilibrium, even though necessary from
+a macroeconomic  point of view, could  be disruptive because of  its impact on
+expectations and market functioning. Therefore,  interventions in the tails of
+the volatility distribution during the  adjustment process contribute to avoid
+that the exchange rate significantly overshoots its equilibrium level, harming
+financial stability.\\
+
+The EGARCH  includes several  exogenous regressors  (EGARCH-X) to  improve the
+accuracy of the conditional volatility forecast. These exogenous variables can
+be  used to  factor in  the  specifics of  a  given market  and customize  the
+interventions  metrics. Although  our estimation  is based  on daily  data, we
+incorporated some  proxies for  intraday volatility  and liquidity  too, hence
+capturing microstructure dimensions. Therefore, the VaR rule provides a single
+input for the intervention decision based on multiple variables (i.e., sources
+of information) that is more  straightforward to interpret than large “traffic
+lights”  dashboards, where  sub-indicators might  conflict. Our  specification
+includes the following regressors:
 
 \begin{itemize}
 \item \textbf{The average exchange rate bid-ask spread over the day}, taken in
@@ -662,15 +555,25 @@ former has a longer available time series
 difference from the day before. As the previous variable controls for interest
 rate parity, the forward rate could capture  the impact of the cost of hedging
 on the spot market
-\item \textbf{The first-difference variation of the VIX}, which captures
-  global risk sentiment.\footnote{We tried with the CBOE Volatility Index
-    (VIX) in level, but the p-value was higher than in the first difference}
+\item \textbf{The first-difference variation of the Chicago Board Options Exchange Volatility Index (VIX)}, which captures
+  global risk sentiment\footnote{We tried with the VIX in level, but the p-value was higher than in the first difference}
 \item \textbf{The exchange rate of the US dollar vis-à-vis the euro}, to
   control for US dollar specific developments
-\item \textbf{Oil prices log returns}, as Mexico is an oil exporter and oil
-  prices could impact the exchange rate
+\item \textbf{Oil prices log returns}, as Mexico is an oil exporter and oil prices could impact term of trade (i.e. competitive shock)
 \end{itemize}
 
+The  VaR  rule  is  robust  to speculative  attacks  because  the  conditional
+distribution   is  forecasted   by   the  EGARCH-X   model   and  updated   in
+real-time.  Forward-looking variables  reduce  the risk  of opportunistic  and
+strategic behaviors  from market participants. Indeed,  as market participants
+are changing behavior, the VaR rule is changing too. The adaptative feature of
+the  VaR  rule makes  it  more  complicated  and  even impossible  for  market
+participants  to  take  speculative  positions  because  they  would  need  to
+anticipate perfectly  how their new behavior,  as well as the  behavior of all
+other  market participants,  will shift  the conditional  distribution of  the
+exchange rate.  On the  contrary, with  fixed thresholds,  market participants
+know exactly  when the central  bank will  intervene and can  take speculative
+positions accordingly.\\
 
 \subsection{Estimation Results}
 \label{sec:estimation-results}
@@ -685,7 +588,7 @@ historical  distribution  shows that  the  returns  are  skewed to  the  right
 (depreciation). The model thus  incorporates asymmetries to accurately capture
 the dynamics of this exchange rate  series. Intervention data are available on
 the                                                                       BM's
-website.\footnote{\url{https://www.banxico.org.mx/mercados/subastas-cambio-credito-banco.html.}}\\
+website.\footnote{\url{https://www.banxico.org.mx/mercados/subastas-cambio-credito-banco.html}}\\
 
 \begin{figure}
   \centering
@@ -702,7 +605,7 @@ economics).  Table  \ref{tab:reg-coeffs}  presents  the output  of  the  GARCH
 estimation process,  where we  integrate progressively the  coefficients under
 different specifications,  starting from  the micro to  the macro  factors. We
 have tried to  insert year dummies to control for  structural breaks, but most
-of the coefficients were insignificant.\\
+of the coefficients were not significant.\\
 
 \begin{itemize}
 \item The bid-ask spread is positively correlated, suggesting that an increase
@@ -714,29 +617,29 @@ of the coefficients were insignificant.\\
 \item A positive interest rate differential with the London Interbank Offered
   Rate (LIBOR) tends to appreciate the currency, due to carry-trade arbitrage
   
-\item The same results hold for the CBOE Volatility Index (VIX), as an
+\item The same results hold for the VIX, as an
   increase in global risk sentiment tends to depreciate emerging market
   currencies
+
+\item Changes in  the EUR/USD exchange rate have the  expected impact on local
+currency returns and contribute to the explanatory power of the model
   
-\item Changes in the EUR/USD exchange rate have the expected impact on local
-  currency returns and contribute to the explanatory power of the
-  model. Similarly, with the oil price log returns, an increase in oil prices
-  is associated with an appreciation of the local currency against the USD
+\item Similarly, with the oil price log  returns, an increase in oil prices is
+associated with an appreciation of the local currency against the USD
+
   
 \item The model explains around 28 percent of the log-return variance
 \end{itemize}
 
 \begin{table}
   \begin{center}
-    \caption{Results of the GARCH Estimates}
-%\footnotesize  %%  command to change the font size
-\input{../output/regressions_table_short.tex}
-%\normalsize
-\source{\emph{Sources}: authors’ calculations}
+    \caption{Results of the GARCH Estimates} %\footnotesize
+    %% command to change the font size
+    \input{../output/regressions_table_short.tex}
+%\normalsize \source{\emph{Sources}: authors’ calculations}
 \label{tab:reg-coeffs}
 \end{center}
 \end{table}
-
 
 Once  fitted,  the  GARCH  model  provides  an  in-sample  estimation  of  the
 conditional  volatility,   $\sigma_t^2$,  over   time,  presented   in  Figure
@@ -744,12 +647,10 @@ conditional  volatility,   $\sigma_t^2$,  over   time,  presented   in  Figure
 volatility  spikes  during  the  global  financial  crisis  and  the  COVID-19
 crisis.\\
 
-\begin{figure}
-  \centering
-  \caption{Conditional FX Volatility over Time}
-\includegraphics[width= 0.95\textwidth, keepaspectratio]{../output/conditional_vol_plot.pdf}
-\label{fig:conditional-vol}
-\source{\emph{Sources}: authors' calculations}
+\begin{figure} \centering
+  \caption{Conditional  FX   Volatility  over   Time}  \includegraphics[width=
+0.95\textwidth, keepaspectratio]{../output/conditional_vol_plot.pdf}
+\label{fig:conditional-vol} \source{\emph{Sources}: authors' calculations}
 \end{figure}
 
 
@@ -760,12 +661,10 @@ conditional  density shows  that not  only the  conditional volatility  widens
 significantly  during  the COVID-19  crisis  (in  March  2020), but  that  the
 skewness varies also substantially.\\
 
-\begin{figure}
-  \centering
-  \caption{Out-of-Sample Conditional Density}
-\includegraphics[width= 0.95\textwidth, keepaspectratio]{../output/joyplot.pdf}
-\label{fig:joyplot}
-\source{\emph{Sources}: authors' calculations}
+\begin{figure} \centering
+  \caption{Out-of-Sample    Conditional    Density}    \includegraphics[width=
+0.95\textwidth, keepaspectratio]{../output/joyplot.pdf}
+\label{fig:joyplot} \source{\emph{Sources}: authors' calculations}
 \end{figure}
 
 
@@ -778,12 +677,10 @@ uncertainty  is  precisely captured  by  the  GARCH  model, both  through  the
 estimation  of the  conditional density  and also  via higher  moments of  the
 distribution, including the skewness.\\
 
-\begin{figure}
-  \centering
-  \caption{Out-of-Sample Fan Chart}
-\includegraphics[width= 0.95\textwidth, keepaspectratio]{../output/fanchart.pdf}
-\label{fig:fanchart}
-\source{\emph{Sources}: authors' calculations}
+\begin{figure} \centering
+  \caption{Out-of-Sample  Fan  Chart} \includegraphics[width=  0.95\textwidth,
+keepaspectratio]{../output/fanchart.pdf}
+\label{fig:fanchart} \source{\emph{Sources}: authors' calculations}
 \end{figure}
 
 Finally,  the quality  of the  GARCH  forecasting density  model is  evaluated
@@ -795,17 +692,18 @@ presented   in  Figure   \ref{fig:pitchart}  indicates   that  the   empirical
 distribution of the PIT is within the confidence band for all quantiles.  This
 pattern suggests that the conditional density derived from the EGARCH-X models
 has  a  satisfactory  out-of-sample  accuracy and  that  it  generates  robust
-predictive distributions  that capture well  upside and downside  risks. Annex
-\ref{sec:benchmarking} presents a series of alternative models (unconditional,
-quantile  regressions, variation  around GARCH,  and so  on) to  benchmark the
-performance of  our model,  also using log  score performance  metrics against
-other models.   The result  of the tests  is that the  GARCH family  of models
-dominates  the  alternative tested  against  an  unconditional kernel  density
-estimator  and conditional  density  estimated from  the quantile  regression.
-Also, within  the GARCH family (Gaussian,  Tskew, GARCH versus EGARCH,  and so
-on), there is  no significant improvement in performance  against our baseline
-model.\\
+predictive distributions that capture well upside and downside risks.\\
 
+Appendix  \ref{sec:benchmarking}  presents  a  series  of  alternative  models
+(unconditional via Gaussian kernel,  autoregressive, quantile regressions, and
+a series of GARCH and EGARCH  models with different error terms specification)
+to benchmark  the performance of our  model, also using log  score performance
+metrics  against other  models.  The  result of  the tests  is that  the GARCH
+family of  models dominates  the alternative  tested against  an unconditional
+kernel density estimator  and conditional density estimated  from the quantile
+regression.   Also, within  the GARCH  family (Gaussian,  Tskew, GARCH  versus
+EGARCH  for different  error terms  specifications), there  is no  significant
+improvement in performance against our baseline model.\\
 
 \begin{figure}
   \centering
@@ -814,7 +712,6 @@ model.\\
 \label{fig:pitchart}
 \source{\emph{Sources}: authors' calculations}
 \end{figure}
-
 
 
 %% ---------------------------------------------------------------------------
@@ -827,20 +724,34 @@ model.\\
 \subsection{Risk-Based Triggers}
 \label{sec:triggers}
 
-From  the forecasted  conditional VaR,  it is  straightforward to  infer daily
-intervention  regions  for  depreciation  and appreciation,  as  explained  in
-Section \ref{sec:var-interventions}.  In  practical terms, at the  end of each
-day, the  central bank  re-estimates the model  and assesses  the intervention
-regions  for the  day  after.  On  that  day, the  central  bank monitors  the
-cumulated   returns    of   the    exchange   rate—either    depreciation   or
-appreciation. Once the  cumulated returns reach the  intervention regions, the
-central bank buys or  sells FX.  These regions evolve every  day as a function
-of   market   conditions.   On   the  specific   day   presented   in   Figure
-\ref{fig:var-rule}, intervention happens only if the exchange rate depreciates
-by more  than 3.3 percent  or appreciates  by more than  3.7 percent, for  a 5
-percent ERaR  (2.5 percent on each  side).  However, a new  threshold would be
-computed every  day, for  each possible  quantile, as shown  on the  fan chart
-(Figure \ref{fig:fanchart}).\\
+The VaR rule derives  from a simple time series model  and is, therefore, easy
+to operationalize and  to communicate. The model requires a  limited amount of
+data,  available   in  the   public  domain,   and  their   interpretation  is
+unambiguous. VaR  triggers are transparent  and relatively easy  to understand
+and  to  communicate  to  the  market,  while being  part  of  a  more  global
+communication strategy  from the central  bank (see, for example,  the Central
+Bank Transparency  Code, \cite{imf2020cbt}) FXIs  are performed on
+the wholesale market, where participants are  aware of the concept of VaR. The
+general  public  might be  less  familiar  with VaR,  but  this  is of  little
+consequence  from an  operational standpoint  as the  general public  does not
+directly participate in FXI.\\
+
+In practical  terms, the  central bank  estimates the  model and  assesses the
+intervention regions  in real  time. The central  bank monitors  the cumulated
+returns of the exchange rate—either depreciation or appreciation—compared with
+the previous day exchange rate. If more than one intervention per business day
+is allowed,  the trigger  for the  second intervention would  be based  on the
+cumulated  return of  the exchange  rate compared  with the  previous same-day
+trigger rate. For the rest of the  paper, we will assume that the central bank
+does not intervene more than once a  day. Once the cumulated returns reach the
+intervention regions, the central bank buys  or sells FX. These regions evolve
+every day as a function of market conditions. On the specific day presented in
+Figure \ref{fig:var-rule},  foreign exchange intervention would  have happened
+only  if  the exchange  rate  had  depreciated by  more  than  3.3 percent  or
+appreciated by more than 3.7 percent, for a 5 percent VaR (2.5 percent on each
+side).  Thresholds would be computed every day, for each possible quantile, as
+shown on the fan chart (Figure \ref{fig:fanchart}).\\
+
 
 \begin{figure}
   \centering
@@ -849,7 +760,6 @@ computed every  day, for  each possible  quantile, as shown  on the  fan chart
 \label{fig:var-rule}
 \source{\emph{Sources}: authors' calculations}
 \end{figure}
-
 
 Over  time, the  VaR-FXI  rule can  be  represented by  the  region where  the
 cumulative  distribution   function  falls  outside  the   central  bank  risk
@@ -864,20 +774,20 @@ Figure \ref{fig:conditional-cdf}.\\
 \source{\emph{Sources}: authors' calculations}
 \end{figure}
 
-
 Had the BM followed the VaR FX  intervention rule, it might have intervened in
-about 15  days over  10 months,  from January through  October 2020.  Figure 9
-presents  the  intervention  days  within   the  daily  log-returns  plot.  It
-highlights with green  dots (below ERaR 2.5th percentile) and  red dots (above
-the  ERaR  97.5th percentile)  the  occurrences  falling in  the  intervention
-regions. The  lower chart  presents the  corresponding FX  level in  which the
-central bank would have intervened. Fifteen days of intervention correspond to
-about 7.5 percent of  the period, even when using an  intervention region of 5
-percent.  The frequency  of interventions  would increase  when volatility  is
-unusually high, which  was the case during the COVID-19  crisis. However, this
-exercise is  purely counterfactual, and it  is likely that after  the first FX
-intervention, the FX volatility would  have decreased, hence reducing the need
-for future interventions.\\
+about  15 days  over 10  months, from  January through  October 2020.   Figure
+\ref{fig:conditional-exceedance}  presents the  intervention  days within  the
+daily  log-returns plot.   It highlights  with  green dots  (below ERaR  2.5th
+percentile) and  red dots (above  the ERaR 97.5th percentile)  the occurrences
+falling   in   the  intervention   regions.   The   lower  chart   of   Figure
+\ref{fig:conditional-exceedance} presents the corresponding  FX level in which
+the  central  bank  would  have   intervened.  Fifteen  days  of  intervention
+correspond to about 7.5 percent of the period, even when using an intervention
+region  of 5  percent.  The  frequency  of interventions  would increase  when
+volatility  is  unusually  high,  which  was  the  case  during  the  COVID-19
+crisis. However, this exercise is purely counterfactual, and it is likely that
+after the first FX intervention, the FX volatility would have decreased, hence
+reducing the need for future interventions.\\
 
 \begin{figure}
   \centering
@@ -887,36 +797,44 @@ for future interventions.\\
 \source{\emph{Sources}: authors' calculations}
 \end{figure}
 
-
 \subsection{FX Intervention Calibration under Risk-Based Interventions}
 \label{sec:calibration}
 
-One of the major  advantages of the VaR FX rule is  that it provides certainty
-about the  frequency of FX interventions  over time. For example,  with a risk
-tolerance of 2.5  percent both for depreciation and  appreciation, the central
-bank will, on average, intervene 5 percent of the time. The central bank might
-temporarily  deviate  over   a  short  period  of   time―depending  on  market
-conditions―but  the VaR  approach  guarantees that  over  a sufficiently  long
-period of time, the frequency is the same as the risk tolerance.\\
+One of  the major  advantages of the  VaR rule is  that it  provides certainty
+about the frequency of FXIs over time.  For example, with a VaR of 2.5 percent
+both for depreciation and appreciation, the  central bank will, on average and
+over time,  intervene 5  percent of  the time.  The central  bank intervention
+frequency might temporarily  deviate over a short period  of time―depending on
+market conditions―but  the VaR approach  guarantees that the frequency  is the
+same as the VaR over a sufficiently long period of time.\\
 
-Another substantial benefit of  the VaR rule is that it can  be designed to be
-budget neutral for  the central bank over the medium  term. Should the central
-bank decide  to operate  with a  symmetric rule (the  same risk  tolerance for
-appreciation and depreciation), it will intervene  the same number of times on
-both sides, hence offsetting selling FX with buying FX.\\
+The  fixed-frequency feature  of the  VaR rule  can be  used to  calibrate the
+central banks’  intervention budget.  We assume  that the  central bank  set a
+maximum amount for its intervention, which  can be set for single intervention
+or  for  one   business  day  (the  later  is  often   consider  as  the  most
+practical).  The  budget could,  then,  be  directly  derived from  the  fixed
+frequency of intervention and the maximum FXI amount. The budget should remain
+within the constraint represented by the  available FX reserves at the central
+bank for FXI. This is an important advantage compared to fixed-volatility rule
+where interventions  frequency and,  thus, the  interventions budget,  are not
+known ex-ante.\\
 
-Over the  short term, the  central bank may temporarily  sell more FX  than it
-buys, depending on  market conditions. The fixed-frequency feature  of the VaR
-can, therefore,  be used  to determine  the budget  constraint of  the central
-bank,  that is,  that the  central  bank has  enough reserves  to conduct  the
-interventions  in   a  credible   and  efficient   way.  A   conservative  and
-straightforward approach  is to  make sure  that the  maximum amount  of daily
-intervention times the frequency on the depreciation side (the risk tolerance)
-is always  less than the  amount of  FX reserves the  central bank has  for FX
-interventions. The  maximum amount of  daily intervention should be  enough to
-have an  impact on  the exchange  rate when the  central bank  intervenes, for
-example, by making sure it represents a significant share of the average daily
-market turnover across time.\\
+The  VaR rule  could  contribute to  the  improve the  efficiency  of FXIs  by
+maximizing  the  impact  on  the  exchange  rate for  a  given  amount  of  FX
+sold/bought  by the  central bank.  The maximum  amount of  daily intervention
+should be  large enough to influence  the exchange rate when  the central bank
+intervenes. Accepting higher VaR (lower  intervention frequency) is a solution
+if the intervention budget exceeds the FX reserves availability constraint, to
+keep the daily  intervention at a credible amount. Another  feature of the VaR
+rule  is that  it triggers  interventions  when price  movement are  unusually
+large, which should reinforce the intervention impact on the exchange rate.\\
+
+Another  substantial  benefit  of  the  VaR  rule  is  that  it  improves  the
+sustainability of the  intervention policy. Should the central  bank decide to
+operate  with   a  symmetric   rule  (the  same   VaR  for   appreciation  and
+depreciation), it will intervene the same number of times on both sides, hence
+offsetting selling FX with  buying FX over time. As a  result, a symmetric VaR
+rule would be budget neutral for the central bank over the medium term.\\
 
 
 %% ---------------------------------------------------------------------------
@@ -926,26 +844,25 @@ market turnover across time.\\
 \section{The Case of Mexico}
 \label{sec:mexico-case}
 
-The Banco  Mexico intervened via two  types of auctions whose  main difference
-was the reservation  rate applied to each  auction. In the first  type, the BM
-operated an auction  every day with a preannounced reservation  rate, that is,
-the  minimum rate  for eligible  bids. The  auction with  a minimum  price was
-suspended in  April 2010 and  reintroduced with  changes in November  2011 and
-suspended         again         after         April         2013.\footnote{See
-\url{https://www.banxico.org.mx/markets/auctions-with-minimum-price-e.html for
-more  details}} On  many  days, the  rule-based auction  did  not receive  any
-demand, as the market was operating  below the reservation rate. In the second
-type, the  auction was organized  when the BM found  it opportune and  did not
-have a reservation rate (an auction  without a minimum rate). For some periods
-(for example,  during 2015), daily  interventions were preannounced  without a
-minimum price. Size was also preannounced and later adjusted.\\
+The BM  intervened via two types  of auctions which differ  by the reservation
+rate applied to each  type of auctions. In the first type,  the BM operated an
+auction every day  with a preannounced reservation rate, that  is, the minimum
+rate               for               eligible               bids.\footnote{See
+\url{https://www.banxico.org.mx/markets/auctions-with-minimum-price-e.html}
+for  more details}  On many  days, the  auction with  a minimum  rate did  not
+receive any demand, as the market was operating below the reservation rate. In
+the second type, the auction was organized  when the BM found it opportune and
+did not have a reservation rate (an auction without a minimum rate).  For some
+periods (for example, during 2015), daily auctions were preannounced without a
+minimum  rate.   The   auctioned  amount  was  also   preannounced  and  later
+adjusted.\\
 
-The BM may have intervened for  more reasons than preventing disorderly market
-conditions. The exact  rationale for intervention is outside the  scope of the
-paper: we are focusing here on  benchmarking the BM FX interventions against a
-risk framework, while recognizing that the  BM could have had other objectives
-in mind.  We are not assessing the efficiency, the relevance, or the rationale
-of the BM interventions.\\
+We are  focusing in  this paper on  benchmarking the BM's  FXI against  a risk
+framework, while  recognizing that the BM  could have had other  objectives in
+mind. The BM may have intervened  for other reasons than preventing disorderly
+market conditions.  The  exact rationales for FXI is outside  the scope of the
+paper. We  are not  assessing, here,  the efficiency,  the relevance,  nor the
+rationale of the BM's interventions.\\
 
 
 \subsection{Interventions with a Minimum Price}
@@ -953,27 +870,20 @@ of the BM interventions.\\
 
 "Auctions with  a minimum  price" were  triggered 31  times from  October 2008
 through November 2016.  The auction reservation  price was set at the previous
-day's exchange rate close (MEX/USD) multiplied by 1.02 (for example, 2 percent
+day's  exchange   rate  close   (MEX/USD)  multiplied   by  1.02   (2  percent
 depreciation)  from October  9,  2008,  to December  8,  2014,  by 1.015  from
 December 9, 2014, to November 23, 2015, and by 1.01 from November 24, 2015, to
 January 5, 2017. Auctions with a minimum price were suspended after January 5,
 2017. Figure \ref{fig:benchmark-minprice} presents the auctions with a minimum
 price in green, with the corresponding FX daily log returns and level.\\
 
-\begin{figure}
-  \centering
-  \caption{FX Interventions Log Returns with Minimum Price}
-\includegraphics[width= 0.95\textwidth, keepaspectratio]{../output/benchmark_minprice.pdf}
-\label{fig:benchmark-minprice}
-\source{\emph{Sources}: Banco Mexico and authors' calculations}
+\begin{figure} \centering
+  \caption{FX    Interventions    Log     Returns    with    Minimum    Price}
+\includegraphics[width=                                        0.95\textwidth,
+keepaspectratio]{../output/benchmark_minprice.pdf}
+\label{fig:benchmark-minprice}   \source{\emph{Sources}:   Banco  Mexico   and
+authors' calculations}
 \end{figure}
-
-The  VaR  framework can  be  used  by  central  banks to  inform  intervention
-decisions, as well  as by external observers to assess  central bank tolerance
-for exchange rate risk. First, the framework can be used to assess whether the
-central bank responded to exchange rate  volatility and the degree to which it
-was  tolerated. Second,  the  framework  can be  used  to  assess whether  the
-interventions efficiently achieved the authorities' objectives.\\
 
 The ex-ante  conditional cumulative distribution function  (CDF) estimated via
 the   GARCH   model    is   used   to   benchmark   the    Banco   Mexico   FX
@@ -989,12 +899,12 @@ but not  always equivalent to  a risk  framework: the central  bank intervened
 most of the time when the pressure  on the exchange rate was the largest, with
 exceptions.\\
 
-\begin{figure}
-  \centering
-  \caption{Conditional CDF of FX Intervention with Minimum Price}
-\includegraphics[width= 0.95\textwidth, keepaspectratio]{../output/benchmark_minprice_cdf.pdf}
-\label{fig:benchmark-minprice-cdf}
-\source{\emph{Sources}: Banco Mexico and authors' calculations}
+\begin{figure} \centering
+  \caption{Conditional   CDF   of   FX  Intervention   with   Minimum   Price}
+\includegraphics[width=                                        0.95\textwidth,
+keepaspectratio]{../output/benchmark_minprice_cdf.pdf}
+\label{fig:benchmark-minprice-cdf}  \source{\emph{Sources}:  Banco Mexico  and
+authors' calculations}
 \end{figure}
 
 
@@ -1010,12 +920,12 @@ mere presence  of the  rule influences  market participants'  behavior. Figure
 price on the Mexican pesos in red, with the corresponding FX daily log returns
 and level.\\
 
-\begin{figure}
-  \centering
-  \caption{FX Interventions without a Minimum Price on the Mexican Peso/US Dollar}
-\includegraphics[width= 0.95\textwidth, keepaspectratio]{../output/benchmark_no_minprice.pdf}
-\label{fig:benchmark-nominprice}
-\source{\emph{Sources}: Banco Mexico and authors' calculations}
+\begin{figure} \centering
+  \caption{FX Interventions  without a  Minimum Price  on the  Mexican Peso/US
+Dollar}                 \includegraphics[width=                0.95\textwidth,
+keepaspectratio]{../output/benchmark_no_minprice.pdf}
+\label{fig:benchmark-nominprice}  \source{\emph{Sources}:   Banco  Mexico  and
+authors' calculations}
 \end{figure}
 
 
@@ -1029,89 +939,97 @@ across the full conditional distribution, even  when the pressures were not on
 the depreciation  side but, on the  contrary, the appreciation side.   In this
 case, the  fact that the central  bank was selling USD  could have, therefore,
 amplified the currency appreciation.  This pattern likely suggests that the BM
-rationales  for FX  intervention under  the no-minimum-price  rule are  likely
+rationales for  FX intervention  under the  no minimum  price rule  are likely
 broader than  just the volatility of  the exchange rate.  For  example, during
 certain periods, the motivation for  interventions without a minimum price was
 to prevent excessive  accumulation of foreign reserves,  explaining that those
-interventions were not related to rate development.\\
+interventions were not related to FX rate developments.\\
 
-
-\begin{figure}
-  \centering
-  \caption{FX Interventions without a Minimum Price on the Mexican Peso/US Dollar}
-\includegraphics[width= 0.95\textwidth, keepaspectratio]{../output/benchmark_no_minprice_cdf.pdf}
-\label{fig:benchmark-nominprice-cdf}
-\source{\emph{Sources}: Banco Mexico and authors' calculations}
+\begin{figure} \centering
+  \caption{FX Interventions  without a  Minimum Price  on the  Mexican Peso/US
+Dollar}                 \includegraphics[width=                0.95\textwidth,
+keepaspectratio]{../output/benchmark_no_minprice_cdf.pdf}
+\label{fig:benchmark-nominprice-cdf} \source{\emph{Sources}:  Banco Mexico and
+authors' calculations}
 \end{figure}
 
 %% ---------------------------------------------------------------------------
-%% Conclusion
-%% ---------------------------------------------------------------------------
+%% Conclusion %%
+%% -----------------------------------------------------------------------------
+
 \section{Conclusion}
 \label{sec:conclusion}
 
-FX  interventions  in  the  foreign  exchange  market  would  benefit  from  a
-risk-based  approach. Central  banks use  quantitative  tools such  as VaR  to
-measure the  risk they are taking  when they invest their  foreign reserves or
-accept assets  as collateral  for their  loans. In this  paper, we  argue that
-central banks could also  use this tool when they intervene  to support the FX
-market, as intervention is tantamount to removing some exchange rate risk from
-the market. A risk-based approach has very convincing advantages compared with
-other types  of rules,  such as fixed-volatility,  or interventions  without a
-minimum  price, because  it allows  the central  bank to  control exactly  the
-exchange rate risk to which the economy  is exposed. It adds also the benefits
-of being budget  neutral over the medium term, forward  looking, and combining
-several market indicators into one.\\
+Foreign   exchange    interventions   would   benefit   from    a   risk-based
+framework. Central  banks use quantitative  tools such  as VaR to  measure the
+risk  on their  foreign  reserves  portfolio or  when  they  accept assets  as
+collateral for their  loans. In this paper, we argue  that central banks could
+also use this  concept when they intervene  to support the FX  market, as FXIs
+often aim at removing some exchange rate risk from the market.\\
 
-The  back-testing  based  on  Mexico  data  is  supportive  of  rule-based  FX
-intervention,  as  far as  the  risk  dimension  is concerned.  Our  framework
-suggests that  fixed rules are broadly  consistent with a high  risk level. On
-the contrary,  interventions without a  minimum price  appear to be  driven by
-other rationales than exchange rate volatility and risk.\\
+The model  of this paper has  several policy implications. The  VaR rule would
+help central banks  concerned about financial stability risk  arising from the
+exchange rate but  committed to a floating exchange  rate arrangement. Central
+banks  could  accompany  the  transition   to  exchange  rate  flexibility  by
+formalizing the commitment to the float  in a rule and by gradually increasing
+the VaR;  i.e., reducing  intervention frequency, to  allow for  more exchange
+rate volatility. Finally, the VaR rule could be used to deepen hedging markets
+by gradually transferring an increasing share of the exchange rate risk to the
+market.\\
 
-No central  bank is  currently known  to use  the VaR  rule, because  it comes
-across as  difficult to communicate  or because policymakers prefer  to remain
-discrete about  the intervention  decision. We  argue that  transparency could
-help to  alleviate communication  challenges because  VarR-based interventions
-provide  objective  and simple  triggers  in  terms  of a  bilateral  exchange
-rate. However,  our VaR  rule should  be part of  a broader  communication and
-operationalization strategy of the central bank in order to guarantee a smooth
-and efficient implementation.\\
+A risk-based  approach has  convincing advantages relative  to other  types of
+rules. Compared with  fixed-volatility rules, the VaR rule  allows the central
+bank  to control  exactly  the exchange  rate  risk to  which  the economy  is
+exposed. It  also facilitates preparing  the intervention budget based  on (i)
+the fixed FXI frequency; (ii) the maximum FXI amount; and (iii) the FX reserve
+adequacy constraint.  Other  advantages include being budget  neutral over the
+medium  term,  forward looking,  and  combining  several exogenous  variables,
+reflecting  both competitive  shocks and  market structure  factors, into  one
+trigger.\\
 
-While policymakers are entitled to maintain full discretion over policymaking,
-the paper  argues that  using VaR  as an  input would  contribute to  a better
-informed decision, by anchoring the decision to intervene based on policymaker
-risk tolerance and structural weaknesses of the economy, for example, unhedged
-exposures. In summary, the VaR rule, while not currently widely used, could be
-considered as one option to improve the rules that central banks use.\\
+While it  does not  allow to  identify the nature  of the  shocks, such  as to
+guaranty the optimality  of each FXI, the  VaR rule is flexible  enough to let
+the exchange rate timely adjust to  new equilibria. It also allows the central
+bank  to  respond to  market  disfunctions  reflected  in high  exchange  rate
+volatility and contributes to prevent exchange rate overshot. Finally, the VaR
+rule is easier to implement and  operationalize in markets at different stages
+of development than rules that would try determining the nature of shocks.\\
 
-The model  of this paper  may have several  policy implications. The  VaR rule
-would  be particularly  helpful for  central banks  concerned about  financial
-stability risk  arising from the  exchange rate,  but committed to  a floating
-exchange rate  arrangement in the  context of an inflation  targeting monetary
-policy framework. The central banks could accompany the transition to exchange
-rate flexibility by formalizing  the commitment to the float in  a rule and by
-gradually   adapting   interventions  to   allow   for   more  exchange   rate
-volatility. Finally, the  VaR rule could be used to  foster the development of
-hedging markets by keeping a fixed amount  of risk in the market (usually most
-of it) while absorbing some.\\
+The  paper  argues  that  using  VaR   as  an  input  would  contribute  to  a
+better-informed FXI policy decision.  It would  help to anchor the decision to
+intervene on the risk hedging objective  of the policymaker and the structural
+weaknesses  of  the economy,  such  as  unhedged  exposures to  exchange  rate
+risk. In  summary, the  VaR rule,  while not currently  widely used,  could be
+considered  as  one approach  to  build  a  solid and  consistent  operational
+framework for FXIs.\\
 
-Looking beyond interventions in the spot  FX market, the same model and method
-can be used  to measure the risk  transfers from any markets  that the central
-banks  deem  useful  to  intervene  in  to  support  financial  stability.  In
-particular, VaR models  can be used to  measure risk based on  spreads such as
-(1) between actual and theoretical forward rates for the exchange rate hedging
-market;  (2) between  onshore and  offshore USD  interest rates  for local  FX
-funding  market; and  (3)  between risky  and risk-free  rates  for the  local
-currency-denominated fixed income market.\\
+Looking beyond interventions in the spot FX market, similar models and methods
+can be  used by  central banks to  transfer risk from  any markets  to support
+financial stability.  Considering  the focus on UIP deviation in  the IMF IPF,
+the VaR rule can be amended to target tail UIP deviations instead of tail spot
+volatility.   The VaR  would be  a natural  benchmark to  determine how  large
+deviations  would signal  market  impairment. Benchmarking  the deviations  is
+important as forward  rates deviate from the  UIP most of the  times and those
+deviations can be volatile, so there is  a need to define a reasonable anchor,
+so that the frequency of central  bank interventions is adequate. Moving on to
+the hedging market, the VaR rule can  also be used to identify unusually large
+increases in the cost of hedging  that could reflect hedging market impairment
+and spill over to  the spot market. In that case,  the relevant variable would
+be the  spread between forward  rates and  the covered interest  parity, which
+reflects   the   cost   of  hedging   (\cite{borio2016},   \cite{cerutti2019},
+\cite{du2018}, and \cite{eguren2018}).\\
 
-One issue that remains to be addressed  is how to determine the risk tolerance
-in VaR. The paper quotes the factors  underpinning it in broad terms, that is,
-direct and indirect  exposures to exchange rate risk. However,  it is, so far,
-left to the  policymakers' judgment to translate those  vulnerabilities into a
-risk tolerance level (a target VaR). A method that estimates the extent of the
-vulnerabilities  and  combined  them  with  their  impacts  on  macrofinancial
-stability would be most useful.\\
+One issue that remains to be addressed  is how to determine the optimal degree
+of hedging provided by the central bank  to the market and what should be left
+in the  market. The  paper discussed the  structural factors  underpinning the
+underlying risk  to be covered  in broad terms,  that is, direct  and indirect
+exposures  to  exchange rate  risk.   However,  it is,  so  far,  left to  the
+policymakers'  judgment to  translate those  vulnerabilities into  an optional
+level of  hedging to be  offered by  the central bank;  i.e., a target  VaR. A
+method that estimates the extent of the vulnerabilities and combined them with
+their impacts  on macro-financial  stability is left  for future  research and
+would be most useful.\\
+
 
 
 %% ---------------------------------------------------------------------------

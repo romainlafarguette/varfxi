@@ -4,15 +4,14 @@
 __pycache__/
 .ipynb_checkpoints/
 latex/auto/
+submission/
 imfwp/
 
 # Ignore some extensions
 *.aux
 *.bbl
 *.blg
-*.lof
 *.log
-*.lot
 *.nav
 *.out
 *.snm
@@ -20,9 +19,4 @@ imfwp/
 *.docx
 
 # Ignore some files
-latex/slides
 data/MXN_raw_data.xslx
-
-
-
-
