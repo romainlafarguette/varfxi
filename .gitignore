@@ -6,6 +6,7 @@ __pycache__/
 latex/auto/
 submission/
 imfwp/
+references/
 
 # Ignore some extensions
 *.aux
