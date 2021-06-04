@@ -1,4 +1,4 @@
-% Time-stamp: <2021-06-02 16:56:08 rlafarguette>
+% Time-stamp: <2021-06-04 19:29:56 rlafarguette>
 % Beamer template for the Macro Stress-Testing Article
 % June 2021
 % Contact: Romain Lafarguette, rlafarguette@imf.org
@@ -382,10 +382,9 @@ We propose an FX intervention rule based on \textbf{Conditional Value-at-Risk}
   \item Guarantees \textbf{fixed-frequency} interventions: 
     \begin{itemize}
     \item \textbf{Certainty} about interventions: the central bank can intervene with
-      \textbf{larger amounts}, more efficient
+      \textbf{larger FX amounts}, making the interventions \textbf{more efficient}
     \item \textbf{Budget neutrality} with symmetric risk preference
     \end{itemize}
-
   \item \textbf{Financially optimized}: always buy/sell at the best price
   \end{largeenumerate}  
 \end{frame}
@@ -651,6 +650,35 @@ g(r_t)$ where $g(r_t) = \alpha_v r_t + \gamma(|r_t|-\mathbb{E}|r_t|)$
 \end{frame}
 
 
+\begin{frame}
+  \frametitle{Financial Performances}
+  \begin{largeitemize}
+  \item We compared the financial performance of the three different
+    interventions strategies: VaR, minimum price, without minimum price
+  \item Using an entire year where the frequency of intervention was the same
+    for auctions with and without minimum price
+  \item We construct the counterfactual VaR interventions by calibrating the
+    risk tolerance so that the frequency of intervention is the same as for
+    auctions with and without minimum price
+  \item Auctions with minimum price outperforms the no-minimum price auctions
+    by 6.9\% on average
+  \item The VaR rule outperforms the no-minimum price
+    auctions by 8.3\% on average
+  \end{largeitemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Financial Performances: Results}
+  \begin{table}
+    \begin{center}
+      \scriptsize
+      \input{../output/financial_perf_short.tex}
+
+\end{center}
+\end{table}
+            \normalsize
+\end{frame}
+
 
 \begin{frame}
   \frametitle{Benchmarking Results}
@@ -714,10 +742,13 @@ g(r_t)$ where $g(r_t) = \alpha_v r_t + \gamma(|r_t|-\mathbb{E}|r_t|)$
 
 
 \begin{frame}{Alternative Models: Benchmarking}
-\setlength\tabcolsep{2pt}  % default value: 6pt
-\tiny  %%  command to change the font size
-\input{../output/benchmark_table.tex}
-\normalsize
+    \begin{table}
+    \begin{center}
+      \scriptsize
+      \input{../output/benchmark_table.tex}
+\end{center}
+\end{table}
+            \normalsize
 \end{frame}
 
 
