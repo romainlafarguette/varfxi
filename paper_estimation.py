@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2021-09-24 22:34:02 RLafarguette"
+Time-stamp: "2021-09-24 22:49:14 RLafarguette"
 """
 
 ###############################################################################
@@ -184,9 +184,6 @@ dsum_short.to_csv(os.path.join('output', 'regressions_table_short.csv'),
 ###############################################################################
 #%% Baseline model: Fit and forecast
 ###############################################################################
-import distGARCH; importlib.reload(distGARCH)           # Distributional GARCH
-from distGARCH import DistGARCH
-
 #### Specify the model
 dg = DistGARCH(depvar_str='FX log returns',
                data=df,
