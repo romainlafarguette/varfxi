@@ -1,7 +1,7 @@
 ,PIT,Logscore diff against Baseline,Diff pvalue
 Baseline,Pass,,
-Unconditional,,,
-Quantile Reg,,,
-Gaussian EGARCH,Fail,1.54,0.938
-TSkew GARCH,Fail,1.768,0.961
-Gaussian GARCH,Fail,1.755,0.96
+Unconditional,Fail,0.88,0.81
+Quantile Reg,Pass,1.43,0.92
+Gaussian EGARCH,Fail,0.696,0.757
+TSkew GARCH,Fail,0.751,0.774
+Gaussian GARCH,Fail,0.751,0.774

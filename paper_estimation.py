@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2020-12-03 21:08:51 Romain"
+Time-stamp: "2021-09-24 21:02:53 RLafarguette"
 """
 
 ###############################################################################
@@ -10,7 +10,6 @@ Time-stamp: "2020-12-03 21:08:51 Romain"
 ###############################################################################
 # System paths
 import os, sys
-sys.path.append(os.path.abspath('modules'))
 
 # Global modules
 import importlib                                        # Operating system
@@ -41,11 +40,12 @@ from arch.utility.exceptions import (
 import distGARCH; importlib.reload(distGARCH)           # Distributional GARCH
 from distGARCH import DistGARCH
 
-sys.path.append(os.path.join('modules', 'quantileproj'))
 import quantileproj; importlib.reload(quantileproj)     # The package
 from quantileproj import QuantileProj                   # The class
 
 # Graphics
+import matplotlib
+matplotlib.use('TkAgg') # Must be called before importing plt
 import matplotlib.pyplot as plt                         # Graphical package  
 import seaborn as sns                                   # Graphical tools
 
@@ -184,6 +184,9 @@ dsum_short.to_csv(os.path.join('output', 'regressions_table_short.csv'),
 ###############################################################################
 #%% Baseline model: Fit and forecast
 ###############################################################################
+import distGARCH; importlib.reload(distGARCH)           # Distributional GARCH
+from distGARCH import DistGARCH
+
 #### Specify the model
 dg = DistGARCH(depvar_str='FX log returns',
                data=df,
@@ -201,34 +204,41 @@ dg = DistGARCH(depvar_str='FX log returns',
 dgf = dg.fit()
 
 # Forecast 2020
-dgfor = dgf.forecast('2020-01-01', horizon=1)
+dgfor = dgf.forecast('2020-01-01', horizon=1) 
 
+#%% Testing area
+dgfor = dgf.forecast('2020-01-01', horizon=1) 
+
+dgfor.plot_var_exceedance(qv_l=[0.025, 0.975], swap_color=True)
+plt.show()
+
+#%%
+    
 ###############################################################################
 #%% Plots of the baseline model
 ###############################################################################
-# # Plot
-# dgfor.pit_plot(title= '')
+# Plot
+dgfor.pit_plot(title= '')
 
-# # Save the figure
-# pitchart_f = os.path.join('output', 'pitchart.pdf')
-# plt.savefig(pitchart_f, bbox_inches='tight')
-# #plt.show()
-# plt.close('all')
+# Save the figure
+pitchart_f = os.path.join('output', 'pitchart.pdf')
+plt.savefig(pitchart_f, bbox_inches='tight')
+#plt.show()
+plt.close('all')
 
-# # Plot of the VaR rule
-# dgfor.plot_pdf_rule(fdate='2020-08-03', q_low=0.025, q_high=0.975)
+# Plot of the VaR rule
+dgfor.plot_pdf_rule(fdate='2020-04-03', q_low=0.025, q_high=0.975)
 
-# # Save the figure
-# var_rule_f = os.path.join('output', 'var_rule.pdf')
-# plt.savefig(var_rule_f, bbox_inches='tight')
-# #plt.show()
-# plt.close('all')
+# Save the figure
+var_rule_f = os.path.join('output', 'var_rule.pdf')
+plt.savefig(var_rule_f, bbox_inches='tight')
+#plt.show()
+plt.close('all')
 
 ###############################################################################
 #%% Discretionary vs rule-based FXI
 ###############################################################################
 # To copy from the Jupyter notebook
-
 
 ###############################################################################
 #%% Financial performance: minimum and no minimum prices

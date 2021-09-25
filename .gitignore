@@ -3,10 +3,13 @@
 # Ignore some folders
 __pycache__/
 .ipynb_checkpoints/
-latex/auto/
+latex/
+drafts/
 submission/
 imfwp/
 references/
+output/
+
 
 # Ignore some extensions
 *.aux
