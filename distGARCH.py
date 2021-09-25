@@ -4,7 +4,7 @@ Distributional GARCH package
 Wrapper around the excellent ARCH package by K.Sheppard 
 https://arch.readthedocs.io/
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2021-09-24 21:06:20 RLafarguette"
+Time-stamp: "2021-09-24 22:24:32 RLafarguette"
 """
 
 ###############################################################################
@@ -40,8 +40,6 @@ import seaborn as sns                                   # Graphical package
 # Local modules
 import joyplot2; importlib.reload(joyplot2)
 from joyplot2 import joyplot2
-
-np.random.seed(42) # Fix the seed
 
 ###############################################################################
 #%% Ancillary functions
@@ -629,8 +627,6 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
         plt.show()
 
         return(None)
-
-
        
 ###############################################################################
 #%% Class: DistGARCHForecast
@@ -695,18 +691,10 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
         # Extract the forecasted conditional mean and variance
         self.cond_mean = self.forecasts.mean[start_date:]
         self.cond_var = self.forecasts.variance[start_date:]
-
-        # Arange the frame according to the forecasting horizon
-        last_day = self.cond_var.index[-1]
-        next_days = [next_business_day(last_day, h)
-                     for h in range(1,self.horizon+1)]
-
-        # Move the index according to the horizon
-        new_index_l = list(self.cond_var.index[self.horizon:]) + next_days
         
         dfor = pd.merge(self.cond_mean, self.cond_var,
                         left_index=True, right_index=True)
-        self.dfor = pd.DataFrame(dfor.values, index=new_index_l,
+        self.dfor = pd.DataFrame(dfor.values, index=self.cond_var.index,
                                  columns=['cond_mean', 'cond_var'])
         
         # Compute the normalized true values (for the PIT test)
@@ -740,7 +728,8 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
         err_cond_quant = self.cond_ppf(q_l)
         self.dfor['pit'] = self.cond_cdf(self.dfor['norm_true_val'])
         self.dfor['norm_true_val_cdf'] = self.dfor['pit'].copy() # Simple name
-
+        
+        self.mod.distribution._random_state = np.random.RandomState(42) # Seed
         err_sampler = self.mod.distribution.simulate(self.dist_params)
         
         # PAY ATTENTION THAT THE DISTRIBUTIONS ARE STANDARDIZED
@@ -755,7 +744,6 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
                                                   * err_cond_quant[None, :]))
                       
         # Sampling the error terms and deriving the values for y in a dataframe
-        np.random.seed(42)
         err_sample = err_sampler(self.sample_size)
         self.sample = self.cond_mean.values +(np.sqrt(self.cond_var).values
                                                   * err_sample)
@@ -1048,7 +1036,8 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
 
         # Compute the pdf
         pdf = rv.pdf(support)
-
+        #pdf = self.scipy_dist.pdf(support)
+        
         # Compute the quantiles to determine the intervention region
         qval_low = rv.ppf(q_low)
         qval_pdf_low = rv.pdf(qval_low)
