@@ -4,7 +4,7 @@ Distributional GARCH package
 Wrapper around the excellent ARCH package by K.Sheppard 
 https://arch.readthedocs.io/
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2021-09-24 22:24:32 RLafarguette"
+Time-stamp: "2021-09-24 22:48:41 RLafarguette"
 """
 
 ###############################################################################
@@ -151,19 +151,22 @@ class DistGARCH(object):
     def __init__(self, depvar_str, data, level_str=None, 
                  exog_l=None, lags_l=[1],
                  vol_model=GARCH(1,1),
-                 dist_family=Normal()):
+                 dist_family=Normal(),
+                 random_state=42, # Answer to the Ultimate Question of Life 
+    ):
         
         # Attributes
         self.depvar = depvar_str
         self.level = level_str
         self.exog_l = exog_l
         self.lags_l = lags_l
-
+        self.rs = np.random.RandomState(random_state) 
+        
         # Special attributes
         self.vol_model = vol_model # By default GARCH(1,1)
         
         self.dist_family = dist_family # By default Normal distribution
-        self.dist_family._random_state = np.random.RandomState(42) # Seed
+        self.dist_family._random_state = self.rs
         
         #### Data treatment
         # Aligning all the variables, take care of possible None        
@@ -729,7 +732,7 @@ class DistGARCHForecast(object): # Forecast class for the DistGARCHFit class
         self.dfor['pit'] = self.cond_cdf(self.dfor['norm_true_val'])
         self.dfor['norm_true_val_cdf'] = self.dfor['pit'].copy() # Simple name
         
-        self.mod.distribution._random_state = np.random.RandomState(42) # Seed
+        self.mod.distribution._random_state = self.rs
         err_sampler = self.mod.distribution.simulate(self.dist_params)
         
         # PAY ATTENTION THAT THE DISTRIBUTIONS ARE STANDARDIZED
