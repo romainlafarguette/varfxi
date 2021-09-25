@@ -2,7 +2,7 @@
 """
 VaR FXI model: Application to Mexico
 Romain Lafarguette 2020, rlafarguette@imf.org
-Time-stamp: "2021-09-24 21:02:53 RLafarguette"
+Time-stamp: "2021-09-24 22:34:02 RLafarguette"
 """
 
 ###############################################################################
@@ -206,14 +206,6 @@ dgf = dg.fit()
 # Forecast 2020
 dgfor = dgf.forecast('2020-01-01', horizon=1) 
 
-#%% Testing area
-dgfor = dgf.forecast('2020-01-01', horizon=1) 
-
-dgfor.plot_var_exceedance(qv_l=[0.025, 0.975], swap_color=True)
-plt.show()
-
-#%%
-    
 ###############################################################################
 #%% Plots of the baseline model
 ###############################################################################
@@ -227,7 +219,7 @@ plt.savefig(pitchart_f, bbox_inches='tight')
 plt.close('all')
 
 # Plot of the VaR rule
-dgfor.plot_pdf_rule(fdate='2020-04-03', q_low=0.025, q_high=0.975)
+dgfor.plot_pdf_rule(fdate='2020-05-01', q_low=0.025, q_high=0.975)
 
 # Save the figure
 var_rule_f = os.path.join('output', 'var_rule.pdf')
