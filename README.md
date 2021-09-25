@@ -6,6 +6,13 @@ Link to the Python notebook: https://github.com/romainlafarguette/VaR-FX-Interve
 The Python notebook replicates the tables and the charts of the IMF WP on
 "Foreign Exchange Interventions Rules for Central Banks: A Risk-Based Framework"
 
+**IMPORTANT: BECAUSE OF AN UPDATE OF THE ARCH PACKAGE AFTER 4.19, and in particular the
+random number generator, the way the random seed is managed has changed. Some
+results are therefore slightly different (e.g. the pdf plot) by a few pips as
+in the IMF WP, but are qualitatively similar. The journal version will reflect
+the new version**
+
+
 The paper uses  a Python package  that I have  written, DistGARCH, also  available in
 this  Github folder,  with  the public  FX intervention  data  from the  Banco
 Mexico. DistGARCH is based on the ARCH package of Kevin Sheppard.
