@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "varfxi"
+version = "0.1.0"
+description = "Volatility based estimation for FX interventions"
+authors = ["romainlafarguette <romain.lafarguette@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pandas = "^1.5.3"
+numpy = "^1.24.2"
+arch = "^5.3.1"
+matplotlib = "^3.7.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
