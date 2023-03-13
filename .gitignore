@@ -1,26 +1,2 @@
-# Git ignore, rlafarguette@imf.org
+# Git ignore
 
-# Ignore some folders
-__pycache__/
-.ipynb_checkpoints/
-latex/
-drafts/
-submission/
-imfwp/
-references/
-output/
-
-
-# Ignore some extensions
-*.aux
-*.bbl
-*.blg
-*.log
-*.nav
-*.out
-*.snm
-*.toc
-*.docx
-
-# Ignore some files
-data/MXN_raw_data.xslx
