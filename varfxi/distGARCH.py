@@ -30,16 +30,13 @@ from statsmodels.distributions.empirical_distribution import ECDF
 
 # Graphics
 # NB: for some systems, need to remove matplotlib.use('TkAgg')
-import matplotlib                                       # Graphical package
-matplotlib.use('TkAgg') # Must be called before importing plt
 import matplotlib.pyplot as plt
 from matplotlib import cm                               # Colormaps
 import matplotlib.colors as mcolors
 import seaborn as sns                                   # Graphical package
 
 # Local modules
-import joyplot2; importlib.reload(joyplot2)
-from joyplot2 import joyplot2
+from varfxi.joyplot2 import joyplot2
 
 ###############################################################################
 #%% Ancillary functions
@@ -148,7 +145,10 @@ class DistGARCH(object):
     __author = "Romain Lafarguette, IMF/MCM, rlafarguette@imf.org"
 
     # Initializer
-    def __init__(self, depvar_str, data, level_str=None, 
+    def __init__(self, 
+                 depvar_str,
+                 data,
+                 level_str=None, 
                  exog_l=None, lags_l=[1],
                  vol_model=GARCH(1,1),
                  dist_family=Normal(),
@@ -197,7 +197,11 @@ class DistGARCH(object):
         self.mod.distribution = self.dist_family 
         
     # Class-methods (methods which returns a class defined below)    
-    def fit(self, cov_type='robust', disp='off', update_freq=1):
+    def fit(self,
+            cov_type='robust',
+            disp='off',
+            update_freq=1
+            ):
         return(DistGARCHFit(self, cov_type, disp, update_freq))
 
     # Public methods
@@ -248,7 +252,7 @@ class DistGARCH(object):
             t_seq = np.append(np.arange(start, end-5, xticks_freq), end)
             ax1.xaxis.set_ticks(t_seq)
             ax2.xaxis.set_ticks(t_seq)
-        
+
         # Third plot: Returns Density
         ax3 = sns.distplot(data[self.depvar])
         ax3.set_title(title_density, y=1.02)
@@ -306,15 +310,15 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
             self.scipy_dist = scipy.stats.norm
             
         elif self.mod.distribution.name=="Standardized Student's t":
-            self.dist_params = self.res.params['nu']
+            self.dist_params = self.res.params['eta']
             self.scipy_dist = scipy.stats.t
             
         elif self.mod.distribution.name=="Standardized Skew Student's t":
-            self.dist_params = self.res.params[['nu', 'lambda']]
+            self.dist_params = self.res.params[['eta', 'lambda']]
             self.scipy_dist = scipy.stats.nct
             
         elif self.mod.distribution.name=="Generalized Error Distribution":
-            self.dist_params = self.res.params['nu']
+            self.dist_params = self.res.params['eta']
             self.scipy_dist = scipy.stats.gennorm
                                     
         else:
@@ -327,8 +331,12 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
         self.in_cond_vol = self.res.conditional_volatility
                
     # Class-methods (methods which returns a class defined below)    
-    def forecast(self, start_date, horizon=1, fmethod='analytic',
-                 sample_size=10000):
+    def forecast(self, 
+                 start_date,
+                 horizon=1,
+                 fmethod='analytic',
+                 sample_size=10000
+                ):
         return(DistGARCHForecast(self, start_date, horizon, fmethod,
                                  sample_size))
 
@@ -391,7 +399,9 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
         return(dsim)
 
     # Public methods: summary table
-    def summary_table(self, model_name='GARCH model', var_d=None,
+    def summary_table(self, 
+                      model_name='GARCH model',
+                      var_d=None,
                       round_param=2,
                       print_pval=True):
         """
@@ -466,7 +476,7 @@ class DistGARCHFit(object): # Fitted class for the DistGARCH class
                     'beta[1]':'Beta',
                     'gamma[1]':'Gamma',
                     'omega':'Omega', 
-                    'nu':'Nu', 
+                    'eta':'Eta', 
                     'lambda':'Lambda'}
 
         if var_d:
