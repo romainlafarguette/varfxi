@@ -195,7 +195,6 @@ class DistGARCH(object):
             self.level = level_str
             self.exog_l = exog_l
             
-            #import pdb; pdb.set_trace()
             if isinstance(lags_l, int):
                 if lags_l==0:
                     self.lags_l = None
@@ -1173,9 +1172,10 @@ class DistGARCHOptimize:
         mean_fit = mean_mod.fit(disp='off', verbose=verbose)
         if isinstance(lags_l, list):
             n= max(lags_l)
+            n = max(0, n-1)
         else:
-            n = lags_l
-            
+            n = max(0, lags_l-1)
+
         mean_forecast = mean_fit.forecast(start_date= self.df.index[n])
         performance = pd.Series({
                  'R2': mean_fit.res.rsquared, 
@@ -1316,7 +1316,7 @@ class DistGARCHOptimize:
                            )
         vol_fit = vol_mod.fit(verbose=False)
 
-        vol_forecast = vol_fit.forecast(start_date= self.epsilon.dropna().index[0])
+        vol_forecast = vol_fit.forecast(start_date= residuals.dropna().index[0])
             
         KS_normalized_innovations, KS_normalized_innovations_pvalues, _  = vol_forecast.KS_normalized_innovations(threshold=threshold, verbose=False)
         KS_PIT_test, KS_PIT_test_pvalues, _ = vol_forecast.KS_PIT_test(threshold=threshold, verbose=False)
@@ -1373,8 +1373,10 @@ class DistGARCHOptimize:
                 Distribution Families: 'Normal', 'StudentT', 'SkewStudent', 'GeneralizedError'
                 
             Choose among the well specified model, i.e, those passing the pis and kolmogorov test, 
-                the model with the best performance on the complete distribution based on the log_score and on the tails based on the tailed_log_score
-                if no combination is well specified, return the combination with best performance regardless if specified or not
+                the model with the best performance based on the tailed_log_score on the tails specified (by default both tails) is chosen 
+                    If there is more than 1 take the model with the best performance on the complete distribution using the log_score
+                    
+            If no combination is well specified, return the combination with best performance regardless if specified or not
 
         Output:
         -------
@@ -1503,12 +1505,14 @@ class DistGARCHOptimize:
                 fv = FixedVariance(variance, unit_scale=True)
 
             # Re-train the main model with the previous Conditional Variance
-            performance, mean_mod, mean_fit, mean_forecast = self.extract_mean(exog_l= self.best_combination,
-                                                                               lags_l=self.best_lag, 
-                                                                               fv= fv)
-            performance, vol_mod, vol_fit, vol_forecast = self.assess_vol_dist_model(residuals = mean_fit.res.resid.dropna(),
-                                                                                     volatility_model= self.best_vol_mod,
-                                                                                     distribution_family = self.best_distrib)
+            performance, mean_mod, mean_fit, mean_forecast = self.extract_mean(
+                exog_l= self.best_combination,
+                lags_l=self.best_lag, 
+                fv= fv)
+            performance, vol_mod, vol_fit, vol_forecast = self.assess_vol_dist_model(
+                residuals = mean_fit.res.resid.dropna(),
+                volatility_model= self.best_vol_mod, 
+                distribution_family = self.best_distrib)
 
             mean_params = mean_fit.res.params.drop('sigma2') if (i==0) else mean_fit.res.params
             mean_pvalues = mean_fit.res.pvalues.drop('sigma2') if (i==0) else mean_fit.res.pvalues            
