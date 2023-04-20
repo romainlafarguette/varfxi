@@ -1527,11 +1527,11 @@ class DistGARCHOptimize:
                 new_params = iter_params[f"iteration_{i}"].params
                 pct_param_shift = ((new_params-prev_param)/prev_param).abs().max()
                 if pct_param_shift < convergence_rate:
-                    converge=True
+                    converged=True
                     break;
                 else:
                     continue
-        if converge:
+        if converged:
             print('Converged !')
         else:
             print('Max iteration reached without convergion !')
