@@ -1,2 +1,3 @@
 # Git ignore
-
+.idea
+*.ipynb_checkpoints
